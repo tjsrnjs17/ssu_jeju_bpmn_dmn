@@ -109,7 +109,7 @@ DMN 참조: D06 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 
       <bpmn:incoming>RE_f15</bpmn:incoming>
       <bpmn:incoming>RE_f19</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:userTask id="RE_s10" name="최종 폐강 확인&#10;6/11 예정">
+    <bpmn:userTask id="RE_s10" name="최종 폐강 확인">
       <bpmn:documentation>근거: S04 P045–047</bpmn:documentation>
       <bpmn:incoming>RE_f14</bpmn:incoming>
       <bpmn:outgoing>RE_f16</bpmn:outgoing>
@@ -343,6 +343,7 @@ DMN 참조: D07 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="RE_s10_di" bpmnElement="RE_s10" bioc:stroke="#334155" bioc:fill="#ffffff">
         <dc:Bounds x="2520" y="282" width="174" height="76" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="RE_s11_di" bpmnElement="RE_s11" isMarkerVisible="true">
         <dc:Bounds x="3231" y="298" width="44" height="44" />
@@ -377,10 +378,6 @@ DMN 참조: D07 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 
           <dc:Bounds x="2567" y="486" width="81" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="RE_s9_InterviewNote_association_di" bpmnElement="RE_s9_InterviewNote_association" bioc:stroke="#514286">
-        <di:waypoint x="2624" y="459" />
-        <di:waypoint x="2700" y="455" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="RE_f1_di" bpmnElement="RE_f1" bioc:stroke="#596575">
         <di:waypoint x="364" y="320" />
         <di:waypoint x="486" y="320" />
@@ -500,6 +497,10 @@ DMN 참조: D07 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 
         <bpmndi:BPMNLabel>
           <dc:Bounds x="3699" y="383" width="21" height="14" />
         </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="RE_s9_InterviewNote_association_di" bpmnElement="RE_s9_InterviewNote_association" bioc:stroke="#514286">
+        <di:waypoint x="2624" y="459" />
+        <di:waypoint x="2700" y="455" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="RE_J_di" bpmnElement="RE_J" isHorizontal="true" bioc:stroke="#475569" bioc:fill="#ffffff">
         <dc:Bounds x="150" y="685" width="3886" height="520" />
