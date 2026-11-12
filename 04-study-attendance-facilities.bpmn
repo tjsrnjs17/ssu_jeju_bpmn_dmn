@@ -196,7 +196,7 @@ DMN 참조: D09 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 
       <bpmn:incoming>ST_f20</bpmn:incoming>
       <bpmn:outgoing>ST_f21</bpmn:outgoing>
     </bpmn:businessRuleTask>
-    <bpmn:userTask id="ST_j3" name="절대평가로 성적 산정&#10;06 열람·이의신청으로">
+    <bpmn:userTask id="ST_j3" name="절대평가로 성적 산정">
       <bpmn:documentation>근거: S04 P062–069
 담당 판단·승인: G08. 세부 적용 기준은 해당 규정과 자료에서 확인한다.
 출석 요건 충족만으로 학점/합격을 자동 부여하지 않는다. 과목별 평가 기준·성적은 담당교원이 확정.</bpmn:documentation>
@@ -473,6 +473,7 @@ DMN 참조: D09 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="ST_j3_di" bpmnElement="ST_j3">
         <dc:Bounds x="2294" y="812" width="174" height="76" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="ST_j4_di" bpmnElement="ST_j4">
         <dc:Bounds x="2590" y="833" width="34" height="34" />

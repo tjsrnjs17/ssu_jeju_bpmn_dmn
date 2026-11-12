@@ -475,7 +475,8 @@ DMN 참조: D02 D10 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이
         <di:waypoint x="2138" y="1050" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="GR_h1_InterviewNote_di" bpmnElement="GR_h1_InterviewNote" bioc:stroke="#514286">
-        <dc:Bounds x="2070" y="590" width="378" height="112" />
+        <dc:Bounds x="2070" y="590" width="380" height="57" />
+        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="GR_m1_di" bpmnElement="GR_m1">
         <di:waypoint x="573" y="800" />
