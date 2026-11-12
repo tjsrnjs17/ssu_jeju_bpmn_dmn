@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Defs_AP" targetNamespace="https://example.org/ssu-jeju/2026/asis" exporter="Camunda Modeler" exporterVersion="5.52.0">
+<bpmn:definitions xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:color="http://www.omg.org/spec/BPMN/non-normative/color/1.0" id="Defs_AP" targetNamespace="https://example.org/ssu-jeju/2026/asis" exporter="Camunda Modeler" exporterVersion="5.52.0">
   <bpmn:collaboration id="AP_Collaboration" name="01 신청·본교 승인·제주대 선발">
     <bpmn:documentation>As-Is 규정 모델. 01 신청·본교 승인·제주대 선발
 학생 제출 마감은 숭실대 해당 공지에서 확인(G01). 5/12는 대학 간 추천 마감이며 학생의 학과 제출 마감으로 사용하지 않는다.
@@ -125,10 +125,9 @@ lms.ssu.ac.kr → 성적 인정 및 기타 신청 → 국내 대학 학점교류
         <bpmn:flowNodeRef>AP_h19</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>AP_h20</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>AP_h17</bpmn:flowNodeRef>
-      </bpmn:lane>
-      <bpmn:lane id="AP_H_lane1" name="단과대학·대학장">
         <bpmn:flowNodeRef>AP_h12</bpmn:flowNodeRef>
       </bpmn:lane>
+      <bpmn:lane id="AP_H_lane1" name="단과대학·대학장" />
       <bpmn:lane id="AP_H_lane0" name="소속 학과·학과장">
         <bpmn:flowNodeRef>AP_h0</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>AP_h2</bpmn:flowNodeRef>
@@ -203,12 +202,6 @@ DMN 참조: D04 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 
       <bpmn:incoming>AP_f19</bpmn:incoming>
       <bpmn:incoming>AP_f22</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:userTask id="AP_h12" name="대학장 확인·날인&#10;명단·신청서 제출">
-      <bpmn:documentation>근거: W01 제6조제1항; S03
-담당 판단·승인: G03. 세부 적용 기준은 해당 규정과 자료에서 확인한다.</bpmn:documentation>
-      <bpmn:incoming>AP_f24</bpmn:incoming>
-      <bpmn:outgoing>AP_f25</bpmn:outgoing>
-    </bpmn:userTask>
     <bpmn:userTask id="AP_h13" name="교무처장 경유&#10;총장 승인">
       <bpmn:documentation>근거: W01 제6조제1항
 담당 판단·승인: G03. 세부 적용 기준은 해당 규정과 자료에서 확인한다.</bpmn:documentation>
@@ -285,6 +278,12 @@ DMN 참조: D04 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 
       <bpmn:incoming>AP_f29</bpmn:incoming>
       <bpmn:outgoing>AP_f30</bpmn:outgoing>
     </bpmn:sendTask>
+    <bpmn:userTask id="AP_h12" name="대학장 확인·날인&#10;명단·신청서 제출">
+      <bpmn:documentation>근거: W01 제6조제1항; S03
+담당 판단·승인: G03. 세부 적용 기준은 해당 규정과 자료에서 확인한다.</bpmn:documentation>
+      <bpmn:incoming>AP_f24</bpmn:incoming>
+      <bpmn:outgoing>AP_f25</bpmn:outgoing>
+    </bpmn:userTask>
   </bpmn:process>
   <bpmn:process id="AP_J_process" name="01 신청·본교 승인·제주대 선발 / 교류대 · 제주대학교" isExecutable="false">
     <bpmn:documentation>학생 제출 마감은 숭실대 해당 공지에서 확인(G01). 5/12는 대학 간 추천 마감이며 학생의 학과 제출 마감으로 사용하지 않는다. 문서 기반 서술 모델. 미확정 끝 이벤트는 확인된 절차의 범위를 나타낸다.</bpmn:documentation>
@@ -457,7 +456,7 @@ DMN 참조: D04 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 
           <dc:Bounds x="1003" y="541" width="44" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="AP_h2_di" bpmnElement="AP_h2" bioc:stroke="#334155" bioc:fill="#e8f2ff">
+      <bpmndi:BPMNShape id="AP_h2_di" bpmnElement="AP_h2">
         <dc:Bounds x="1164" y="477" width="174" height="76" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="AP_h2g_di" bpmnElement="AP_h2g" isMarkerVisible="true">
@@ -466,7 +465,7 @@ DMN 참조: D04 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 
           <dc:Bounds x="1441" y="546" width="73" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="AP_h3_di" bpmnElement="AP_h3" bioc:stroke="#9a5b00" bioc:fill="#fff1d6">
+      <bpmndi:BPMNShape id="AP_h3_di" bpmnElement="AP_h3">
         <dc:Bounds x="1616" y="477" width="174" height="76" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="AP_h4_di" bpmnElement="AP_h4" isMarkerVisible="true">
@@ -484,10 +483,10 @@ DMN 참조: D04 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 
           <dc:Bounds x="1900" y="671" width="58" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="AP_h8_di" bpmnElement="AP_h8" bioc:stroke="#334155" bioc:fill="#e8f2ff">
+      <bpmndi:BPMNShape id="AP_h8_di" bpmnElement="AP_h8">
         <dc:Bounds x="2294" y="1017" width="174" height="76" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="AP_h9_di" bpmnElement="AP_h9" isMarkerVisible="true">
+      <bpmndi:BPMNShape id="AP_h9_di" bpmnElement="AP_h9" isMarkerVisible="true" bioc:stroke="#6b3c00" bioc:fill="#ffe0b2" color:background-color="#ffe0b2" color:border-color="#6b3c00">
         <dc:Bounds x="2585" y="1033" width="44" height="44" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="2571" y="1086" width="73" height="14" />
@@ -499,10 +498,7 @@ DMN 참조: D04 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 
           <dc:Bounds x="3208" y="541" width="91" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="AP_h12_di" bpmnElement="AP_h12" bioc:stroke="#9a5b00" bioc:fill="#fff1d6">
-        <dc:Bounds x="3166" y="747" width="174" height="76" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="AP_h13_di" bpmnElement="AP_h13" bioc:stroke="#9a5b00" bioc:fill="#fff1d6">
+      <bpmndi:BPMNShape id="AP_h13_di" bpmnElement="AP_h13">
         <dc:Bounds x="3392" y="1287" width="174" height="76" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="AP_h14_di" bpmnElement="AP_h14" isMarkerVisible="true">
@@ -537,6 +533,9 @@ DMN 참조: D04 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="AP_h17_di" bpmnElement="AP_h17" bioc:stroke="#334155" bioc:fill="#ffffff">
         <dc:Bounds x="3844" y="1017" width="174" height="76" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="AP_h12_di" bpmnElement="AP_h12">
+        <dc:Bounds x="3166" y="1142" width="174" height="76" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="AP_f11_di" bpmnElement="AP_f11" bioc:stroke="#596575">
         <di:waypoint x="1042" y="515" />
@@ -615,7 +614,7 @@ DMN 참조: D04 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 
         <di:waypoint x="2607" y="530" />
         <di:waypoint x="3240" y="530" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="2642" y="767" width="65" height="14" />
+          <dc:Bounds x="2617" y="767" width="65" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="AP_f23_di" bpmnElement="AP_f23" bioc:stroke="#596575">
@@ -626,17 +625,16 @@ DMN 참조: D04 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="AP_f24_di" bpmnElement="AP_f24" bioc:stroke="#596575">
-        <di:waypoint x="2620" y="1046" />
-        <di:waypoint x="2620" y="785" />
-        <di:waypoint x="3166" y="785" />
+        <di:waypoint x="2607" y="1080" />
+        <di:waypoint x="2607" y="1180" />
+        <di:waypoint x="3166" y="1180" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="2665" y="902" width="44" height="14" />
+          <dc:Bounds x="2518" y="1126" width="44" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="AP_f25_di" bpmnElement="AP_f25" bioc:stroke="#596575">
-        <di:waypoint x="3340" y="785" />
-        <di:waypoint x="3354" y="785" />
-        <di:waypoint x="3354" y="1325" />
+        <di:waypoint x="3253" y="1218" />
+        <di:waypoint x="3253" y="1325" />
         <di:waypoint x="3392" y="1325" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="AP_f26_di" bpmnElement="AP_f26" bioc:stroke="#596575">
@@ -681,7 +679,7 @@ DMN 참조: D04 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 
           <dc:Bounds x="3898" y="1666" width="67" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="AP_j1_di" bpmnElement="AP_j1" bioc:stroke="#9a5b00" bioc:fill="#fff1d6">
+      <bpmndi:BPMNShape id="AP_j1_di" bpmnElement="AP_j1">
         <dc:Bounds x="4070" y="1602" width="174" height="76" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
@@ -706,9 +704,10 @@ DMN 참조: D04 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 
         <di:waypoint x="4470" y="1640" />
         <di:waypoint x="4592" y="1640" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="AP_h9_InterviewNote_di" bpmnElement="AP_h9_InterviewNote" bioc:stroke="#514286">
-        <dc:Bounds x="2657" y="1090" width="378" height="112" />
-      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="AP_h9_InterviewNote_association_di" bpmnElement="AP_h9_InterviewNote_association" bioc:stroke="#514286">
+        <di:waypoint x="2613" y="1039" />
+        <di:waypoint x="2704" y="972" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="AP_m1_di" bpmnElement="AP_m1">
         <di:waypoint x="1025" y="200" />
         <di:waypoint x="1025" y="498" />
@@ -761,10 +760,9 @@ DMN 참조: D04 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 
           <dc:Bounds x="4169" y="960" width="88" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="AP_h9_InterviewNote_association_di" bpmnElement="AP_h9_InterviewNote_association" bioc:stroke="#514286">
-        <di:waypoint x="2621" y="1047" />
-        <di:waypoint x="2800" y="1090" />
-      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="AP_h9_InterviewNote_di" bpmnElement="AP_h9_InterviewNote" bioc:stroke="#514286">
+        <dc:Bounds x="2650" y="860" width="378" height="112" />
+      </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </bpmn:definitions>

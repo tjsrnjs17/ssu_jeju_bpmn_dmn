@@ -433,7 +433,7 @@ DMN 참조: D09 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 
           <dc:Bounds x="2110" y="641" width="91" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="ST_h1_di" bpmnElement="ST_h1" bioc:stroke="#9a5b00" bioc:fill="#fff1d6">
+      <bpmndi:BPMNShape id="ST_h1_di" bpmnElement="ST_h1">
         <dc:Bounds x="2294" y="577" width="174" height="76" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="ST_h2_di" bpmnElement="ST_h2">
@@ -468,10 +468,10 @@ DMN 참조: D09 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 
       <bpmndi:BPMNShape id="ST_j1_di" bpmnElement="ST_j1" bioc:stroke="#334155" bioc:fill="#ffffff">
         <dc:Bounds x="1164" y="812" width="174" height="76" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="ST_j2_di" bpmnElement="ST_j2" bioc:stroke="#334155" bioc:fill="#e8f2ff">
+      <bpmndi:BPMNShape id="ST_j2_di" bpmnElement="ST_j2">
         <dc:Bounds x="2068" y="812" width="174" height="76" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="ST_j3_di" bpmnElement="ST_j3" bioc:stroke="#9a5b00" bioc:fill="#fff1d6">
+      <bpmndi:BPMNShape id="ST_j3_di" bpmnElement="ST_j3">
         <dc:Bounds x="2294" y="812" width="174" height="76" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="ST_j4_di" bpmnElement="ST_j4">
@@ -486,7 +486,7 @@ DMN 참조: D09 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 
           <dc:Bounds x="1455" y="1066" width="44" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="ST_j6_di" bpmnElement="ST_j6" bioc:stroke="#9a5b00" bioc:fill="#fff1d6">
+      <bpmndi:BPMNShape id="ST_j6_di" bpmnElement="ST_j6">
         <dc:Bounds x="1616" y="1002" width="174" height="76" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="ST_j8_di" bpmnElement="ST_j8">

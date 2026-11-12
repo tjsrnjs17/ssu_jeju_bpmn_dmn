@@ -313,7 +313,7 @@ DMN 참조: D02 D10 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이
       <bpmndi:BPMNShape id="GR_h1_di" bpmnElement="GR_h1" bioc:stroke="#9a5b00" bioc:fill="#fff1d6">
         <dc:Bounds x="2068" y="467" width="174" height="76" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="GR_h4_di" bpmnElement="GR_h4" bioc:stroke="#334155" bioc:fill="#e8f2ff">
+      <bpmndi:BPMNShape id="GR_h4_di" bpmnElement="GR_h4">
         <dc:Bounds x="2714" y="467" width="174" height="76" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="GR_h5_di" bpmnElement="GR_h5" isMarkerVisible="true">
@@ -420,7 +420,7 @@ DMN 참조: D02 D10 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이
           <dc:Bounds x="983" y="871" width="84" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="GR_j3_di" bpmnElement="GR_j3" bioc:stroke="#9a5b00" bioc:fill="#fff1d6">
+      <bpmndi:BPMNShape id="GR_j3_di" bpmnElement="GR_j3">
         <dc:Bounds x="1164" y="802" width="174" height="76" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="GR_j4_di" bpmnElement="GR_j4" bioc:stroke="#334155" bioc:fill="#ffffff">
