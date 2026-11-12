@@ -1,0 +1,2205 @@
+<?xml version='1.0' encoding='utf-8'?>
+<dmn:definitions xmlns:dmn="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dmndiway="http://www.omg.org/spec/DMN/20180521/DI/" id="Definitions_CreditExchange" name="숭실대→제주대 2026 여름 As-Is 의사결정" namespace="https://example.org/ssu-jeju/2026/decisions" exporter="Document-grounded DMN" exporterVersion="1.0">
+  <dmn:description>문서에 명시된 기준의 정형화. 실제 학교가 DMN을 운영한다고 주장하지 않으며 담당자의 판단을 대체하지 않는다. 빈 입력은 null, 분류 미확인은 UNKNOWN/UNCONFIRMED 등 표별 값을 사용한다. 일반 파견 기준이다.</dmn:description>
+  <dmn:inputData id="Input_D01" name="01 지원 자격 확인 자료">
+    <dmn:description>입력 계약: [{"key": "track", "label": "교류 유형", "type": "string", "domain": ["GENERAL", "OTHER", "UNKNOWN"], "note": "GENERAL=일반 학부 교류. 차세대반도체 등 별도 트랙은 OTHER."}, {"key": "studentState", "label": "숭실대 재학 학부생", "type": "string", "domain": ["YES", "NO", "UNKNOWN"], "note": ""}, {"key": "semester", "label": "2026-1 재학 학기", "type": "number", "domain": null, "note": "학년이 아닌 재학 학기. 정수 여부는 입력 계약에서 확인."}, {"key": "gpa", "label": "직전 학기까지 총 평점", "type": "number", "domain": null, "note": "공식 학적부 총 평점평균. 직전 학기 단독 GPA가 아님."}, {"key": "discipline", "label": "징계 사실", "type": "string", "domain": ["NONE", "EXISTS", "UNKNOWN"], "note": ""}]</dmn:description>
+    <dmn:variable id="Var_Input_D01" name="source_D01" typeRef="Any" />
+  </dmn:inputData>
+  <dmn:inputData id="Input_D02" name="02 학점 범위 확인 자료">
+    <dmn:description>입력 계약: [{"key": "exchangeCredits", "label": "제주대 신청 학점", "type": "number", "domain": null, "note": ""}, {"key": "summerCredits", "label": "이번 계절제 총 신청 학점", "type": "number", "domain": null, "note": "숭실대+제주대+기타 교류 대학의 같은 여름계절제. 정규 1학기 학점은 합산하지 않음."}, {"key": "prospectiveCredits", "label": "기취득 교류+이번 인정예정", "type": "number", "domain": null, "note": "이번 신청 과목을 모두 인정하는 경우의 계획상 누계. 실제 인정 단계는 실제 취득학점으로 재검사."}, {"key": "graduationCredits", "label": "해당 학생 졸업요구 학점", "type": "number", "domain": null, "note": ""}, {"key": "creditFacts", "label": "계절제 합산·학적 자료 확인", "type": "string", "domain": ["CONFIRMED", "UNCONFIRMED"], "note": ""}]</dmn:description>
+    <dmn:variable id="Var_Input_D02" name="source_D02" typeRef="Any" />
+  </dmn:inputData>
+  <dmn:inputData id="Input_D03" name="03 과목 이수 제한 확인 자료">
+    <dmn:description>입력 계약: [{"key": "ssuRestriction", "label": "본교 필수·다전공 제한", "type": "string", "domain": ["BLOCKED", "CLEAR", "UNKNOWN"], "note": "교양필수·전공기초·전공필수 및 예외 아닌 다전공은 BLOCKED. 학과가 과목 분류와 예외 해당 여부 확인."}, {"key": "sameCompleted", "label": "본교 기이수 동일 과목", "type": "string", "domain": ["YES", "NO", "UNKNOWN"], "note": ""}, {"key": "jejuRestriction", "label": "제주대 수강 제한", "type": "string", "domain": ["BLOCKED", "CLEAR", "UNKNOWN"], "note": "학과제한·OCU·KNU·특허청·진로/취업/창업상담·사회봉사·현장실습은 BLOCKED."}, {"key": "retakePlace", "label": "재수강 장소 조건", "type": "string", "domain": ["SAME_HOST", "NOT_RETAKE", "OTHER_HOST", "UNKNOWN"], "note": ""}]</dmn:description>
+    <dmn:variable id="Var_Input_D03" name="source_D03" typeRef="Any" />
+  </dmn:inputData>
+  <dmn:inputData id="Input_D04" name="04 신청 자료 준비 확인 자료">
+    <dmn:description>입력 계약: [{"key": "consent", "label": "신청서 개인정보 동의", "type": "string", "domain": ["YES", "NO", "UNKNOWN"], "note": ""}, {"key": "deptSubmission", "label": "학과 제출", "type": "string", "domain": ["DONE", "MISSING", "UNKNOWN"], "note": ""}, {"key": "xlsxFile", "label": "신청서 엑셀 원본", "type": "string", "domain": ["PRESENT", "MISSING", "UNKNOWN"], "note": ""}, {"key": "signedScan", "label": "학과장 서명 스캔", "type": "string", "domain": ["PRESENT", "MISSING", "UNKNOWN"], "note": ""}, {"key": "lmsSubmission", "label": "LMS 신청", "type": "string", "domain": ["DONE", "MISSING", "UNKNOWN"], "note": ""}, {"key": "otherRequired", "label": "해당 공지 추가서류", "type": "string", "domain": ["COMPLETE", "MISSING", "UNKNOWN"], "note": ""}]</dmn:description>
+    <dmn:variable id="Var_Input_D04" name="source_D04" typeRef="Any" />
+  </dmn:inputData>
+  <dmn:inputData id="Input_D05" name="05 변경 과목 처리 확인 자료">
+    <dmn:description>입력 계약: [{"key": "courseMatches", "label": "기승인 신청서와 실제 과목", "type": "string", "domain": ["MATCH", "DIFFERENT", "UNKNOWN"], "note": ""}, {"key": "priorApproval", "label": "변경 전 재신청·승인", "type": "string", "domain": ["APPROVED", "NOT_YET", "DENIED", "UNKNOWN"], "note": ""}, {"key": "registrationWindow", "label": "제주대 신청기간", "type": "string", "domain": ["OPEN", "NOT_STARTED", "CLOSED", "UNKNOWN"], "note": "CLOSED는 해당 신청기간 종료 상태다."}]</dmn:description>
+    <dmn:variable id="Var_Input_D05" name="source_D05" typeRef="Any" />
+  </dmn:inputData>
+  <dmn:inputData id="Input_D06" name="06 수강료 단가 확인 자료">
+    <dmn:description>입력 계약: [{"key": "feeCategory", "label": "제주대 확인 강좌 구분", "type": "string", "domain": ["GENERAL", "LAB", "CLINICAL", "ART_SPORT", "PRINT", "OLLE", "PADDLE", "YACHT", "SCUBA", "UNKNOWN"], "note": ""}]</dmn:description>
+    <dmn:variable id="Var_Input_D06" name="source_D06" typeRef="Any" />
+  </dmn:inputData>
+  <dmn:inputData id="Input_D07" name="07 수강료 납부 상태 확인 자료">
+    <dmn:description>입력 계약: [{"key": "payment", "label": "기한 내 납부 확인", "type": "string", "domain": ["PAID", "UNPAID", "UNCONFIRMED"], "note": ""}, {"key": "checkedAt", "label": "확인 시각(KST)", "type": "dateTime", "domain": null, "note": ""}]</dmn:description>
+    <dmn:variable id="Var_Input_D07" name="source_D07" typeRef="Any" />
+  </dmn:inputData>
+  <dmn:inputData id="Input_D08" name="08 취소·환불 구간 확인 자료">
+    <dmn:description>입력 계약: [{"key": "refundScope", "label": "환불 적용 상황", "type": "string", "domain": ["STANDARD", "DIFFERENT_DATES", "CLOSURE", "UNKNOWN"], "note": "STANDARD는 일반 일정 자발적 취소. 폐강·개별 일정은 담당자 확인."}, {"key": "refundBasis", "label": "사유일·신청일 구간 확인", "type": "string", "domain": ["SAME_PERIOD", "DIFFERENT_OR_UNKNOWN"], "note": "표는 사유발생일과 신청기간을 함께 제시. 구간이 다르면 G07로 보냄."}, {"key": "requestedAt", "label": "취소/환불 신청 시각(KST)", "type": "dateTime", "domain": null, "note": ""}]</dmn:description>
+    <dmn:variable id="Var_Input_D08" name="source_D08" typeRef="Any" />
+  </dmn:inputData>
+  <dmn:inputData id="Input_D09" name="09 출석 요건 확인 자료">
+    <dmn:description>입력 계약: [{"key": "totalHours", "label": "해당 강좌 전체 출석 시수", "type": "number", "domain": null, "note": ""}, {"key": "attendedHours", "label": "실제 출석 시수", "type": "number", "domain": null, "note": ""}, {"key": "excusedHours", "label": "승인된 출석인정 시수", "type": "number", "domain": null, "note": "담당자 승인 후 값만 입력. 단순 공결 신청 시수가 아님."}]</dmn:description>
+    <dmn:variable id="Var_Input_D09" name="source_D09" typeRef="Any" />
+  </dmn:inputData>
+  <dmn:inputData id="Input_D10" name="10 학점·성적 반영 경로 확인 자료">
+    <dmn:description>입력 계약: [{"key": "officialGrades", "label": "제주대 공식 성적 수신", "type": "string", "domain": ["RECEIVED", "WAITING", "UNCONFIRMED"], "note": ""}, {"key": "recognitionApproval", "label": "해당 과목의 본교 승인", "type": "string", "domain": ["APPROVED_ORIGINAL", "APPROVED_CHANGE", "NOT_APPROVED", "UNCONFIRMED"], "note": ""}, {"key": "creditCheck", "label": "실제 인정 학점 한도", "type": "string", "domain": ["WITHIN", "OVER", "UNCONFIRMED"], "note": ""}, {"key": "deptCategory", "label": "확정된 인정 이수구분", "type": "string", "domain": ["MAJOR_ELECTIVE", "GENERAL_ELECTIVE", "NOT_RECOGNIZED", "UNDECIDED"], "note": "사전 승인 기록 또는 실제 인정 결과에서 확인한다. 변경 과목의 인정 적용이나 이수구분이 미확정이면 UNDECIDED를 입력한다."}, {"key": "conversion", "label": "성적 환산·학적 조건 확인", "type": "string", "domain": ["CONFIRMED", "UNCONFIRMED"], "note": ""}]</dmn:description>
+    <dmn:variable id="Var_Input_D10" name="source_D10" typeRef="Any" />
+  </dmn:inputData>
+  <dmn:decision id="D01" name="01 지원 자격">
+    <dmn:description>일반 파견 자격의 정형 조건이다. 신청 횟수 제한은 만들지 않는다(W01 제8조).</dmn:description>
+    <dmn:variable id="Var_D01" name="D01_result" typeRef="string" />
+    <dmn:informationRequirement id="Req_D01">
+      <dmn:requiredInput href="#Input_D01" />
+    </dmn:informationRequirement>
+    <dmn:decisionTable id="Table_D01" hitPolicy="FIRST" preferredOrientation="Rule-as-Row">
+      <dmn:input id="D01_in1" label="교류 유형">
+        <dmn:description>GENERAL=일반 학부 교류. 차세대반도체 등 별도 트랙은 OTHER.</dmn:description>
+        <dmn:inputExpression id="D01_expr1" typeRef="string">
+          <dmn:text>source_D01.track</dmn:text>
+        </dmn:inputExpression>
+        <dmn:inputValues id="D01_values1">
+          <dmn:text>"GENERAL", "OTHER", "UNKNOWN"</dmn:text>
+        </dmn:inputValues>
+      </dmn:input>
+      <dmn:input id="D01_in2" label="숭실대 재학 학부생">
+        <dmn:description>확인된 원자료를 입력하며 추정값을 넣지 않는다.</dmn:description>
+        <dmn:inputExpression id="D01_expr2" typeRef="string">
+          <dmn:text>source_D01.studentState</dmn:text>
+        </dmn:inputExpression>
+        <dmn:inputValues id="D01_values2">
+          <dmn:text>"YES", "NO", "UNKNOWN"</dmn:text>
+        </dmn:inputValues>
+      </dmn:input>
+      <dmn:input id="D01_in3" label="2026-1 재학 학기">
+        <dmn:description>학년이 아닌 재학 학기. 정수 여부는 입력 계약에서 확인.</dmn:description>
+        <dmn:inputExpression id="D01_expr3" typeRef="number">
+          <dmn:text>source_D01.semester</dmn:text>
+        </dmn:inputExpression>
+      </dmn:input>
+      <dmn:input id="D01_in4" label="직전 학기까지 총 평점">
+        <dmn:description>공식 학적부 총 평점평균. 직전 학기 단독 GPA가 아님.</dmn:description>
+        <dmn:inputExpression id="D01_expr4" typeRef="number">
+          <dmn:text>source_D01.gpa</dmn:text>
+        </dmn:inputExpression>
+      </dmn:input>
+      <dmn:input id="D01_in5" label="징계 사실">
+        <dmn:description>확인된 원자료를 입력하며 추정값을 넣지 않는다.</dmn:description>
+        <dmn:inputExpression id="D01_expr5" typeRef="string">
+          <dmn:text>source_D01.discipline</dmn:text>
+        </dmn:inputExpression>
+        <dmn:inputValues id="D01_values5">
+          <dmn:text>"NONE", "EXISTS", "UNKNOWN"</dmn:text>
+        </dmn:inputValues>
+      </dmn:input>
+      <dmn:output id="D01_out" name="D01_result" label="판정 / 다음 처리" typeRef="string" />
+      <dmn:annotation name="근거·해석 범위" />
+      <dmn:rule id="D01_r1">
+        <dmn:description>G09; W01 제36조 | 별도 트랙에 일반 기준을 확장하지 않음.</dmn:description>
+        <dmn:inputEntry id="D01_r1_i1">
+          <dmn:text>"OTHER", "UNKNOWN"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D01_r1_i2">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D01_r1_i3">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D01_r1_i4">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D01_r1_i5">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D01_r1_o">
+          <dmn:text>"담당확인"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>G09; W01 제36조 — 별도 트랙에 일반 기준을 확장하지 않음.</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D01_r2">
+        <dmn:description>G01 | </dmn:description>
+        <dmn:inputEntry id="D01_r2_i1">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D01_r2_i2">
+          <dmn:text>"UNKNOWN", null</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D01_r2_i3">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D01_r2_i4">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D01_r2_i5">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D01_r2_o">
+          <dmn:text>"담당확인"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>G01</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D01_r3">
+        <dmn:description>G01 | </dmn:description>
+        <dmn:inputEntry id="D01_r3_i1">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D01_r3_i2">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D01_r3_i3">
+          <dmn:text>null, &lt; 1</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D01_r3_i4">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D01_r3_i5">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D01_r3_o">
+          <dmn:text>"담당확인"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>G01</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D01_r4">
+        <dmn:description>G01 | </dmn:description>
+        <dmn:inputEntry id="D01_r4_i1">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D01_r4_i2">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D01_r4_i3">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D01_r4_i4">
+          <dmn:text>null, &lt; 0</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D01_r4_i5">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D01_r4_o">
+          <dmn:text>"담당확인"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>G01</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D01_r5">
+        <dmn:description>G01 | </dmn:description>
+        <dmn:inputEntry id="D01_r5_i1">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D01_r5_i2">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D01_r5_i3">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D01_r5_i4">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D01_r5_i5">
+          <dmn:text>"UNKNOWN", null</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D01_r5_o">
+          <dmn:text>"담당확인"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>G01</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D01_r6">
+        <dmn:description>W01 제4조; W02 3.나 | </dmn:description>
+        <dmn:inputEntry id="D01_r6_i1">
+          <dmn:text>"GENERAL"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D01_r6_i2">
+          <dmn:text>"NO"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D01_r6_i3">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D01_r6_i4">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D01_r6_i5">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D01_r6_o">
+          <dmn:text>"자격 미충족"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>W01 제4조; W02 3.나</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D01_r7">
+        <dmn:description>W01 제4조; W02 3.나 | </dmn:description>
+        <dmn:inputEntry id="D01_r7_i1">
+          <dmn:text>"GENERAL"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D01_r7_i2">
+          <dmn:text>"YES"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D01_r7_i3">
+          <dmn:text>&lt; 3, &gt; 7</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D01_r7_i4">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D01_r7_i5">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D01_r7_o">
+          <dmn:text>"자격 미충족"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>W01 제4조; W02 3.나</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D01_r8">
+        <dmn:description>W01 제4조; W02 3.나 | </dmn:description>
+        <dmn:inputEntry id="D01_r8_i1">
+          <dmn:text>"GENERAL"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D01_r8_i2">
+          <dmn:text>"YES"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D01_r8_i3">
+          <dmn:text>[3..7]</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D01_r8_i4">
+          <dmn:text>&lt; 3</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D01_r8_i5">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D01_r8_o">
+          <dmn:text>"자격 미충족"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>W01 제4조; W02 3.나</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D01_r9">
+        <dmn:description>W01 제4조; W02 3.나 | </dmn:description>
+        <dmn:inputEntry id="D01_r9_i1">
+          <dmn:text>"GENERAL"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D01_r9_i2">
+          <dmn:text>"YES"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D01_r9_i3">
+          <dmn:text>[3..7]</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D01_r9_i4">
+          <dmn:text>&gt;= 3</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D01_r9_i5">
+          <dmn:text>"EXISTS"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D01_r9_o">
+          <dmn:text>"자격 미충족"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>W01 제4조; W02 3.나</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D01_r10">
+        <dmn:description>W01 제4조; W02 3.나 | 최종 승인·선발을 뜻하지 않음.</dmn:description>
+        <dmn:inputEntry id="D01_r10_i1">
+          <dmn:text>"GENERAL"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D01_r10_i2">
+          <dmn:text>"YES"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D01_r10_i3">
+          <dmn:text>[3..7]</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D01_r10_i4">
+          <dmn:text>&gt;= 3</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D01_r10_i5">
+          <dmn:text>"NONE"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D01_r10_o">
+          <dmn:text>"자격 요건 충족"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>W01 제4조; W02 3.나 — 최종 승인·선발을 뜻하지 않음.</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D01_r11">
+        <dmn:description>G01 | 누락·계약 밖 입력은 통과시키지 않음.</dmn:description>
+        <dmn:inputEntry id="D01_r11_i1">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D01_r11_i2">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D01_r11_i3">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D01_r11_i4">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D01_r11_i5">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D01_r11_o">
+          <dmn:text>"담당확인"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>G01 — 누락·계약 밖 입력은 통과시키지 않음.</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+    </dmn:decisionTable>
+  </dmn:decision>
+  <dmn:decision id="D02" name="02 학점 범위">
+    <dmn:description>최종 인정에서는 인정 예정값을 실제 인정 대상 학점으로 바꾸어 확인한다. 1/3의 임의 올림·내림은 하지 않는다.</dmn:description>
+    <dmn:variable id="Var_D02" name="D02_result" typeRef="string" />
+    <dmn:informationRequirement id="Req_D02">
+      <dmn:requiredInput href="#Input_D02" />
+    </dmn:informationRequirement>
+    <dmn:decisionTable id="Table_D02" hitPolicy="FIRST" preferredOrientation="Rule-as-Row">
+      <dmn:input id="D02_in1" label="제주대 신청 학점">
+        <dmn:description>확인된 원자료를 입력하며 추정값을 넣지 않는다.</dmn:description>
+        <dmn:inputExpression id="D02_expr1" typeRef="number">
+          <dmn:text>source_D02.exchangeCredits</dmn:text>
+        </dmn:inputExpression>
+      </dmn:input>
+      <dmn:input id="D02_in2" label="이번 계절제 총 신청 학점">
+        <dmn:description>숭실대+제주대+기타 교류 대학의 같은 여름계절제. 정규 1학기 학점은 합산하지 않음.</dmn:description>
+        <dmn:inputExpression id="D02_expr2" typeRef="number">
+          <dmn:text>source_D02.summerCredits</dmn:text>
+        </dmn:inputExpression>
+      </dmn:input>
+      <dmn:input id="D02_in3" label="기취득 교류+이번 인정예정">
+        <dmn:description>이번 신청 과목을 모두 인정하는 경우의 계획상 누계. 실제 인정 단계는 실제 취득학점으로 재검사.</dmn:description>
+        <dmn:inputExpression id="D02_expr3" typeRef="number">
+          <dmn:text>source_D02.prospectiveCredits</dmn:text>
+        </dmn:inputExpression>
+      </dmn:input>
+      <dmn:input id="D02_in4" label="해당 학생 졸업요구 학점">
+        <dmn:description>확인된 원자료를 입력하며 추정값을 넣지 않는다.</dmn:description>
+        <dmn:inputExpression id="D02_expr4" typeRef="number">
+          <dmn:text>source_D02.graduationCredits</dmn:text>
+        </dmn:inputExpression>
+      </dmn:input>
+      <dmn:input id="D02_in5" label="계절제 합산·학적 자료 확인">
+        <dmn:description>확인된 원자료를 입력하며 추정값을 넣지 않는다.</dmn:description>
+        <dmn:inputExpression id="D02_expr5" typeRef="string">
+          <dmn:text>source_D02.creditFacts</dmn:text>
+        </dmn:inputExpression>
+        <dmn:inputValues id="D02_values5">
+          <dmn:text>"CONFIRMED", "UNCONFIRMED"</dmn:text>
+        </dmn:inputValues>
+      </dmn:input>
+      <dmn:output id="D02_out" name="D02_result" label="판정 / 다음 처리" typeRef="string" />
+      <dmn:annotation name="근거·해석 범위" />
+      <dmn:rule id="D02_r1">
+        <dmn:description>G02 | </dmn:description>
+        <dmn:inputEntry id="D02_r1_i1">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D02_r1_i2">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D02_r1_i3">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D02_r1_i4">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D02_r1_i5">
+          <dmn:text>"UNCONFIRMED", null</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D02_r1_o">
+          <dmn:text>"담당확인"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>G02</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D02_r2">
+        <dmn:description>G02 | </dmn:description>
+        <dmn:inputEntry id="D02_r2_i1">
+          <dmn:text>null, &lt;= 0</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D02_r2_i2">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D02_r2_i3">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D02_r2_i4">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D02_r2_i5">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D02_r2_o">
+          <dmn:text>"담당확인"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>G02</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D02_r3">
+        <dmn:description>G02 | </dmn:description>
+        <dmn:inputEntry id="D02_r3_i1">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D02_r3_i2">
+          <dmn:text>null, &lt; source_D02.exchangeCredits</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D02_r3_i3">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D02_r3_i4">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D02_r3_i5">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D02_r3_o">
+          <dmn:text>"담당확인"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>G02</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D02_r4">
+        <dmn:description>G02 | </dmn:description>
+        <dmn:inputEntry id="D02_r4_i1">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D02_r4_i2">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D02_r4_i3">
+          <dmn:text>null, &lt; source_D02.exchangeCredits</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D02_r4_i4">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D02_r4_i5">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D02_r4_o">
+          <dmn:text>"담당확인"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>G02</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D02_r5">
+        <dmn:description>G02 | </dmn:description>
+        <dmn:inputEntry id="D02_r5_i1">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D02_r5_i2">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D02_r5_i3">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D02_r5_i4">
+          <dmn:text>null, &lt;= 0</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D02_r5_i5">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D02_r5_o">
+          <dmn:text>"담당확인"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>G02</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D02_r6">
+        <dmn:description>S04 P028; W02 3.가 | </dmn:description>
+        <dmn:inputEntry id="D02_r6_i1">
+          <dmn:text>&gt; 6</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D02_r6_i2">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D02_r6_i3">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D02_r6_i4">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D02_r6_i5">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D02_r6_o">
+          <dmn:text>"신청 학점 조정"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>S04 P028; W02 3.가</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D02_r7">
+        <dmn:description>W02 4.나.1; W03 제49조제4항; G02 | 원칙 6학점. 예외 허용을 자동 생성하지 않음.</dmn:description>
+        <dmn:inputEntry id="D02_r7_i1">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D02_r7_i2">
+          <dmn:text>&gt; 6</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D02_r7_i3">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D02_r7_i4">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D02_r7_i5">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D02_r7_o">
+          <dmn:text>"계절제 한도 담당확인"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>W02 4.나.1; W03 제49조제4항; G02 — 원칙 6학점. 예외 허용을 자동 생성하지 않음.</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D02_r8">
+        <dmn:description>W01 제10조제1항; W02 4.가.1 | 취득 한도이며 지원자 전체 자동 탈락 규칙이 아님.</dmn:description>
+        <dmn:inputEntry id="D02_r8_i1">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D02_r8_i2">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D02_r8_i3">
+          <dmn:text>&gt; source_D02.graduationCredits / 3</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D02_r8_i4">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D02_r8_i5">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D02_r8_o">
+          <dmn:text>"인정 범위 계획 조정"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>W01 제10조제1항; W02 4.가.1 — 취득 한도이며 지원자 전체 자동 탈락 규칙이 아님.</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D02_r9">
+        <dmn:description>S04 P028; W01 제10조; W02 3.가·4.나; W03 제49조 | </dmn:description>
+        <dmn:inputEntry id="D02_r9_i1">
+          <dmn:text>(0..6]</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D02_r9_i2">
+          <dmn:text>[source_D02.exchangeCredits..6]</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D02_r9_i3">
+          <dmn:text>[source_D02.exchangeCredits..source_D02.graduationCredits / 3]</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D02_r9_i4">
+          <dmn:text>&gt; 0</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D02_r9_i5">
+          <dmn:text>"CONFIRMED"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D02_r9_o">
+          <dmn:text>"학점 범위 충족"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>S04 P028; W01 제10조; W02 3.가·4.나; W03 제49조</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D02_r10">
+        <dmn:description>G02 | </dmn:description>
+        <dmn:inputEntry id="D02_r10_i1">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D02_r10_i2">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D02_r10_i3">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D02_r10_i4">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D02_r10_i5">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D02_r10_o">
+          <dmn:text>"담당확인"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>G02</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+    </dmn:decisionTable>
+  </dmn:decision>
+  <dmn:decision id="D03" name="03 과목 이수 제한">
+    <dmn:description>매 과목 단위로 판정한다. 과목명이나 유사도 점수로 동일성·전공 인정을 자동 분류하지 않는다.</dmn:description>
+    <dmn:variable id="Var_D03" name="D03_result" typeRef="string" />
+    <dmn:informationRequirement id="Req_D03">
+      <dmn:requiredInput href="#Input_D03" />
+    </dmn:informationRequirement>
+    <dmn:decisionTable id="Table_D03" hitPolicy="FIRST" preferredOrientation="Rule-as-Row">
+      <dmn:input id="D03_in1" label="본교 필수·다전공 제한">
+        <dmn:description>교양필수·전공기초·전공필수 및 예외 아닌 다전공은 BLOCKED. 학과가 과목 분류와 예외 해당 여부 확인.</dmn:description>
+        <dmn:inputExpression id="D03_expr1" typeRef="string">
+          <dmn:text>source_D03.ssuRestriction</dmn:text>
+        </dmn:inputExpression>
+        <dmn:inputValues id="D03_values1">
+          <dmn:text>"BLOCKED", "CLEAR", "UNKNOWN"</dmn:text>
+        </dmn:inputValues>
+      </dmn:input>
+      <dmn:input id="D03_in2" label="본교 기이수 동일 과목">
+        <dmn:description>확인된 원자료를 입력하며 추정값을 넣지 않는다.</dmn:description>
+        <dmn:inputExpression id="D03_expr2" typeRef="string">
+          <dmn:text>source_D03.sameCompleted</dmn:text>
+        </dmn:inputExpression>
+        <dmn:inputValues id="D03_values2">
+          <dmn:text>"YES", "NO", "UNKNOWN"</dmn:text>
+        </dmn:inputValues>
+      </dmn:input>
+      <dmn:input id="D03_in3" label="제주대 수강 제한">
+        <dmn:description>학과제한·OCU·KNU·특허청·진로/취업/창업상담·사회봉사·현장실습은 BLOCKED.</dmn:description>
+        <dmn:inputExpression id="D03_expr3" typeRef="string">
+          <dmn:text>source_D03.jejuRestriction</dmn:text>
+        </dmn:inputExpression>
+        <dmn:inputValues id="D03_values3">
+          <dmn:text>"BLOCKED", "CLEAR", "UNKNOWN"</dmn:text>
+        </dmn:inputValues>
+      </dmn:input>
+      <dmn:input id="D03_in4" label="재수강 장소 조건">
+        <dmn:description>확인된 원자료를 입력하며 추정값을 넣지 않는다.</dmn:description>
+        <dmn:inputExpression id="D03_expr4" typeRef="string">
+          <dmn:text>source_D03.retakePlace</dmn:text>
+        </dmn:inputExpression>
+        <dmn:inputValues id="D03_values4">
+          <dmn:text>"SAME_HOST", "NOT_RETAKE", "OTHER_HOST", "UNKNOWN"</dmn:text>
+        </dmn:inputValues>
+      </dmn:input>
+      <dmn:output id="D03_out" name="D03_result" label="판정 / 다음 처리" typeRef="string" />
+      <dmn:annotation name="근거·해석 범위" />
+      <dmn:rule id="D03_r1">
+        <dmn:description>W01 제9조제2·3항; W02 4.나.2 | </dmn:description>
+        <dmn:inputEntry id="D03_r1_i1">
+          <dmn:text>"BLOCKED"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D03_r1_i2">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D03_r1_i3">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D03_r1_i4">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D03_r1_o">
+          <dmn:text>"해당 과목 이수 불가"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>W01 제9조제2·3항; W02 4.나.2</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D03_r2">
+        <dmn:description>W01 제9조제4항; W02 4.나.2 | </dmn:description>
+        <dmn:inputEntry id="D03_r2_i1">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D03_r2_i2">
+          <dmn:text>"YES"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D03_r2_i3">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D03_r2_i4">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D03_r2_o">
+          <dmn:text>"해당 과목 이수 불가"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>W01 제9조제4항; W02 4.나.2</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D03_r3">
+        <dmn:description>S04 P029 | </dmn:description>
+        <dmn:inputEntry id="D03_r3_i1">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D03_r3_i2">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D03_r3_i3">
+          <dmn:text>"BLOCKED"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D03_r3_i4">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D03_r3_o">
+          <dmn:text>"해당 과목 신청 불가"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>S04 P029</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D03_r4">
+        <dmn:description>W01 제9조제5항; W02 4.나.2 | </dmn:description>
+        <dmn:inputEntry id="D03_r4_i1">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D03_r4_i2">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D03_r4_i3">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D03_r4_i4">
+          <dmn:text>"OTHER_HOST"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D03_r4_o">
+          <dmn:text>"원래 교류대에서 재수강"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>W01 제9조제5항; W02 4.나.2</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D03_r5">
+        <dmn:description>W01 제9조·제11조; W02 4.가.2 | 제한 없음과 전공 인정 승인은 다름.</dmn:description>
+        <dmn:inputEntry id="D03_r5_i1">
+          <dmn:text>"CLEAR"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D03_r5_i2">
+          <dmn:text>"NO"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D03_r5_i3">
+          <dmn:text>"CLEAR"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D03_r5_i4">
+          <dmn:text>"SAME_HOST", "NOT_RETAKE"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D03_r5_o">
+          <dmn:text>"학과 인정 심사 진행"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>W01 제9조·제11조; W02 4.가.2 — 제한 없음과 전공 인정 승인은 다름.</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D03_r6">
+        <dmn:description>G03 | 동일성·이수구분·예외·강좌 구분은 사람이 확인.</dmn:description>
+        <dmn:inputEntry id="D03_r6_i1">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D03_r6_i2">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D03_r6_i3">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D03_r6_i4">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D03_r6_o">
+          <dmn:text>"담당확인"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>G03 — 동일성·이수구분·예외·강좌 구분은 사람이 확인.</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+    </dmn:decisionTable>
+  </dmn:decision>
+  <dmn:decision id="D04" name="04 신청 자료 준비">
+    <dmn:description>숭실대 학과 제출 후 LMS 신청 순서를 따른다. 학과장 서명은 직접 판단·서명 작업이다.</dmn:description>
+    <dmn:variable id="Var_D04" name="D04_result" typeRef="string" />
+    <dmn:informationRequirement id="Req_D04">
+      <dmn:requiredInput href="#Input_D04" />
+    </dmn:informationRequirement>
+    <dmn:decisionTable id="Table_D04" hitPolicy="FIRST" preferredOrientation="Rule-as-Row">
+      <dmn:input id="D04_in1" label="신청서 개인정보 동의">
+        <dmn:description>확인된 원자료를 입력하며 추정값을 넣지 않는다.</dmn:description>
+        <dmn:inputExpression id="D04_expr1" typeRef="string">
+          <dmn:text>source_D04.consent</dmn:text>
+        </dmn:inputExpression>
+        <dmn:inputValues id="D04_values1">
+          <dmn:text>"YES", "NO", "UNKNOWN"</dmn:text>
+        </dmn:inputValues>
+      </dmn:input>
+      <dmn:input id="D04_in2" label="학과 제출">
+        <dmn:description>확인된 원자료를 입력하며 추정값을 넣지 않는다.</dmn:description>
+        <dmn:inputExpression id="D04_expr2" typeRef="string">
+          <dmn:text>source_D04.deptSubmission</dmn:text>
+        </dmn:inputExpression>
+        <dmn:inputValues id="D04_values2">
+          <dmn:text>"DONE", "MISSING", "UNKNOWN"</dmn:text>
+        </dmn:inputValues>
+      </dmn:input>
+      <dmn:input id="D04_in3" label="신청서 엑셀 원본">
+        <dmn:description>확인된 원자료를 입력하며 추정값을 넣지 않는다.</dmn:description>
+        <dmn:inputExpression id="D04_expr3" typeRef="string">
+          <dmn:text>source_D04.xlsxFile</dmn:text>
+        </dmn:inputExpression>
+        <dmn:inputValues id="D04_values3">
+          <dmn:text>"PRESENT", "MISSING", "UNKNOWN"</dmn:text>
+        </dmn:inputValues>
+      </dmn:input>
+      <dmn:input id="D04_in4" label="학과장 서명 스캔">
+        <dmn:description>확인된 원자료를 입력하며 추정값을 넣지 않는다.</dmn:description>
+        <dmn:inputExpression id="D04_expr4" typeRef="string">
+          <dmn:text>source_D04.signedScan</dmn:text>
+        </dmn:inputExpression>
+        <dmn:inputValues id="D04_values4">
+          <dmn:text>"PRESENT", "MISSING", "UNKNOWN"</dmn:text>
+        </dmn:inputValues>
+      </dmn:input>
+      <dmn:input id="D04_in5" label="LMS 신청">
+        <dmn:description>확인된 원자료를 입력하며 추정값을 넣지 않는다.</dmn:description>
+        <dmn:inputExpression id="D04_expr5" typeRef="string">
+          <dmn:text>source_D04.lmsSubmission</dmn:text>
+        </dmn:inputExpression>
+        <dmn:inputValues id="D04_values5">
+          <dmn:text>"DONE", "MISSING", "UNKNOWN"</dmn:text>
+        </dmn:inputValues>
+      </dmn:input>
+      <dmn:input id="D04_in6" label="해당 공지 추가서류">
+        <dmn:description>확인된 원자료를 입력하며 추정값을 넣지 않는다.</dmn:description>
+        <dmn:inputExpression id="D04_expr6" typeRef="string">
+          <dmn:text>source_D04.otherRequired</dmn:text>
+        </dmn:inputExpression>
+        <dmn:inputValues id="D04_values6">
+          <dmn:text>"COMPLETE", "MISSING", "UNKNOWN"</dmn:text>
+        </dmn:inputValues>
+      </dmn:input>
+      <dmn:output id="D04_out" name="D04_result" label="판정 / 다음 처리" typeRef="string" />
+      <dmn:annotation name="근거·해석 범위" />
+      <dmn:rule id="D04_r1">
+        <dmn:description>S01 C31 | </dmn:description>
+        <dmn:inputEntry id="D04_r1_i1">
+          <dmn:text>"NO"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D04_r1_i2">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D04_r1_i3">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D04_r1_i4">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D04_r1_i5">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D04_r1_i6">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D04_r1_o">
+          <dmn:text>"신청 취소 대상"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>S01 C31</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D04_r2">
+        <dmn:description>W02 3.다 | 승인·추천·제주대 선발은 별도.</dmn:description>
+        <dmn:inputEntry id="D04_r2_i1">
+          <dmn:text>"YES"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D04_r2_i2">
+          <dmn:text>"DONE"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D04_r2_i3">
+          <dmn:text>"PRESENT"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D04_r2_i4">
+          <dmn:text>"PRESENT"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D04_r2_i5">
+          <dmn:text>"DONE"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D04_r2_i6">
+          <dmn:text>"COMPLETE"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D04_r2_o">
+          <dmn:text>"서류 요건 준비"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>W02 3.다 — 승인·추천·제주대 선발은 별도.</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D04_r3">
+        <dmn:description>W02 3.다 | </dmn:description>
+        <dmn:inputEntry id="D04_r3_i1">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D04_r3_i2">
+          <dmn:text>"MISSING"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D04_r3_i3">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D04_r3_i4">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D04_r3_i5">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D04_r3_i6">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D04_r3_o">
+          <dmn:text>"서류 미완비"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>W02 3.다</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D04_r4">
+        <dmn:description>W02 3.다 | </dmn:description>
+        <dmn:inputEntry id="D04_r4_i1">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D04_r4_i2">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D04_r4_i3">
+          <dmn:text>"MISSING"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D04_r4_i4">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D04_r4_i5">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D04_r4_i6">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D04_r4_o">
+          <dmn:text>"서류 미완비"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>W02 3.다</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D04_r5">
+        <dmn:description>W02 3.다 | </dmn:description>
+        <dmn:inputEntry id="D04_r5_i1">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D04_r5_i2">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D04_r5_i3">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D04_r5_i4">
+          <dmn:text>"MISSING"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D04_r5_i5">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D04_r5_i6">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D04_r5_o">
+          <dmn:text>"서류 미완비"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>W02 3.다</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D04_r6">
+        <dmn:description>W02 3.다 | </dmn:description>
+        <dmn:inputEntry id="D04_r6_i1">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D04_r6_i2">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D04_r6_i3">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D04_r6_i4">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D04_r6_i5">
+          <dmn:text>"MISSING"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D04_r6_i6">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D04_r6_o">
+          <dmn:text>"서류 미완비"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>W02 3.다</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D04_r7">
+        <dmn:description>W02 3.다 | </dmn:description>
+        <dmn:inputEntry id="D04_r7_i1">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D04_r7_i2">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D04_r7_i3">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D04_r7_i4">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D04_r7_i5">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D04_r7_i6">
+          <dmn:text>"MISSING"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D04_r7_o">
+          <dmn:text>"서류 미완비"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>W02 3.다</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D04_r8">
+        <dmn:description>G01 | 보완·재접수의 실제 절차는 I06/I07에서 확인한다.</dmn:description>
+        <dmn:inputEntry id="D04_r8_i1">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D04_r8_i2">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D04_r8_i3">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D04_r8_i4">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D04_r8_i5">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D04_r8_i6">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D04_r8_o">
+          <dmn:text>"서류 상태 미확정"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>G01 — 보완·재접수의 실제 절차는 I06/I07에서 확인한다.</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+    </dmn:decisionTable>
+  </dmn:decision>
+  <dmn:decision id="D05" name="05 변경 과목 처리">
+    <dmn:description>수강신청 가능 경로를 판정한다. 변경 과목의 최종 인정과 S01 C30의 적용 범위는 I15에서 확인하며 D10에는 확정된 인정 정보를 입력한다.</dmn:description>
+    <dmn:variable id="Var_D05" name="D05_result" typeRef="string" />
+    <dmn:informationRequirement id="Req_D05">
+      <dmn:requiredInput href="#Input_D05" />
+    </dmn:informationRequirement>
+    <dmn:decisionTable id="Table_D05" hitPolicy="FIRST" preferredOrientation="Rule-as-Row">
+      <dmn:input id="D05_in1" label="기승인 신청서와 실제 과목">
+        <dmn:description>확인된 원자료를 입력하며 추정값을 넣지 않는다.</dmn:description>
+        <dmn:inputExpression id="D05_expr1" typeRef="string">
+          <dmn:text>source_D05.courseMatches</dmn:text>
+        </dmn:inputExpression>
+        <dmn:inputValues id="D05_values1">
+          <dmn:text>"MATCH", "DIFFERENT", "UNKNOWN"</dmn:text>
+        </dmn:inputValues>
+      </dmn:input>
+      <dmn:input id="D05_in2" label="변경 전 재신청·승인">
+        <dmn:description>확인된 원자료를 입력하며 추정값을 넣지 않는다.</dmn:description>
+        <dmn:inputExpression id="D05_expr2" typeRef="string">
+          <dmn:text>source_D05.priorApproval</dmn:text>
+        </dmn:inputExpression>
+        <dmn:inputValues id="D05_values2">
+          <dmn:text>"APPROVED", "NOT_YET", "DENIED", "UNKNOWN"</dmn:text>
+        </dmn:inputValues>
+      </dmn:input>
+      <dmn:input id="D05_in3" label="제주대 신청기간">
+        <dmn:description>CLOSED는 해당 신청기간 종료 상태다.</dmn:description>
+        <dmn:inputExpression id="D05_expr3" typeRef="string">
+          <dmn:text>source_D05.registrationWindow</dmn:text>
+        </dmn:inputExpression>
+        <dmn:inputValues id="D05_values3">
+          <dmn:text>"OPEN", "NOT_STARTED", "CLOSED", "UNKNOWN"</dmn:text>
+        </dmn:inputValues>
+      </dmn:input>
+      <dmn:output id="D05_out" name="D05_result" label="판정 / 다음 처리" typeRef="string" />
+      <dmn:annotation name="근거·해석 범위" />
+      <dmn:rule id="D05_r1">
+        <dmn:description>S04 P039; G05 | </dmn:description>
+        <dmn:inputEntry id="D05_r1_i1">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D05_r1_i2">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D05_r1_i3">
+          <dmn:text>"CLOSED"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D05_r1_o">
+          <dmn:text>"추가 수강신청 불가"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>S04 P039; G05</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D05_r2">
+        <dmn:description>W01 제11조제1항; S04 P023–039 | </dmn:description>
+        <dmn:inputEntry id="D05_r2_i1">
+          <dmn:text>"MATCH"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D05_r2_i2">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D05_r2_i3">
+          <dmn:text>"OPEN"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D05_r2_o">
+          <dmn:text>"승인 과목 신청 진행"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>W01 제11조제1항; S04 P023–039</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D05_r3">
+        <dmn:description>W01 제5·6·11조; W02 4.나.4 | </dmn:description>
+        <dmn:inputEntry id="D05_r3_i1">
+          <dmn:text>"DIFFERENT"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D05_r3_i2">
+          <dmn:text>"NOT_YET"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D05_r3_i3">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D05_r3_o">
+          <dmn:text>"수강신청 전 재승인"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>W01 제5·6·11조; W02 4.나.4</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D05_r4">
+        <dmn:description>W01 제11조 | </dmn:description>
+        <dmn:inputEntry id="D05_r4_i1">
+          <dmn:text>"DIFFERENT"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D05_r4_i2">
+          <dmn:text>"DENIED"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D05_r4_i3">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D05_r4_o">
+          <dmn:text>"변경 과목 신청 중지"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>W01 제11조</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D05_r5">
+        <dmn:description>W01 제11조 | </dmn:description>
+        <dmn:inputEntry id="D05_r5_i1">
+          <dmn:text>"DIFFERENT"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D05_r5_i2">
+          <dmn:text>"APPROVED"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D05_r5_i3">
+          <dmn:text>"OPEN"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D05_r5_o">
+          <dmn:text>"재승인 과목 신청 진행"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>W01 제11조</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D05_r6">
+        <dmn:description>S04 P023–039 | </dmn:description>
+        <dmn:inputEntry id="D05_r6_i1">
+          <dmn:text>"MATCH"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D05_r6_i2">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D05_r6_i3">
+          <dmn:text>"NOT_STARTED"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D05_r6_o">
+          <dmn:text>"수강신청 기간 대기"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>S04 P023–039</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D05_r7">
+        <dmn:description>S04 P023–039 | </dmn:description>
+        <dmn:inputEntry id="D05_r7_i1">
+          <dmn:text>"DIFFERENT"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D05_r7_i2">
+          <dmn:text>"APPROVED"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D05_r7_i3">
+          <dmn:text>"NOT_STARTED"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D05_r7_o">
+          <dmn:text>"수강신청 기간 대기"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>S04 P023–039</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D05_r8">
+        <dmn:description>G04·G05 | </dmn:description>
+        <dmn:inputEntry id="D05_r8_i1">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D05_r8_i2">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D05_r8_i3">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D05_r8_o">
+          <dmn:text>"신청·승인 상태 미확정"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>G04·G05</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+    </dmn:decisionTable>
+  </dmn:decision>
+  <dmn:decision id="D06" name="06 수강료 단가">
+    <dmn:description>HWP 표의 열 위치를 확인하여 학점당/시수당을 구분했다. 강좌 분류·과금 시수·합계·원 단위 처리는 임의 계산하지 않고 공식 고지서를 따른다.</dmn:description>
+    <dmn:variable id="Var_D06" name="D06_result" typeRef="string" />
+    <dmn:informationRequirement id="Req_D06">
+      <dmn:requiredInput href="#Input_D06" />
+    </dmn:informationRequirement>
+    <dmn:decisionTable id="Table_D06" hitPolicy="FIRST" preferredOrientation="Rule-as-Row">
+      <dmn:input id="D06_in1" label="제주대 확인 강좌 구분">
+        <dmn:description>확인된 원자료를 입력하며 추정값을 넣지 않는다.</dmn:description>
+        <dmn:inputExpression id="D06_expr1" typeRef="string">
+          <dmn:text>source_D06.feeCategory</dmn:text>
+        </dmn:inputExpression>
+        <dmn:inputValues id="D06_values1">
+          <dmn:text>"GENERAL", "LAB", "CLINICAL", "ART_SPORT", "PRINT", "OLLE", "PADDLE", "YACHT", "SCUBA", "UNKNOWN"</dmn:text>
+        </dmn:inputValues>
+      </dmn:input>
+      <dmn:output id="D06_out" name="D06_result" label="판정 / 다음 처리" typeRef="string" />
+      <dmn:annotation name="근거·해석 범위" />
+      <dmn:rule id="D06_r1">
+        <dmn:description>S04 P075–096 / 수강료 표 행1 | </dmn:description>
+        <dmn:inputEntry id="D06_r1_i1">
+          <dmn:text>"GENERAL"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D06_r1_o">
+          <dmn:text>"학점당 28000원"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>S04 P075–096 / 수강료 표 행1</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D06_r2">
+        <dmn:description>S04 수강료 표 행2 | </dmn:description>
+        <dmn:inputEntry id="D06_r2_i1">
+          <dmn:text>"LAB"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D06_r2_o">
+          <dmn:text>"학점당 30000원"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>S04 수강료 표 행2</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D06_r3">
+        <dmn:description>S04 수강료 표 행3 | </dmn:description>
+        <dmn:inputEntry id="D06_r3_i1">
+          <dmn:text>"CLINICAL"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D06_r3_o">
+          <dmn:text>"학점당 50000원"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>S04 수강료 표 행3</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D06_r4">
+        <dmn:description>S04 수강료 표 행4·P097 | </dmn:description>
+        <dmn:inputEntry id="D06_r4_i1">
+          <dmn:text>"ART_SPORT"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D06_r4_o">
+          <dmn:text>"시수당 50000원"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>S04 수강료 표 행4·P097</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D06_r5">
+        <dmn:description>S04 수강료 표 행5 | </dmn:description>
+        <dmn:inputEntry id="D06_r5_i1">
+          <dmn:text>"PRINT"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D06_r5_o">
+          <dmn:text>"시수당 60000원"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>S04 수강료 표 행5</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D06_r6">
+        <dmn:description>S04 수강료 표 행6 | </dmn:description>
+        <dmn:inputEntry id="D06_r6_i1">
+          <dmn:text>"OLLE"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D06_r6_o">
+          <dmn:text>"시수당 200000원"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>S04 수강료 표 행6</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D06_r7">
+        <dmn:description>S04 수강료 표 행7 | </dmn:description>
+        <dmn:inputEntry id="D06_r7_i1">
+          <dmn:text>"PADDLE"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D06_r7_o">
+          <dmn:text>"시수당 100000원"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>S04 수강료 표 행7</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D06_r8">
+        <dmn:description>S04 수강료 표 행8 | </dmn:description>
+        <dmn:inputEntry id="D06_r8_i1">
+          <dmn:text>"YACHT"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D06_r8_o">
+          <dmn:text>"시수당 150000원"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>S04 수강료 표 행8</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D06_r9">
+        <dmn:description>S04 수강료 표 행9 | </dmn:description>
+        <dmn:inputEntry id="D06_r9_i1">
+          <dmn:text>"SCUBA"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D06_r9_o">
+          <dmn:text>"시수당 250000원"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>S04 수강료 표 행9</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D06_r10">
+        <dmn:description>G06 | </dmn:description>
+        <dmn:inputEntry id="D06_r10_i1">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D06_r10_o">
+          <dmn:text>"제주대 고지서 담당확인"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>G06</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+    </dmn:decisionTable>
+  </dmn:decision>
+  <dmn:decision id="D07" name="07 수강료 납부 상태">
+    <dmn:description>수강료 납부는 제주대에 직접 한다. 일반 등록금 납부나 숭실대 등록과 혼동하지 않는다.</dmn:description>
+    <dmn:variable id="Var_D07" name="D07_result" typeRef="string" />
+    <dmn:informationRequirement id="Req_D07">
+      <dmn:requiredInput href="#Input_D07" />
+    </dmn:informationRequirement>
+    <dmn:decisionTable id="Table_D07" hitPolicy="FIRST" preferredOrientation="Rule-as-Row">
+      <dmn:input id="D07_in1" label="기한 내 납부 확인">
+        <dmn:description>확인된 원자료를 입력하며 추정값을 넣지 않는다.</dmn:description>
+        <dmn:inputExpression id="D07_expr1" typeRef="string">
+          <dmn:text>source_D07.payment</dmn:text>
+        </dmn:inputExpression>
+        <dmn:inputValues id="D07_values1">
+          <dmn:text>"PAID", "UNPAID", "UNCONFIRMED"</dmn:text>
+        </dmn:inputValues>
+      </dmn:input>
+      <dmn:input id="D07_in2" label="확인 시각(KST)">
+        <dmn:description>확인된 원자료를 입력하며 추정값을 넣지 않는다.</dmn:description>
+        <dmn:inputExpression id="D07_expr2" typeRef="dateTime">
+          <dmn:text>source_D07.checkedAt</dmn:text>
+        </dmn:inputExpression>
+      </dmn:input>
+      <dmn:output id="D07_out" name="D07_result" label="판정 / 다음 처리" typeRef="string" />
+      <dmn:annotation name="근거·해석 범위" />
+      <dmn:rule id="D07_r1">
+        <dmn:description>S04 P040–044·P071–074 | </dmn:description>
+        <dmn:inputEntry id="D07_r1_i1">
+          <dmn:text>"PAID"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D07_r1_i2">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D07_r1_o">
+          <dmn:text>"납부 확인"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>S04 P040–044·P071–074</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D07_r2">
+        <dmn:description>S04 P043 | </dmn:description>
+        <dmn:inputEntry id="D07_r2_i1">
+          <dmn:text>"UNPAID"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D07_r2_i2">
+          <dmn:text>&gt; date and time("2026-06-09T17:00:00+09:00")</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D07_r2_o">
+          <dmn:text>"수강포기 간주·삭제"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>S04 P043</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D07_r3">
+        <dmn:description>S04 P071–074 | 은행 창구는 해당 은행 마감시간을 확인.</dmn:description>
+        <dmn:inputEntry id="D07_r3_i1">
+          <dmn:text>"UNPAID"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D07_r3_i2">
+          <dmn:text>[date and time("2026-06-04T10:00:00+09:00")..date and time("2026-06-09T17:00:00+09:00")]</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D07_r3_o">
+          <dmn:text>"고지서에 따라 납부"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>S04 P071–074 — 은행 창구는 해당 은행 마감시간을 확인.</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D07_r4">
+        <dmn:description>S04 P071 | </dmn:description>
+        <dmn:inputEntry id="D07_r4_i1">
+          <dmn:text>"UNPAID"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D07_r4_i2">
+          <dmn:text>&lt; date and time("2026-06-04T10:00:00+09:00")</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D07_r4_o">
+          <dmn:text>"납부기간 확인"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>S04 P071</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D07_r5">
+        <dmn:description>G06 | PAID는 기한 내 납부 사실이다. 미확정 상태에서 미납 삭제 판정을 내리지 않는다.</dmn:description>
+        <dmn:inputEntry id="D07_r5_i1">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D07_r5_i2">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D07_r5_o">
+          <dmn:text>"납부 상태 미확정"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>G06 — PAID는 기한 내 납부 사실이다. 미확정 상태에서 미납 삭제 판정을 내리지 않는다.</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+    </dmn:decisionTable>
+  </dmn:decision>
+  <dmn:decision id="D08" name="08 취소·환불 구간">
+    <dmn:description>이 표는 비율 구간 판정이다. 실제 교류수학 취소에는 제주대 수강취소와 숭실대 취소 공문 두 절차가 필요하다(S04 P117).</dmn:description>
+    <dmn:variable id="Var_D08" name="D08_result" typeRef="string" />
+    <dmn:informationRequirement id="Req_D08">
+      <dmn:requiredInput href="#Input_D08" />
+    </dmn:informationRequirement>
+    <dmn:decisionTable id="Table_D08" hitPolicy="FIRST" preferredOrientation="Rule-as-Row">
+      <dmn:input id="D08_in1" label="환불 적용 상황">
+        <dmn:description>STANDARD는 일반 일정 자발적 취소. 폐강·개별 일정은 담당자 확인.</dmn:description>
+        <dmn:inputExpression id="D08_expr1" typeRef="string">
+          <dmn:text>source_D08.refundScope</dmn:text>
+        </dmn:inputExpression>
+        <dmn:inputValues id="D08_values1">
+          <dmn:text>"STANDARD", "DIFFERENT_DATES", "CLOSURE", "UNKNOWN"</dmn:text>
+        </dmn:inputValues>
+      </dmn:input>
+      <dmn:input id="D08_in2" label="사유일·신청일 구간 확인">
+        <dmn:description>표는 사유발생일과 신청기간을 함께 제시. 구간이 다르면 G07로 보냄.</dmn:description>
+        <dmn:inputExpression id="D08_expr2" typeRef="string">
+          <dmn:text>source_D08.refundBasis</dmn:text>
+        </dmn:inputExpression>
+        <dmn:inputValues id="D08_values2">
+          <dmn:text>"SAME_PERIOD", "DIFFERENT_OR_UNKNOWN"</dmn:text>
+        </dmn:inputValues>
+      </dmn:input>
+      <dmn:input id="D08_in3" label="취소/환불 신청 시각(KST)">
+        <dmn:description>확인된 원자료를 입력하며 추정값을 넣지 않는다.</dmn:description>
+        <dmn:inputExpression id="D08_expr3" typeRef="dateTime">
+          <dmn:text>source_D08.requestedAt</dmn:text>
+        </dmn:inputExpression>
+      </dmn:input>
+      <dmn:output id="D08_out" name="D08_result" label="판정 / 다음 처리" typeRef="string" />
+      <dmn:annotation name="근거·해석 범위" />
+      <dmn:rule id="D08_r1">
+        <dmn:description>S04 P114; G07 | </dmn:description>
+        <dmn:inputEntry id="D08_r1_i1">
+          <dmn:text>"DIFFERENT_DATES", "CLOSURE"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D08_r1_i2">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D08_r1_i3">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D08_r1_o">
+          <dmn:text>"담당자 개별 기준 확인"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>S04 P114; G07</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D08_r2">
+        <dmn:description>G07 | </dmn:description>
+        <dmn:inputEntry id="D08_r2_i1">
+          <dmn:text>"UNKNOWN", null</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D08_r2_i2">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D08_r2_i3">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D08_r2_o">
+          <dmn:text>"환불 자료 미확정"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>G07</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D08_r3">
+        <dmn:description>S04 P100–114; G07 | </dmn:description>
+        <dmn:inputEntry id="D08_r3_i1">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D08_r3_i2">
+          <dmn:text>"DIFFERENT_OR_UNKNOWN", null</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D08_r3_i3">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D08_r3_o">
+          <dmn:text>"담당자 적용일 확인"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>S04 P100–114; G07</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D08_r4">
+        <dmn:description>S04 P103–105 | 6/28까지. 실제 지급 승인·지급일·원 단위 반올림은 별도.</dmn:description>
+        <dmn:inputEntry id="D08_r4_i1">
+          <dmn:text>"STANDARD"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D08_r4_i2">
+          <dmn:text>"SAME_PERIOD"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D08_r4_i3">
+          <dmn:text>&lt; date and time("2026-06-29T00:00:00+09:00")</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D08_r4_o">
+          <dmn:text>"전액 환불 구간"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>S04 P103–105 — 6/28까지. 실제 지급 승인·지급일·원 단위 반올림은 별도.</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D08_r5">
+        <dmn:description>S04 P106–108 | </dmn:description>
+        <dmn:inputEntry id="D08_r5_i1">
+          <dmn:text>"STANDARD"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D08_r5_i2">
+          <dmn:text>"SAME_PERIOD"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D08_r5_i3">
+          <dmn:text>[date and time("2026-06-29T00:00:00+09:00")..date and time("2026-07-03T18:00:00+09:00")]</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D08_r5_o">
+          <dmn:text>"3분의 2 환불 구간"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>S04 P106–108</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D08_r6">
+        <dmn:description>S04 P109–111 | </dmn:description>
+        <dmn:inputEntry id="D08_r6_i1">
+          <dmn:text>"STANDARD"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D08_r6_i2">
+          <dmn:text>"SAME_PERIOD"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D08_r6_i3">
+          <dmn:text>(date and time("2026-07-03T18:00:00+09:00")..date and time("2026-07-07T18:00:00+09:00")]</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D08_r6_o">
+          <dmn:text>"2분의 1 환불 구간"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>S04 P109–111</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D08_r7">
+        <dmn:description>S04 P112–113 | </dmn:description>
+        <dmn:inputEntry id="D08_r7_i1">
+          <dmn:text>"STANDARD"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D08_r7_i2">
+          <dmn:text>"SAME_PERIOD"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D08_r7_i3">
+          <dmn:text>&gt; date and time("2026-07-07T18:00:00+09:00")</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D08_r7_o">
+          <dmn:text>"수강취소·환불 불가"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>S04 P112–113</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D08_r8">
+        <dmn:description>G07 | </dmn:description>
+        <dmn:inputEntry id="D08_r8_i1">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D08_r8_i2">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D08_r8_i3">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D08_r8_o">
+          <dmn:text>"환불 자료 미확정"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>G07</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+    </dmn:decisionTable>
+  </dmn:decision>
+  <dmn:decision id="D09" name="09 출석 요건">
+    <dmn:description>공결 승인 여부는 교육혁신과/승인권자가 확인한다. S04는 7일 이내 신청을 명시하며 W04 일반 안내에는 토요일·공휴일 제외, 증빙, 승인 경로 및 일부 예외가 있다. 교류생의 적용을 G08에서 확인. 이 표는 S04 기본 출석요건을 표현하며 별도 규정 예외는 담당확인으로 보낸다.</dmn:description>
+    <dmn:variable id="Var_D09" name="D09_result" typeRef="string" />
+    <dmn:informationRequirement id="Req_D09">
+      <dmn:requiredInput href="#Input_D09" />
+    </dmn:informationRequirement>
+    <dmn:decisionTable id="Table_D09" hitPolicy="FIRST" preferredOrientation="Rule-as-Row">
+      <dmn:input id="D09_in1" label="해당 강좌 전체 출석 시수">
+        <dmn:description>확인된 원자료를 입력하며 추정값을 넣지 않는다.</dmn:description>
+        <dmn:inputExpression id="D09_expr1" typeRef="number">
+          <dmn:text>source_D09.totalHours</dmn:text>
+        </dmn:inputExpression>
+      </dmn:input>
+      <dmn:input id="D09_in2" label="실제 출석 시수">
+        <dmn:description>확인된 원자료를 입력하며 추정값을 넣지 않는다.</dmn:description>
+        <dmn:inputExpression id="D09_expr2" typeRef="number">
+          <dmn:text>source_D09.attendedHours</dmn:text>
+        </dmn:inputExpression>
+      </dmn:input>
+      <dmn:input id="D09_in3" label="승인된 출석인정 시수">
+        <dmn:description>담당자 승인 후 값만 입력. 단순 공결 신청 시수가 아님.</dmn:description>
+        <dmn:inputExpression id="D09_expr3" typeRef="number">
+          <dmn:text>source_D09.excusedHours</dmn:text>
+        </dmn:inputExpression>
+      </dmn:input>
+      <dmn:output id="D09_out" name="D09_result" label="판정 / 다음 처리" typeRef="string" />
+      <dmn:annotation name="근거·해석 범위" />
+      <dmn:rule id="D09_r1">
+        <dmn:description>G08 | </dmn:description>
+        <dmn:inputEntry id="D09_r1_i1">
+          <dmn:text>null, &lt;= 0</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D09_r1_i2">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D09_r1_i3">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D09_r1_o">
+          <dmn:text>"출석 담당확인"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>G08</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D09_r2">
+        <dmn:description>G08 | </dmn:description>
+        <dmn:inputEntry id="D09_r2_i1">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D09_r2_i2">
+          <dmn:text>null, &lt; 0, &gt; source_D09.totalHours</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D09_r2_i3">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D09_r2_o">
+          <dmn:text>"출석 담당확인"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>G08</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D09_r3">
+        <dmn:description>S04 P051; G08 | 1/4 초과 입력은 임의 절삭하지 않음.</dmn:description>
+        <dmn:inputEntry id="D09_r3_i1">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D09_r3_i2">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D09_r3_i3">
+          <dmn:text>null, &lt; 0, &gt; source_D09.totalHours / 4</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D09_r3_o">
+          <dmn:text>"출석 담당확인"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>S04 P051; G08 — 1/4 초과 입력은 임의 절삭하지 않음.</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D09_r4">
+        <dmn:description>G08 | 실제 출석과 인정 시수의 이중계상 확인.</dmn:description>
+        <dmn:inputEntry id="D09_r4_i1">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D09_r4_i2">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D09_r4_i3">
+          <dmn:text>&gt; source_D09.totalHours - source_D09.attendedHours</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D09_r4_o">
+          <dmn:text>"출석 담당확인"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>G08 — 실제 출석과 인정 시수의 이중계상 확인.</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D09_r5">
+        <dmn:description>S04 P051 | </dmn:description>
+        <dmn:inputEntry id="D09_r5_i1">
+          <dmn:text>&gt; 0</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D09_r5_i2">
+          <dmn:text>&gt;= source_D09.totalHours * 3 / 4 - source_D09.excusedHours</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D09_r5_i3">
+          <dmn:text>[0..source_D09.totalHours / 4]</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D09_r5_o">
+          <dmn:text>"출석 요건 충족·성적평가 별도"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>S04 P051</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D09_r6">
+        <dmn:description>S04 P051 | 자동 F 부여나 모든 성적조건 충족으로 확대하지 않음.</dmn:description>
+        <dmn:inputEntry id="D09_r6_i1">
+          <dmn:text>&gt; 0</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D09_r6_i2">
+          <dmn:text>&lt; source_D09.totalHours * 3 / 4 - source_D09.excusedHours</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D09_r6_i3">
+          <dmn:text>[0..source_D09.totalHours / 4]</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D09_r6_o">
+          <dmn:text>"학점인정 출석 요건 미충족"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>S04 P051 — 자동 F 부여나 모든 성적조건 충족으로 확대하지 않음.</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D09_r7">
+        <dmn:description>G08 | </dmn:description>
+        <dmn:inputEntry id="D09_r7_i1">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D09_r7_i2">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D09_r7_i3">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D09_r7_o">
+          <dmn:text>"출석 담당확인"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>G08</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+    </dmn:decisionTable>
+  </dmn:decision>
+  <dmn:decision id="D10" name="10 학점·성적 반영 경로">
+    <dmn:description>공식 성적과 승인·이수구분 기록을 사용한다. 성적 수신 후 별도 학과 재심사 유무는 I30에서 확인한다. 실제 적용 환산 기준과 변경 과목 인정 여부가 확인되어야 반영한다.</dmn:description>
+    <dmn:variable id="Var_D10" name="D10_result" typeRef="string" />
+    <dmn:informationRequirement id="Req_D10">
+      <dmn:requiredInput href="#Input_D10" />
+    </dmn:informationRequirement>
+    <dmn:decisionTable id="Table_D10" hitPolicy="FIRST" preferredOrientation="Rule-as-Row">
+      <dmn:input id="D10_in1" label="제주대 공식 성적 수신">
+        <dmn:description>확인된 원자료를 입력하며 추정값을 넣지 않는다.</dmn:description>
+        <dmn:inputExpression id="D10_expr1" typeRef="string">
+          <dmn:text>source_D10.officialGrades</dmn:text>
+        </dmn:inputExpression>
+        <dmn:inputValues id="D10_values1">
+          <dmn:text>"RECEIVED", "WAITING", "UNCONFIRMED"</dmn:text>
+        </dmn:inputValues>
+      </dmn:input>
+      <dmn:input id="D10_in2" label="해당 과목의 본교 승인">
+        <dmn:description>확인된 원자료를 입력하며 추정값을 넣지 않는다.</dmn:description>
+        <dmn:inputExpression id="D10_expr2" typeRef="string">
+          <dmn:text>source_D10.recognitionApproval</dmn:text>
+        </dmn:inputExpression>
+        <dmn:inputValues id="D10_values2">
+          <dmn:text>"APPROVED_ORIGINAL", "APPROVED_CHANGE", "NOT_APPROVED", "UNCONFIRMED"</dmn:text>
+        </dmn:inputValues>
+      </dmn:input>
+      <dmn:input id="D10_in3" label="실제 인정 학점 한도">
+        <dmn:description>확인된 원자료를 입력하며 추정값을 넣지 않는다.</dmn:description>
+        <dmn:inputExpression id="D10_expr3" typeRef="string">
+          <dmn:text>source_D10.creditCheck</dmn:text>
+        </dmn:inputExpression>
+        <dmn:inputValues id="D10_values3">
+          <dmn:text>"WITHIN", "OVER", "UNCONFIRMED"</dmn:text>
+        </dmn:inputValues>
+      </dmn:input>
+      <dmn:input id="D10_in4" label="확정된 인정 이수구분">
+        <dmn:description>사전 승인 기록 또는 실제 인정 결과에서 확인한다. 변경 과목의 인정 적용이나 이수구분이 미확정이면 UNDECIDED를 입력한다.</dmn:description>
+        <dmn:inputExpression id="D10_expr4" typeRef="string">
+          <dmn:text>source_D10.deptCategory</dmn:text>
+        </dmn:inputExpression>
+        <dmn:inputValues id="D10_values4">
+          <dmn:text>"MAJOR_ELECTIVE", "GENERAL_ELECTIVE", "NOT_RECOGNIZED", "UNDECIDED"</dmn:text>
+        </dmn:inputValues>
+      </dmn:input>
+      <dmn:input id="D10_in5" label="성적 환산·학적 조건 확인">
+        <dmn:description>확인된 원자료를 입력하며 추정값을 넣지 않는다.</dmn:description>
+        <dmn:inputExpression id="D10_expr5" typeRef="string">
+          <dmn:text>source_D10.conversion</dmn:text>
+        </dmn:inputExpression>
+        <dmn:inputValues id="D10_values5">
+          <dmn:text>"CONFIRMED", "UNCONFIRMED"</dmn:text>
+        </dmn:inputValues>
+      </dmn:input>
+      <dmn:output id="D10_out" name="D10_result" label="판정 / 다음 처리" typeRef="string" />
+      <dmn:annotation name="근거·해석 범위" />
+      <dmn:rule id="D10_r1">
+        <dmn:description>S04 P066–069·P120–126 | </dmn:description>
+        <dmn:inputEntry id="D10_r1_i1">
+          <dmn:text>"WAITING"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r1_i2">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r1_i3">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r1_i4">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r1_i5">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D10_r1_o">
+          <dmn:text>"공식 성적 수신 대기"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>S04 P066–069·P120–126</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D10_r2">
+        <dmn:description>G10 | </dmn:description>
+        <dmn:inputEntry id="D10_r2_i1">
+          <dmn:text>"UNCONFIRMED", null</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r2_i2">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r2_i3">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r2_i4">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r2_i5">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D10_r2_o">
+          <dmn:text>"공식 성적 수신 미확정"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>G10</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D10_r3">
+        <dmn:description>W01 제11조·제13조 | 담당자가 사실과 적용 규정 확인. 소급 자동 승인 없음.</dmn:description>
+        <dmn:inputEntry id="D10_r3_i1">
+          <dmn:text>"RECEIVED"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r3_i2">
+          <dmn:text>"NOT_APPROVED"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r3_i3">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r3_i4">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r3_i5">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D10_r3_o">
+          <dmn:text>"미승인 과목 인정 불가 확인"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>W01 제11조·제13조 — 담당자가 사실과 적용 규정 확인. 소급 자동 승인 없음.</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D10_r4">
+        <dmn:description>W01 제10조; G02 | </dmn:description>
+        <dmn:inputEntry id="D10_r4_i1">
+          <dmn:text>"RECEIVED"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r4_i2">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r4_i3">
+          <dmn:text>"OVER"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r4_i4">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r4_i5">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D10_r4_o">
+          <dmn:text>"한도 초과 범위 담당확인"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>W01 제10조; G02</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D10_r5">
+        <dmn:description>W01 제13조; S03 K1 | 학과가 내린 결과이며 DMN의 내용 유사도 판단이 아님.</dmn:description>
+        <dmn:inputEntry id="D10_r5_i1">
+          <dmn:text>"RECEIVED"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r5_i2">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r5_i3">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r5_i4">
+          <dmn:text>"NOT_RECOGNIZED"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r5_i5">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D10_r5_o">
+          <dmn:text>"불인정 결과 기록"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>W01 제13조; S03 K1 — 학과가 내린 결과이며 DMN의 내용 유사도 판단이 아님.</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D10_r6">
+        <dmn:description>W02 4.가.2; W01 제13조 | </dmn:description>
+        <dmn:inputEntry id="D10_r6_i1">
+          <dmn:text>"RECEIVED"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r6_i2">
+          <dmn:text>"APPROVED_ORIGINAL", "APPROVED_CHANGE"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r6_i3">
+          <dmn:text>"WITHIN"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r6_i4">
+          <dmn:text>"MAJOR_ELECTIVE"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r6_i5">
+          <dmn:text>"CONFIRMED"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D10_r6_o">
+          <dmn:text>"전공선택 인정 결과 반영"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>W02 4.가.2; W01 제13조</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D10_r7">
+        <dmn:description>W02 4.가.2; W01 제13조 | </dmn:description>
+        <dmn:inputEntry id="D10_r7_i1">
+          <dmn:text>"RECEIVED"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r7_i2">
+          <dmn:text>"APPROVED_ORIGINAL", "APPROVED_CHANGE"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r7_i3">
+          <dmn:text>"WITHIN"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r7_i4">
+          <dmn:text>"GENERAL_ELECTIVE"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r7_i5">
+          <dmn:text>"CONFIRMED"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D10_r7_o">
+          <dmn:text>"일반선택 인정 결과 반영"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>W02 4.가.2; W01 제13조</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D10_r8">
+        <dmn:description>G03·G04·G10 | </dmn:description>
+        <dmn:inputEntry id="D10_r8_i1">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r8_i2">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r8_i3">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r8_i4">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r8_i5">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D10_r8_o">
+          <dmn:text>"반영 보류·판정 자료 미확정"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>G03·G04·G10</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+    </dmn:decisionTable>
+  </dmn:decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram id="DRD_CreditExchange" name="명시 기준 10개 / 독립 판정">
+      <dmndi:DMNShape id="Shape_D01" dmnElementRef="D01">
+        <dmndc:Bounds x="80" y="80" width="240" height="80" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="Shape_Input_D01" dmnElementRef="Input_D01">
+        <dmndc:Bounds x="80" y="235" width="240" height="60" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="Edge_D01" dmnElementRef="Req_D01">
+        <dmndiway:waypoint x="200" y="235" />
+        <dmndiway:waypoint x="200" y="160" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="Shape_D02" dmnElementRef="D02">
+        <dmndc:Bounds x="390" y="80" width="240" height="80" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="Shape_Input_D02" dmnElementRef="Input_D02">
+        <dmndc:Bounds x="390" y="235" width="240" height="60" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="Edge_D02" dmnElementRef="Req_D02">
+        <dmndiway:waypoint x="510" y="235" />
+        <dmndiway:waypoint x="510" y="160" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="Shape_D03" dmnElementRef="D03">
+        <dmndc:Bounds x="700" y="80" width="240" height="80" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="Shape_Input_D03" dmnElementRef="Input_D03">
+        <dmndc:Bounds x="700" y="235" width="240" height="60" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="Edge_D03" dmnElementRef="Req_D03">
+        <dmndiway:waypoint x="820" y="235" />
+        <dmndiway:waypoint x="820" y="160" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="Shape_D04" dmnElementRef="D04">
+        <dmndc:Bounds x="1010" y="80" width="240" height="80" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="Shape_Input_D04" dmnElementRef="Input_D04">
+        <dmndc:Bounds x="1010" y="235" width="240" height="60" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="Edge_D04" dmnElementRef="Req_D04">
+        <dmndiway:waypoint x="1130" y="235" />
+        <dmndiway:waypoint x="1130" y="160" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="Shape_D05" dmnElementRef="D05">
+        <dmndc:Bounds x="1320" y="80" width="240" height="80" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="Shape_Input_D05" dmnElementRef="Input_D05">
+        <dmndc:Bounds x="1320" y="235" width="240" height="60" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="Edge_D05" dmnElementRef="Req_D05">
+        <dmndiway:waypoint x="1440" y="235" />
+        <dmndiway:waypoint x="1440" y="160" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="Shape_D06" dmnElementRef="D06">
+        <dmndc:Bounds x="80" y="380" width="240" height="80" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="Shape_Input_D06" dmnElementRef="Input_D06">
+        <dmndc:Bounds x="80" y="535" width="240" height="60" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="Edge_D06" dmnElementRef="Req_D06">
+        <dmndiway:waypoint x="200" y="535" />
+        <dmndiway:waypoint x="200" y="460" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="Shape_D07" dmnElementRef="D07">
+        <dmndc:Bounds x="390" y="380" width="240" height="80" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="Shape_Input_D07" dmnElementRef="Input_D07">
+        <dmndc:Bounds x="390" y="535" width="240" height="60" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="Edge_D07" dmnElementRef="Req_D07">
+        <dmndiway:waypoint x="510" y="535" />
+        <dmndiway:waypoint x="510" y="460" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="Shape_D08" dmnElementRef="D08">
+        <dmndc:Bounds x="700" y="380" width="240" height="80" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="Shape_Input_D08" dmnElementRef="Input_D08">
+        <dmndc:Bounds x="700" y="535" width="240" height="60" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="Edge_D08" dmnElementRef="Req_D08">
+        <dmndiway:waypoint x="820" y="535" />
+        <dmndiway:waypoint x="820" y="460" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="Shape_D09" dmnElementRef="D09">
+        <dmndc:Bounds x="1010" y="380" width="240" height="80" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="Shape_Input_D09" dmnElementRef="Input_D09">
+        <dmndc:Bounds x="1010" y="535" width="240" height="60" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="Edge_D09" dmnElementRef="Req_D09">
+        <dmndiway:waypoint x="1130" y="535" />
+        <dmndiway:waypoint x="1130" y="460" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="Shape_D10" dmnElementRef="D10">
+        <dmndc:Bounds x="1320" y="380" width="240" height="80" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="Shape_Input_D10" dmnElementRef="Input_D10">
+        <dmndc:Bounds x="1320" y="535" width="240" height="60" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="Edge_D10" dmnElementRef="Req_D10">
+        <dmndiway:waypoint x="1440" y="535" />
+        <dmndiway:waypoint x="1440" y="460" />
+      </dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</dmn:definitions>

@@ -1,0 +1,707 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Defs_RE" targetNamespace="https://example.org/ssu-jeju/2026/asis" exporter="Camunda Modeler" exporterVersion="5.52.0">
+  <bpmn:collaboration id="RE_Collaboration" name="02 수강신청·납부·폐강">
+    <bpmn:documentation>As-Is 규정 모델. 02 수강신청·납부·폐강
+신청/변경은 승인 과목만, 선착순. 추가신청 이후 새 기간을 만들지 않으며 최종 폐강의 후속 처리는 담당확인한다.
+주황색은 담당자의 승인 또는 판단 단계. I번호 주석은 인터뷰 확인 사항. 참고 BPMN은 근거에서 제외.</bpmn:documentation>
+    <bpmn:participant id="RE_S" name="학생" processRef="RE_S_process" />
+    <bpmn:participant id="RE_J" name="교류대 · 제주대학교" processRef="RE_J_process" />
+    <bpmn:messageFlow id="RE_m1" name="수강신청" sourceRef="RE_s2" targetRef="RE_j0" />
+    <bpmn:messageFlow id="RE_m2" name="1차 폐강 공지" sourceRef="RE_j1" targetRef="RE_s3" />
+    <bpmn:messageFlow id="RE_m3" name="추가신청" sourceRef="RE_s5" targetRef="RE_j2" />
+    <bpmn:messageFlow id="RE_m4" name="납부고지서" sourceRef="RE_j3" targetRef="RE_s6" />
+    <bpmn:messageFlow id="RE_m5" name="납부 내역" sourceRef="RE_s6" targetRef="RE_j4" />
+    <bpmn:messageFlow id="RE_m6" name="미납 삭제 상태" sourceRef="RE_j6" targetRef="RE_s7" />
+    <bpmn:messageFlow id="RE_m7" name="최종 폐강 공지" sourceRef="RE_j9" targetRef="RE_s10" />
+    <bpmn:textAnnotation id="RE_s11_InterviewNote">
+      <bpmn:text>I10 · 인터뷰 확인
+최종 폐강되거나 수강할 과목을 확보하지 못하면 학생은 어떤
+ 절차를 밟나요? 일부 과목만 폐강된 경우 남은 과목은 계속 
+수강할 수 있나요?</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="RE_s9_InterviewNote">
+      <bpmn:text>I11 · 인터뷰 확인
+제주대에서 미납 삭제·폐강·과목 변경이 발생하면 숭실대에서
+는 어떤 절차로 이어지나요? 재승인, 일부 과목 취소, 교류 
+전체 취소는 어떤 기준으로 구분하나요?</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="RE_s9_InterviewNote_association" associationDirection="None" sourceRef="RE_s9" targetRef="RE_s9_InterviewNote" />
+    <bpmn:association id="RE_s11_InterviewNote_association" associationDirection="None" sourceRef="RE_s11" targetRef="RE_s11_InterviewNote" />
+  </bpmn:collaboration>
+  <bpmn:process id="RE_S_process" name="02 수강신청·납부·폐강 / 학생" isExecutable="false">
+    <bpmn:documentation>신청/변경은 승인 과목만, 선착순. 추가신청 이후 새 기간을 만들지 않으며 최종 폐강의 후속 처리는 담당확인한다. 문서 기반 서술 모델. 미확정 끝 이벤트는 확인된 절차의 범위를 나타낸다.</bpmn:documentation>
+    <bpmn:laneSet id="RE_S_lanes">
+      <bpmn:lane id="RE_S_lane0" name="선발자">
+        <bpmn:flowNodeRef>RE_s0</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>RE_s1</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>RE_s2</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>RE_s3</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>RE_s4</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>RE_s5</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>RE_s5g</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>RE_s6</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>RE_s8</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>RE_s9</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>RE_s15</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>RE_s10</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>RE_s11</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>RE_s16</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>RE_s14</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>RE_s12</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>RE_s7</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:startEvent id="RE_s0" name="선발·학번 확인됨">
+      <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
+      <bpmn:outgoing>RE_f1</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:userTask id="RE_s1" name="학번으로 로그인&#10;본인 휴대폰 비번 설정">
+      <bpmn:documentation>근거: S04 P025–027; S05 A23</bpmn:documentation>
+      <bpmn:incoming>RE_f1</bpmn:incoming>
+      <bpmn:outgoing>RE_f2</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="RE_s2" name="승인 과목 선착순 신청">
+      <bpmn:documentation>근거: W01 제11조; S04 P021–029
+sugang.jejunu.ac.kr. 6학점 이내. 제한 교과목은 D03. 수강 좌석을 보장하지 않음.</bpmn:documentation>
+      <bpmn:incoming>RE_f2</bpmn:incoming>
+      <bpmn:outgoing>RE_f3</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="RE_s3" name="1차 폐강 확인">
+      <bpmn:documentation>근거: S04 P030–033</bpmn:documentation>
+      <bpmn:incoming>RE_f3</bpmn:incoming>
+      <bpmn:outgoing>RE_f4</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="RE_s4" name="삭제·추가·변경 필요?" default="RE_f6">
+      <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
+      <bpmn:incoming>RE_f4</bpmn:incoming>
+      <bpmn:outgoing>RE_f5</bpmn:outgoing>
+      <bpmn:outgoing>RE_f6</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="RE_s5" name="승인 과목 추가신청">
+      <bpmn:documentation>근거: W01 제11조; W02 4.나.4; S04 P034–039
+5/28 10시–5/29 18시. 새 과목은 수강신청 전에 03의 재제출·승인 절차를 적용한다.</bpmn:documentation>
+      <bpmn:incoming>RE_f5</bpmn:incoming>
+      <bpmn:outgoing>RE_f7</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="RE_s5g" name="유효 등록 과목 있음?" default="RE_f10">
+      <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
+      <bpmn:incoming>RE_f6</bpmn:incoming>
+      <bpmn:incoming>RE_f7</bpmn:incoming>
+      <bpmn:outgoing>RE_f8</bpmn:outgoing>
+      <bpmn:outgoing>RE_f9</bpmn:outgoing>
+      <bpmn:outgoing>RE_f10</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="RE_s6" name="고지서 출력&#10;제주대에 직접 납부">
+      <bpmn:documentation>근거: S04 P070–097; W01 제14조
+DMN 참조: D06 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 현재 자동화 여부는 확인되지 않음)
+6/4 10시–6/9 17시. 창구는 은행 마감까지. NH 수납창구/가상계좌/전자금융. 포털 통합정보 등록관리에서 고지서 조회.</bpmn:documentation>
+      <bpmn:incoming>RE_f8</bpmn:incoming>
+      <bpmn:outgoing>RE_f11</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="RE_s8" name="납부 결과?" default="RE_f15">
+      <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
+      <bpmn:incoming>RE_f12</bpmn:incoming>
+      <bpmn:outgoing>RE_f13</bpmn:outgoing>
+      <bpmn:outgoing>RE_f14</bpmn:outgoing>
+      <bpmn:outgoing>RE_f15</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:endEvent id="RE_s9" name="기한 후 미납 삭제">
+      <bpmn:documentation>근거: S04 P043</bpmn:documentation>
+      <bpmn:incoming>RE_f13</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:endEvent id="RE_s15" name="납부·등록 결과 미확정">
+      <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
+      <bpmn:incoming>RE_f15</bpmn:incoming>
+      <bpmn:incoming>RE_f19</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:userTask id="RE_s10" name="최종 폐강 확인&#10;6/11 예정">
+      <bpmn:documentation>근거: S04 P045–047</bpmn:documentation>
+      <bpmn:incoming>RE_f14</bpmn:incoming>
+      <bpmn:outgoing>RE_f16</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="RE_s11" name="남은 유효 과목 있음?" default="RE_f19">
+      <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
+      <bpmn:incoming>RE_f16</bpmn:incoming>
+      <bpmn:outgoing>RE_f17</bpmn:outgoing>
+      <bpmn:outgoing>RE_f18</bpmn:outgoing>
+      <bpmn:outgoing>RE_f19</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:endEvent id="RE_s16" name="등록 결과 미확정">
+      <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
+      <bpmn:incoming>RE_f10</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:endEvent id="RE_s14" name="유효 등록 과목 없음&#10;후속 절차 미확정">
+      <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
+      <bpmn:incoming>RE_f9</bpmn:incoming>
+      <bpmn:incoming>RE_f18</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:endEvent id="RE_s12" name="유효 과목은 04 수학으로">
+      <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
+      <bpmn:incoming>RE_f17</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="RE_f1" sourceRef="RE_s0" targetRef="RE_s1" />
+    <bpmn:sequenceFlow id="RE_f2" sourceRef="RE_s1" targetRef="RE_s2" />
+    <bpmn:sequenceFlow id="RE_f3" sourceRef="RE_s2" targetRef="RE_s3" />
+    <bpmn:sequenceFlow id="RE_f4" sourceRef="RE_s3" targetRef="RE_s4" />
+    <bpmn:sequenceFlow id="RE_f5" name="필요" sourceRef="RE_s4" targetRef="RE_s5">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">필요</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="RE_f6" name="불필요" sourceRef="RE_s4" targetRef="RE_s5g" />
+    <bpmn:sequenceFlow id="RE_f7" sourceRef="RE_s5" targetRef="RE_s5g" />
+    <bpmn:sequenceFlow id="RE_f8" name="있음" sourceRef="RE_s5g" targetRef="RE_s6">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">있음</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="RE_f9" name="없음" sourceRef="RE_s5g" targetRef="RE_s14">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">없음</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="RE_f10" name="미확정" sourceRef="RE_s5g" targetRef="RE_s16" />
+    <bpmn:sequenceFlow id="RE_f11" sourceRef="RE_s6" targetRef="RE_s7" />
+    <bpmn:sequenceFlow id="RE_f12" sourceRef="RE_s7" targetRef="RE_s8" />
+    <bpmn:sequenceFlow id="RE_f13" name="기한 경과·미납 확정" sourceRef="RE_s8" targetRef="RE_s9">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">기한 경과·미납 확정</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="RE_f14" name="납부 확인" sourceRef="RE_s8" targetRef="RE_s10">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">납부 확인</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="RE_f15" name="미확정" sourceRef="RE_s8" targetRef="RE_s15" />
+    <bpmn:sequenceFlow id="RE_f19" name="미확정" sourceRef="RE_s11" targetRef="RE_s15" />
+    <bpmn:sequenceFlow id="RE_f16" sourceRef="RE_s10" targetRef="RE_s11" />
+    <bpmn:sequenceFlow id="RE_f17" name="있음" sourceRef="RE_s11" targetRef="RE_s12">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">있음</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="RE_f18" name="없음" sourceRef="RE_s11" targetRef="RE_s14">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">없음</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:userTask id="RE_s7" name="납부·등록 결과 확인">
+      <bpmn:documentation>근거: S04 P043</bpmn:documentation>
+      <bpmn:incoming>RE_f11</bpmn:incoming>
+      <bpmn:outgoing>RE_f12</bpmn:outgoing>
+    </bpmn:userTask>
+  </bpmn:process>
+  <bpmn:process id="RE_J_process" name="02 수강신청·납부·폐강 / 교류대 · 제주대학교" isExecutable="false">
+    <bpmn:documentation>신청/변경은 승인 과목만, 선착순. 추가신청 이후 새 기간을 만들지 않으며 최종 폐강의 후속 처리는 담당확인한다. 문서 기반 서술 모델. 미확정 끝 이벤트는 확인된 절차의 범위를 나타낸다.</bpmn:documentation>
+    <bpmn:laneSet id="RE_J_lanes">
+      <bpmn:lane id="RE_J_lane1" name="수강료 담당">
+        <bpmn:flowNodeRef>RE_j3</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>RE_j4</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>RE_j5</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>RE_j6</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>RE_j7</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>RE_j8</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="RE_J_lane0" name="교육혁신과·수강 담당">
+        <bpmn:flowNodeRef>RE_j0</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>RE_j1</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>RE_j2</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>RE_j2g</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>RE_j11</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>RE_j9</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>RE_j10</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:startEvent id="RE_j0" name="선발자 신청">
+      <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
+      <bpmn:outgoing>RE_f20</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="RE_j0_message" />
+    </bpmn:startEvent>
+    <bpmn:userTask id="RE_j1" name="선착순 등록·제한 확인&#10;1차 폐강 공고">
+      <bpmn:documentation>근거: S04 P021–033</bpmn:documentation>
+      <bpmn:incoming>RE_f20</bpmn:incoming>
+      <bpmn:outgoing>RE_f21</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="RE_j2" name="추가신청 기간 운영">
+      <bpmn:documentation>근거: S04 P034–039</bpmn:documentation>
+      <bpmn:incoming>RE_f21</bpmn:incoming>
+      <bpmn:outgoing>RE_f22</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="RE_j2g" name="유효 수강 과목 있음?" default="RE_f24">
+      <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
+      <bpmn:incoming>RE_f22</bpmn:incoming>
+      <bpmn:outgoing>RE_f23</bpmn:outgoing>
+      <bpmn:outgoing>RE_f24</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:endEvent id="RE_j11" name="유효 등록 없음·미확정">
+      <bpmn:documentation>근거: S04 P021–039</bpmn:documentation>
+      <bpmn:incoming>RE_f24</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:userTask id="RE_j3" name="강좌별 수강료 고지">
+      <bpmn:documentation>근거: S04 P071–097
+DMN 참조: D06 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 현재 자동화 여부는 확인되지 않음)
+강좌 분류와 청구 시수는 공식 고지서에서 확인한다.</bpmn:documentation>
+      <bpmn:incoming>RE_f23</bpmn:incoming>
+      <bpmn:outgoing>RE_f25</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:businessRuleTask id="RE_j4" name="납부 사실·기한 확인">
+      <bpmn:documentation>근거: S04 P043·P071
+DMN 참조: D07 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 현재 자동화 여부는 확인되지 않음)</bpmn:documentation>
+      <bpmn:incoming>RE_f25</bpmn:incoming>
+      <bpmn:outgoing>RE_f26</bpmn:outgoing>
+    </bpmn:businessRuleTask>
+    <bpmn:exclusiveGateway id="RE_j5" name="납부 판정?" default="RE_f29">
+      <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
+      <bpmn:incoming>RE_f26</bpmn:incoming>
+      <bpmn:outgoing>RE_f27</bpmn:outgoing>
+      <bpmn:outgoing>RE_f29</bpmn:outgoing>
+      <bpmn:outgoing>RE_f30</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="RE_j6" name="수강포기 간주&#10;등록 삭제">
+      <bpmn:documentation>근거: S04 P043</bpmn:documentation>
+      <bpmn:incoming>RE_f27</bpmn:incoming>
+      <bpmn:outgoing>RE_f28</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:endEvent id="RE_j7" name="미납 삭제">
+      <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
+      <bpmn:incoming>RE_f28</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:endEvent id="RE_j8" name="납부 결과 대기·미확정">
+      <bpmn:documentation>근거: S04 P071–074</bpmn:documentation>
+      <bpmn:incoming>RE_f29</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:userTask id="RE_j9" name="최종 폐강 공고">
+      <bpmn:documentation>근거: S04 P045–047</bpmn:documentation>
+      <bpmn:incoming>RE_f30</bpmn:incoming>
+      <bpmn:outgoing>RE_f31</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:endEvent id="RE_j10" name="등록·폐강 결과 확정">
+      <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
+      <bpmn:incoming>RE_f31</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="RE_f20" sourceRef="RE_j0" targetRef="RE_j1" />
+    <bpmn:sequenceFlow id="RE_f21" sourceRef="RE_j1" targetRef="RE_j2" />
+    <bpmn:sequenceFlow id="RE_f22" sourceRef="RE_j2" targetRef="RE_j2g" />
+    <bpmn:sequenceFlow id="RE_f23" name="있음" sourceRef="RE_j2g" targetRef="RE_j3">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">있음</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="RE_f24" name="없음·미확정" sourceRef="RE_j2g" targetRef="RE_j11" />
+    <bpmn:sequenceFlow id="RE_f25" sourceRef="RE_j3" targetRef="RE_j4" />
+    <bpmn:sequenceFlow id="RE_f26" sourceRef="RE_j4" targetRef="RE_j5" />
+    <bpmn:sequenceFlow id="RE_f27" name="기한 경과·미납" sourceRef="RE_j5" targetRef="RE_j6">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">기한 경과·미납</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="RE_f29" name="미확인·납부기간 중" sourceRef="RE_j5" targetRef="RE_j8" />
+    <bpmn:sequenceFlow id="RE_f30" name="기한 내 납부" sourceRef="RE_j5" targetRef="RE_j9">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">기한 내 납부</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="RE_f28" sourceRef="RE_j6" targetRef="RE_j7" />
+    <bpmn:sequenceFlow id="RE_f31" sourceRef="RE_j9" targetRef="RE_j10" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="RE_Diagram" name="02 수강신청·납부·폐강">
+    <bpmndi:BPMNPlane id="RE_Plane" bpmnElement="RE_Collaboration">
+      <bpmndi:BPMNShape id="RE_S_di" bpmnElement="RE_S" isHorizontal="true" bioc:stroke="#475569" bioc:fill="#ffffff">
+        <dc:Bounds x="150" y="240" width="3886" height="400" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="RE_S_lane0_di" bpmnElement="RE_S_lane0" isHorizontal="true">
+        <dc:Bounds x="180" y="240" width="3856" height="400" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="RE_s0_di" bpmnElement="RE_s0">
+        <dc:Bounds x="330" y="303" width="34" height="34" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="308" y="346" width="78" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="RE_s1_di" bpmnElement="RE_s1" bioc:stroke="#334155" bioc:fill="#ffffff">
+        <dc:Bounds x="486" y="282" width="174" height="76" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="RE_s2_di" bpmnElement="RE_s2" bioc:stroke="#334155" bioc:fill="#ffffff">
+        <dc:Bounds x="712" y="282" width="174" height="76" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="RE_s3_di" bpmnElement="RE_s3" bioc:stroke="#334155" bioc:fill="#ffffff">
+        <dc:Bounds x="938" y="282" width="174" height="76" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="RE_s4_di" bpmnElement="RE_s4" isMarkerVisible="true">
+        <dc:Bounds x="1229" y="298" width="44" height="44" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1202" y="351" width="98" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="RE_s5_di" bpmnElement="RE_s5" bioc:stroke="#334155" bioc:fill="#ffffff">
+        <dc:Bounds x="1390" y="282" width="174" height="76" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="RE_s5g_di" bpmnElement="RE_s5g" isMarkerVisible="true">
+        <dc:Bounds x="1681" y="298" width="44" height="44" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1681" y="274" width="97" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="RE_s6_di" bpmnElement="RE_s6" bioc:stroke="#334155" bioc:fill="#e8f2ff">
+        <dc:Bounds x="1842" y="282" width="174" height="76" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="RE_s7_di" bpmnElement="RE_s7" bioc:stroke="#334155" bioc:fill="#ffffff">
+        <dc:Bounds x="2068" y="282" width="174" height="76" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="RE_s8_di" bpmnElement="RE_s8" isMarkerVisible="true">
+        <dc:Bounds x="2359" y="298" width="44" height="44" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2356" y="351" width="50" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="RE_s9_di" bpmnElement="RE_s9">
+        <dc:Bounds x="2590" y="418" width="34" height="34" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2567" y="461" width="81" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="RE_s15_di" bpmnElement="RE_s15">
+        <dc:Bounds x="2590" y="553" width="34" height="34" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2557" y="596" width="101" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="RE_s10_di" bpmnElement="RE_s10" bioc:stroke="#334155" bioc:fill="#ffffff">
+        <dc:Bounds x="2520" y="282" width="174" height="76" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="RE_s11_di" bpmnElement="RE_s11" isMarkerVisible="true">
+        <dc:Bounds x="3231" y="298" width="44" height="44" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3204" y="274" width="97" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="RE_s16_di" bpmnElement="RE_s16">
+        <dc:Bounds x="1912" y="468" width="34" height="34" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1891" y="511" width="77" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="RE_s14_di" bpmnElement="RE_s14">
+        <dc:Bounds x="3753" y="393" width="34" height="34" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3725" y="436" width="91" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="RE_s12_di" bpmnElement="RE_s12">
+        <dc:Bounds x="3853" y="292" width="34" height="34" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3814" y="347" width="113" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="RE_f1_di" bpmnElement="RE_f1" bioc:stroke="#596575">
+        <di:waypoint x="364" y="320" />
+        <di:waypoint x="486" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="RE_f2_di" bpmnElement="RE_f2" bioc:stroke="#596575">
+        <di:waypoint x="660" y="320" />
+        <di:waypoint x="712" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="RE_f3_di" bpmnElement="RE_f3" bioc:stroke="#596575">
+        <di:waypoint x="886" y="320" />
+        <di:waypoint x="938" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="RE_f4_di" bpmnElement="RE_f4" bioc:stroke="#596575">
+        <di:waypoint x="1112" y="320" />
+        <di:waypoint x="1229" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="RE_f5_di" bpmnElement="RE_f5" bioc:stroke="#596575">
+        <di:waypoint x="1273" y="320" />
+        <di:waypoint x="1390" y="320" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1298" y="252" width="21" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="RE_f6_di" bpmnElement="RE_f6" bioc:stroke="#596575">
+        <di:waypoint x="1251" y="298" />
+        <di:waypoint x="1251" y="264" />
+        <di:waypoint x="1667" y="264" />
+        <di:waypoint x="1667" y="312.66666666666663" />
+        <di:waypoint x="1688" y="313" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1444" y="227" width="31" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="RE_f7_di" bpmnElement="RE_f7" bioc:stroke="#596575">
+        <di:waypoint x="1564" y="327" />
+        <di:waypoint x="1688" y="327" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="RE_f8_di" bpmnElement="RE_f8" bioc:stroke="#596575">
+        <di:waypoint x="1705" y="300" />
+        <di:waypoint x="1842" y="300" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1837.9999999999998" y="243" width="21" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="RE_f9_di" bpmnElement="RE_f9" bioc:stroke="#596575">
+        <di:waypoint x="1720" y="325" />
+        <di:waypoint x="1720" y="420" />
+        <di:waypoint x="3750" y="420" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1812" y="390" width="21" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="RE_f10_di" bpmnElement="RE_f10" bioc:stroke="#596575">
+        <di:waypoint x="1703" y="342" />
+        <di:waypoint x="1703" y="485" />
+        <di:waypoint x="1912" y="485" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1764" y="393" width="31" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="RE_f11_di" bpmnElement="RE_f11" bioc:stroke="#596575">
+        <di:waypoint x="2016" y="320" />
+        <di:waypoint x="2068" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="RE_f12_di" bpmnElement="RE_f12" bioc:stroke="#596575">
+        <di:waypoint x="2242" y="320" />
+        <di:waypoint x="2359" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="RE_f13_di" bpmnElement="RE_f13" bioc:stroke="#596575">
+        <di:waypoint x="2392" y="309" />
+        <di:waypoint x="2502" y="309" />
+        <di:waypoint x="2502" y="435" />
+        <di:waypoint x="2590" y="435" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2404" y="313" width="91" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="RE_f14_di" bpmnElement="RE_f14" bioc:stroke="#596575">
+        <di:waypoint x="2383" y="300" />
+        <di:waypoint x="2520" y="300" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2418" y="283" width="44" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="RE_f15_di" bpmnElement="RE_f15" bioc:stroke="#596575">
+        <di:waypoint x="2392" y="331" />
+        <di:waypoint x="2459" y="331" />
+        <di:waypoint x="2459" y="570" />
+        <di:waypoint x="2590" y="570" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2377" y="436" width="31" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="RE_f19_di" bpmnElement="RE_f19" bioc:stroke="#596575">
+        <di:waypoint x="3253" y="342" />
+        <di:waypoint x="3253" y="570" />
+        <di:waypoint x="2624" y="570" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3305" y="442" width="31" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="RE_f16_di" bpmnElement="RE_f16" bioc:stroke="#596575">
+        <di:waypoint x="2694" y="320" />
+        <di:waypoint x="3231" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="RE_f17_di" bpmnElement="RE_f17" bioc:stroke="#596575">
+        <di:waypoint x="3264" y="309" />
+        <di:waypoint x="3853" y="309" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3860.000000000001" y="335" width="21" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="RE_f18_di" bpmnElement="RE_f18" bioc:stroke="#596575">
+        <di:waypoint x="3275" y="320" />
+        <di:waypoint x="3690" y="320" />
+        <di:waypoint x="3690" y="400" />
+        <di:waypoint x="3750" y="400" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3699" y="383" width="21" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="RE_J_di" bpmnElement="RE_J" isHorizontal="true" bioc:stroke="#475569" bioc:fill="#ffffff">
+        <dc:Bounds x="150" y="685" width="3886" height="520" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="RE_J_lane1_di" bpmnElement="RE_J_lane1" isHorizontal="true">
+        <dc:Bounds x="180" y="945" width="3856" height="260" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="RE_J_lane0_di" bpmnElement="RE_J_lane0" isHorizontal="true">
+        <dc:Bounds x="180" y="685" width="3856" height="260" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="RE_j0_di" bpmnElement="RE_j0">
+        <dc:Bounds x="782" y="748" width="34" height="34" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="772" y="791" width="54" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="RE_j1_di" bpmnElement="RE_j1" bioc:stroke="#334155" bioc:fill="#ffffff">
+        <dc:Bounds x="938" y="727" width="174" height="76" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="RE_j2_di" bpmnElement="RE_j2" bioc:stroke="#334155" bioc:fill="#ffffff">
+        <dc:Bounds x="1390" y="727" width="174" height="76" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="RE_j2g_di" bpmnElement="RE_j2g" isMarkerVisible="true">
+        <dc:Bounds x="1681" y="743" width="44" height="44" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1654" y="719" width="97" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="RE_j11_di" bpmnElement="RE_j11">
+        <dc:Bounds x="1912" y="748" width="34" height="34" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1879" y="791" width="101" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="RE_j3_di" bpmnElement="RE_j3" bioc:stroke="#334155" bioc:fill="#e8f2ff">
+        <dc:Bounds x="1842" y="987" width="174" height="76" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="RE_j4_di" bpmnElement="RE_j4" bioc:stroke="#334155" bioc:fill="#e8f2ff">
+        <dc:Bounds x="2068" y="987" width="174" height="76" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="RE_j5_di" bpmnElement="RE_j5" isMarkerVisible="true">
+        <dc:Bounds x="2359" y="1003" width="44" height="44" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2315" y="1043" width="50" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="RE_j6_di" bpmnElement="RE_j6" bioc:stroke="#334155" bioc:fill="#ffffff">
+        <dc:Bounds x="2520" y="987" width="174" height="76" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="RE_j7_di" bpmnElement="RE_j7">
+        <dc:Bounds x="3236" y="1008" width="34" height="34" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3231" y="1051" width="44" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="RE_j8_di" bpmnElement="RE_j8">
+        <dc:Bounds x="2590" y="1113" width="34" height="34" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2557" y="1156" width="101" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="RE_j9_di" bpmnElement="RE_j9" bioc:stroke="#334155" bioc:fill="#ffffff">
+        <dc:Bounds x="2520" y="727" width="174" height="76" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="RE_j10_di" bpmnElement="RE_j10">
+        <dc:Bounds x="3236" y="748" width="34" height="34" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3208" y="791" width="91" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="RE_f20_di" bpmnElement="RE_f20" bioc:stroke="#596575">
+        <di:waypoint x="816" y="765" />
+        <di:waypoint x="938" y="765" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="RE_f21_di" bpmnElement="RE_f21" bioc:stroke="#596575">
+        <di:waypoint x="1112" y="765" />
+        <di:waypoint x="1390" y="765" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="RE_f22_di" bpmnElement="RE_f22" bioc:stroke="#596575">
+        <di:waypoint x="1564" y="765" />
+        <di:waypoint x="1681" y="765" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="RE_f23_di" bpmnElement="RE_f23" bioc:stroke="#596575">
+        <di:waypoint x="1703" y="790" />
+        <di:waypoint x="1703" y="1025" />
+        <di:waypoint x="1842" y="1025" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1709" y="894" width="21" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="RE_f24_di" bpmnElement="RE_f24" bioc:stroke="#596575">
+        <di:waypoint x="1725" y="765" />
+        <di:waypoint x="1912" y="765" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1792" y="728" width="55" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="RE_f25_di" bpmnElement="RE_f25" bioc:stroke="#596575">
+        <di:waypoint x="2016" y="1025" />
+        <di:waypoint x="2068" y="1025" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="RE_f26_di" bpmnElement="RE_f26" bioc:stroke="#596575">
+        <di:waypoint x="2242" y="1025" />
+        <di:waypoint x="2359" y="1025" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="RE_f27_di" bpmnElement="RE_f27" bioc:stroke="#596575">
+        <di:waypoint x="2403" y="1025" />
+        <di:waypoint x="2520" y="1025" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2426" y="1003" width="68" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="RE_f29_di" bpmnElement="RE_f29" bioc:stroke="#596575">
+        <di:waypoint x="2381" y="1047" />
+        <di:waypoint x="2381" y="1130" />
+        <di:waypoint x="2590" y="1130" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2416" y="1113" width="88" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="RE_f30_di" bpmnElement="RE_f30" bioc:stroke="#596575">
+        <di:waypoint x="2381" y="1003" />
+        <di:waypoint x="2381" y="765" />
+        <di:waypoint x="2520" y="765" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2381" y="853" width="57" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="RE_f28_di" bpmnElement="RE_f28" bioc:stroke="#596575">
+        <di:waypoint x="2694" y="1025" />
+        <di:waypoint x="3236" y="1025" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="RE_f31_di" bpmnElement="RE_f31" bioc:stroke="#596575">
+        <di:waypoint x="2694" y="765" />
+        <di:waypoint x="3236" y="765" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="RE_s11_InterviewNote_association_di" bpmnElement="RE_s11_InterviewNote_association" bioc:stroke="#514286">
+        <di:waypoint x="3259" y="304" />
+        <di:waypoint x="3401" y="192" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="RE_s9_InterviewNote_association_di" bpmnElement="RE_s9_InterviewNote_association" bioc:stroke="#514286">
+        <di:waypoint x="2624" y="436" />
+        <di:waypoint x="2700" y="439" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="RE_s11_InterviewNote_di" bpmnElement="RE_s11_InterviewNote" bioc:stroke="#514286">
+        <dc:Bounds x="3340" y="80" width="378" height="112" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="RE_m1_di" bpmnElement="RE_m1">
+        <di:waypoint x="799" y="360" />
+        <di:waypoint x="799" y="748" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="846" y="539" width="41" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="RE_m2_di" bpmnElement="RE_m2">
+        <di:waypoint x="1025" y="727" />
+        <di:waypoint x="1025" y="360" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1061" y="529" width="63" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="RE_m3_di" bpmnElement="RE_m3" bioc:stroke="#4476a5">
+        <di:waypoint x="1477" y="360" />
+        <di:waypoint x="1477" y="727" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1524" y="529" width="41" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="RE_m4_di" bpmnElement="RE_m4">
+        <di:waypoint x="1980" y="987" />
+        <di:waypoint x="1980" y="358" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1924" y="658" width="51" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="RE_m5_di" bpmnElement="RE_m5">
+        <di:waypoint x="2010" y="357" />
+        <di:waypoint x="2010" y="673" />
+        <di:waypoint x="2155" y="673" />
+        <di:waypoint x="2155" y="987" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2071" y="658" width="44" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="RE_m6_di" bpmnElement="RE_m6">
+        <di:waypoint x="2607" y="987" />
+        <di:waypoint x="2607" y="920" />
+        <di:waypoint x="2230" y="920" />
+        <di:waypoint x="2230" y="360" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2386" y="903" width="67" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="RE_m7_di" bpmnElement="RE_m7">
+        <di:waypoint x="2650" y="720" />
+        <di:waypoint x="2650" y="358" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2656" y="658" width="67" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="RE_s9_InterviewNote_di" bpmnElement="RE_s9_InterviewNote" bioc:stroke="#514286">
+        <dc:Bounds x="2700" y="430" width="378" height="112" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
