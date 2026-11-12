@@ -75,8 +75,8 @@
       <bpmn:lane id="CA_H_lane1" name="학사팀·교무처장">
         <bpmn:flowNodeRef>CA_h3</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>CA_h4</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>CA_h6</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>CA_h7</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>CA_h6</bpmn:flowNodeRef>
       </bpmn:lane>
       <bpmn:lane id="CA_H_lane0" name="학과·학과장">
         <bpmn:flowNodeRef>CA_h0</bpmn:flowNodeRef>
@@ -106,10 +106,6 @@
       <bpmn:incoming>CA_f8</bpmn:incoming>
       <bpmn:outgoing>CA_f10</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:endEvent id="CA_h6" name="취소 공문 송부">
-      <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
-      <bpmn:incoming>CA_f10</bpmn:incoming>
-    </bpmn:endEvent>
     <bpmn:endEvent id="CA_h7" name="공문 미처리·미확정">
       <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
       <bpmn:incoming>CA_f9</bpmn:incoming>
@@ -120,6 +116,10 @@
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">충족</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="CA_f9" name="미충족·미확정" sourceRef="CA_h3" targetRef="CA_h7" />
+    <bpmn:endEvent id="CA_h6" name="취소 공문 송부">
+      <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
+      <bpmn:incoming>CA_f10</bpmn:incoming>
+    </bpmn:endEvent>
     <bpmn:sequenceFlow id="CA_f10" sourceRef="CA_h4" targetRef="CA_h6" />
   </bpmn:process>
   <bpmn:process id="CA_J_process" name="05 교류 취소·수강료 환불 / 교류대 · 제주대학교" isExecutable="false">
@@ -213,9 +213,6 @@ DMN 참조: D08 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 
           <dc:Bounds x="314" y="186" width="67" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="CA_s1_di" bpmnElement="CA_s1" bioc:stroke="#334155" bioc:fill="#ffffff">
-        <dc:Bounds x="712" y="122" width="174" height="76" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="CA_s4_di" bpmnElement="CA_s4" bioc:stroke="#334155" bioc:fill="#ffffff">
         <dc:Bounds x="2488" y="122" width="174" height="76" />
       </bpmndi:BPMNShape>
@@ -236,6 +233,9 @@ DMN 참조: D08 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 
         <bpmndi:BPMNLabel>
           <dc:Bounds x="3011" y="311" width="78" height="14" />
         </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="CA_s1_di" bpmnElement="CA_s1" bioc:stroke="#334155" bioc:fill="#ffffff">
+        <dc:Bounds x="712" y="122" width="174" height="76" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="CA_f1_di" bpmnElement="CA_f1" bioc:stroke="#596575">
         <di:waypoint x="364" y="160" />
@@ -267,11 +267,11 @@ DMN 참조: D08 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 
       <bpmndi:BPMNShape id="CA_H_di" bpmnElement="CA_H" isHorizontal="true" bioc:stroke="#475569" bioc:fill="#ffffff">
         <dc:Bounds x="150" y="425" width="3014" height="480" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="CA_H_lane1_di" bpmnElement="CA_H_lane1" isHorizontal="true">
-        <dc:Bounds x="180" y="665" width="2984" height="240" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="CA_H_lane0_di" bpmnElement="CA_H_lane0" isHorizontal="true">
         <dc:Bounds x="180" y="425" width="2984" height="240" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="CA_H_lane1_di" bpmnElement="CA_H_lane1" isHorizontal="true">
+        <dc:Bounds x="180" y="665" width="2984" height="240" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="CA_h0_di" bpmnElement="CA_h0">
         <dc:Bounds x="782" y="488" width="34" height="34" />
@@ -282,22 +282,22 @@ DMN 참조: D08 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 
       <bpmndi:BPMNShape id="CA_h1_di" bpmnElement="CA_h1" bioc:stroke="#9a5b00" bioc:fill="#fff1d6">
         <dc:Bounds x="938" y="467" width="174" height="76" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="CA_h3_di" bpmnElement="CA_h3" isMarkerVisible="true" bioc:stroke="#334155" bioc:fill="#f3f7fa">
+      <bpmndi:BPMNShape id="CA_h3_di" bpmnElement="CA_h3" isMarkerVisible="true">
         <dc:Bounds x="1455" y="723" width="44" height="44" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1429" y="776" width="97" height="14" />
+          <dc:Bounds x="1428" y="699" width="97" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="CA_h4_di" bpmnElement="CA_h4" bioc:stroke="#334155" bioc:fill="#ffffff">
         <dc:Bounds x="1616" y="707" width="174" height="76" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="CA_h6_di" bpmnElement="CA_h6" bioc:stroke="#334155" bioc:fill="#f3f7fa">
+      <bpmndi:BPMNShape id="CA_h6_di" bpmnElement="CA_h6">
         <dc:Bounds x="1912" y="728" width="34" height="34" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="1896" y="771" width="67" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="CA_h7_di" bpmnElement="CA_h7" bioc:stroke="#334155" bioc:fill="#f3f7fa">
+      <bpmndi:BPMNShape id="CA_h7_di" bpmnElement="CA_h7">
         <dc:Bounds x="1686" y="828" width="34" height="34" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="1659" y="871" width="88" height="14" />
@@ -321,12 +321,11 @@ DMN 참조: D08 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="CA_f9_di" bpmnElement="CA_f9" bioc:stroke="#596575">
-        <di:waypoint x="1499" y="745" />
-        <di:waypoint x="1598" y="745" />
-        <di:waypoint x="1598" y="845" />
+        <di:waypoint x="1477" y="767" />
+        <di:waypoint x="1477" y="845" />
         <di:waypoint x="1686" y="845" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1617" y="789" width="65" height="14" />
+          <dc:Bounds x="1568" y="789" width="65" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="CA_f10_di" bpmnElement="CA_f10" bioc:stroke="#596575">
@@ -439,10 +438,6 @@ DMN 참조: D08 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 
         <di:waypoint x="2770" y="1030" />
         <di:waypoint x="2784" y="1030" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="CA_j5_InterviewNote_association_di" bpmnElement="CA_j5_InterviewNote_association" bioc:stroke="#514286">
-        <di:waypoint x="2016" y="1008" />
-        <di:waypoint x="2110" y="1008" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="CA_j5_InterviewNote_di" bpmnElement="CA_j5_InterviewNote" bioc:stroke="#514286">
         <dc:Bounds x="2110" y="992" width="378" height="112" />
       </bpmndi:BPMNShape>
@@ -464,6 +459,14 @@ DMN 참조: D08 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 
           <dc:Bounds x="713" y="311" width="74" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="CA_m3_di" bpmnElement="CA_m3">
+        <di:waypoint x="1760" y="783" />
+        <di:waypoint x="1760" y="1000" />
+        <di:waypoint x="1840" y="1000" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1761" y="923" width="67" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="CA_m4_di" bpmnElement="CA_m4">
         <di:waypoint x="1980" y="992" />
         <di:waypoint x="1980" y="595" />
@@ -473,13 +476,9 @@ DMN 참조: D08 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 
           <dc:Bounds x="2249" y="573" width="67" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="CA_m3_di" bpmnElement="CA_m3">
-        <di:waypoint x="1760" y="783" />
-        <di:waypoint x="1760" y="1000" />
-        <di:waypoint x="1840" y="1000" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="1761" y="923" width="67" height="14" />
-        </bpmndi:BPMNLabel>
+      <bpmndi:BPMNEdge id="CA_j5_InterviewNote_association_di" bpmnElement="CA_j5_InterviewNote_association" bioc:stroke="#514286">
+        <di:waypoint x="2016" y="1008" />
+        <di:waypoint x="2110" y="1008" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

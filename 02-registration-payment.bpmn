@@ -25,7 +25,6 @@
 는 어떤 절차로 이어지나요? 재승인, 일부 과목 취소, 교류 
 전체 취소는 어떤 기준으로 구분하나요?</bpmn:text>
     </bpmn:textAnnotation>
-    <bpmn:association id="RE_s9_InterviewNote_association" associationDirection="None" sourceRef="RE_s9" targetRef="RE_s9_InterviewNote" />
     <bpmn:association id="RE_s11_InterviewNote_association" associationDirection="None" sourceRef="RE_s11" targetRef="RE_s11_InterviewNote" />
   </bpmn:collaboration>
   <bpmn:process id="RE_S_process" name="02 수강신청·납부·폐강 / 학생" isExecutable="false">
@@ -41,7 +40,6 @@
         <bpmn:flowNodeRef>RE_s5g</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>RE_s6</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>RE_s8</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>RE_s9</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>RE_s15</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>RE_s10</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>RE_s11</bpmn:flowNodeRef>
@@ -49,6 +47,7 @@
         <bpmn:flowNodeRef>RE_s14</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>RE_s12</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>RE_s7</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>RE_s9</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
     <bpmn:startEvent id="RE_s0" name="선발·학번 확인됨">
@@ -105,10 +104,6 @@ DMN 참조: D06 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 
       <bpmn:outgoing>RE_f14</bpmn:outgoing>
       <bpmn:outgoing>RE_f15</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:endEvent id="RE_s9" name="기한 후 미납 삭제">
-      <bpmn:documentation>근거: S04 P043</bpmn:documentation>
-      <bpmn:incoming>RE_f13</bpmn:incoming>
-    </bpmn:endEvent>
     <bpmn:endEvent id="RE_s15" name="납부·등록 결과 미확정">
       <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
       <bpmn:incoming>RE_f15</bpmn:incoming>
@@ -177,6 +172,11 @@ DMN 참조: D06 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 
       <bpmn:incoming>RE_f11</bpmn:incoming>
       <bpmn:outgoing>RE_f12</bpmn:outgoing>
     </bpmn:userTask>
+    <bpmn:endEvent id="RE_s9" name="기한 후 미납 삭제">
+      <bpmn:documentation>근거: S04 P043</bpmn:documentation>
+      <bpmn:incoming>RE_f13</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:association id="RE_s9_InterviewNote_association" associationDirection="None" sourceRef="RE_s9" targetRef="RE_s9_InterviewNote" />
   </bpmn:process>
   <bpmn:process id="RE_J_process" name="02 수강신청·납부·폐강 / 교류대 · 제주대학교" isExecutable="false">
     <bpmn:documentation>신청/변경은 승인 과목만, 선착순. 추가신청 이후 새 기간을 만들지 않으며 최종 폐강의 후속 처리는 담당확인한다. 문서 기반 서술 모델. 미확정 끝 이벤트는 확인된 절차의 범위를 나타낸다.</bpmn:documentation>
@@ -329,19 +329,10 @@ DMN 참조: D07 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 
       <bpmndi:BPMNShape id="RE_s6_di" bpmnElement="RE_s6" bioc:stroke="#334155" bioc:fill="#e8f2ff">
         <dc:Bounds x="1842" y="282" width="174" height="76" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="RE_s7_di" bpmnElement="RE_s7" bioc:stroke="#334155" bioc:fill="#ffffff">
-        <dc:Bounds x="2068" y="282" width="174" height="76" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="RE_s8_di" bpmnElement="RE_s8" isMarkerVisible="true">
         <dc:Bounds x="2359" y="298" width="44" height="44" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="2356" y="351" width="50" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="RE_s9_di" bpmnElement="RE_s9">
-        <dc:Bounds x="2590" y="418" width="34" height="34" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="2567" y="461" width="81" height="14" />
+          <dc:Bounds x="2356" y="274" width="50" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="RE_s15_di" bpmnElement="RE_s15">
@@ -377,6 +368,19 @@ DMN 참조: D07 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 
           <dc:Bounds x="3814" y="347" width="113" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="RE_s7_di" bpmnElement="RE_s7" bioc:stroke="#334155" bioc:fill="#ffffff">
+        <dc:Bounds x="2068" y="282" width="174" height="76" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="RE_s9_di" bpmnElement="RE_s9">
+        <dc:Bounds x="2590" y="443" width="34" height="34" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2567" y="486" width="81" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="RE_s9_InterviewNote_association_di" bpmnElement="RE_s9_InterviewNote_association" bioc:stroke="#514286">
+        <di:waypoint x="2624" y="459" />
+        <di:waypoint x="2700" y="455" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="RE_f1_di" bpmnElement="RE_f1" bioc:stroke="#596575">
         <di:waypoint x="364" y="320" />
         <di:waypoint x="486" y="320" />
@@ -446,12 +450,12 @@ DMN 참조: D07 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 
         <di:waypoint x="2359" y="320" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="RE_f13_di" bpmnElement="RE_f13" bioc:stroke="#596575">
-        <di:waypoint x="2392" y="309" />
-        <di:waypoint x="2502" y="309" />
-        <di:waypoint x="2502" y="435" />
-        <di:waypoint x="2590" y="435" />
+        <di:waypoint x="2403" y="320" />
+        <di:waypoint x="2502" y="320" />
+        <di:waypoint x="2502" y="460" />
+        <di:waypoint x="2590" y="460" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="2404" y="313" width="91" height="14" />
+          <dc:Bounds x="2409" y="324" width="91" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="RE_f14_di" bpmnElement="RE_f14" bioc:stroke="#596575">
@@ -462,12 +466,11 @@ DMN 참조: D07 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="RE_f15_di" bpmnElement="RE_f15" bioc:stroke="#596575">
-        <di:waypoint x="2392" y="331" />
-        <di:waypoint x="2459" y="331" />
-        <di:waypoint x="2459" y="570" />
+        <di:waypoint x="2381" y="342" />
+        <di:waypoint x="2381" y="570" />
         <di:waypoint x="2590" y="570" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="2377" y="436" width="31" height="14" />
+          <dc:Bounds x="2344" y="433" width="31" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="RE_f19_di" bpmnElement="RE_f19" bioc:stroke="#596575">
@@ -501,11 +504,11 @@ DMN 참조: D07 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 
       <bpmndi:BPMNShape id="RE_J_di" bpmnElement="RE_J" isHorizontal="true" bioc:stroke="#475569" bioc:fill="#ffffff">
         <dc:Bounds x="150" y="685" width="3886" height="520" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="RE_J_lane1_di" bpmnElement="RE_J_lane1" isHorizontal="true">
-        <dc:Bounds x="180" y="945" width="3856" height="260" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="RE_J_lane0_di" bpmnElement="RE_J_lane0" isHorizontal="true">
         <dc:Bounds x="180" y="685" width="3856" height="260" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="RE_J_lane1_di" bpmnElement="RE_J_lane1" isHorizontal="true">
+        <dc:Bounds x="180" y="945" width="3856" height="260" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="RE_j0_di" bpmnElement="RE_j0">
         <dc:Bounds x="782" y="748" width="34" height="34" />
@@ -635,16 +638,11 @@ DMN 참조: D07 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 
         <di:waypoint x="2694" y="765" />
         <di:waypoint x="3236" y="765" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="RE_s11_InterviewNote_association_di" bpmnElement="RE_s11_InterviewNote_association" bioc:stroke="#514286">
-        <di:waypoint x="3259" y="304" />
-        <di:waypoint x="3401" y="192" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="RE_s9_InterviewNote_association_di" bpmnElement="RE_s9_InterviewNote_association" bioc:stroke="#514286">
-        <di:waypoint x="2624" y="436" />
-        <di:waypoint x="2700" y="439" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="RE_s11_InterviewNote_di" bpmnElement="RE_s11_InterviewNote" bioc:stroke="#514286">
         <dc:Bounds x="3340" y="80" width="378" height="112" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="RE_s9_InterviewNote_di" bpmnElement="RE_s9_InterviewNote" bioc:stroke="#514286">
+        <dc:Bounds x="2700" y="430" width="378" height="112" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="RE_m1_di" bpmnElement="RE_m1">
         <di:waypoint x="799" y="360" />
@@ -699,9 +697,10 @@ DMN 참조: D07 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 
           <dc:Bounds x="2656" y="658" width="67" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="RE_s9_InterviewNote_di" bpmnElement="RE_s9_InterviewNote" bioc:stroke="#514286">
-        <dc:Bounds x="2700" y="430" width="378" height="112" />
-      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="RE_s11_InterviewNote_association_di" bpmnElement="RE_s11_InterviewNote_association" bioc:stroke="#514286">
+        <di:waypoint x="3259" y="304" />
+        <di:waypoint x="3401" y="192" />
+      </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </bpmn:definitions>

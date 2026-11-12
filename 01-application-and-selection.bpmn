@@ -360,7 +360,7 @@ DMN 참조: D04 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 
       <bpmndi:BPMNShape id="AP_s8_di" bpmnElement="AP_s8" isMarkerVisible="true">
         <dc:Bounds x="4135" y="138" width="44" height="44" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="4127" y="191" width="60" height="14" />
+          <dc:Bounds x="4127" y="114" width="60" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="AP_s10_di" bpmnElement="AP_s10">
@@ -429,28 +429,27 @@ DMN 참조: D04 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="AP_f10_di" bpmnElement="AP_f10" bioc:stroke="#596575">
-        <di:waypoint x="4159" y="180" />
-        <di:waypoint x="4305" y="180" />
-        <di:waypoint x="4305" y="295" />
+        <di:waypoint x="4157" y="182" />
+        <di:waypoint x="4157" y="295" />
         <di:waypoint x="4366" y="295" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="4226" y="246" width="24" height="14" />
+          <dc:Bounds x="4128" y="228" width="24" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="AP_H_di" bpmnElement="AP_H" isHorizontal="true" bioc:stroke="#475569" bioc:fill="#ffffff">
         <dc:Bounds x="150" y="435" width="4596" height="1080" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="AP_H_lane3_di" bpmnElement="AP_H_lane3" isHorizontal="true">
-        <dc:Bounds x="180" y="1245" width="4566" height="270" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="AP_H_lane2_di" bpmnElement="AP_H_lane2" isHorizontal="true">
-        <dc:Bounds x="180" y="975" width="4566" height="270" />
+      <bpmndi:BPMNShape id="AP_H_lane0_di" bpmnElement="AP_H_lane0" isHorizontal="true">
+        <dc:Bounds x="180" y="435" width="4566" height="270" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="AP_H_lane1_di" bpmnElement="AP_H_lane1" isHorizontal="true">
         <dc:Bounds x="180" y="705" width="4566" height="270" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="AP_H_lane0_di" bpmnElement="AP_H_lane0" isHorizontal="true">
-        <dc:Bounds x="180" y="435" width="4566" height="270" />
+      <bpmndi:BPMNShape id="AP_H_lane2_di" bpmnElement="AP_H_lane2" isHorizontal="true">
+        <dc:Bounds x="180" y="975" width="4566" height="270" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="AP_H_lane3_di" bpmnElement="AP_H_lane3" isHorizontal="true">
+        <dc:Bounds x="180" y="1245" width="4566" height="270" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="AP_h0_di" bpmnElement="AP_h0">
         <dc:Bounds x="1008" y="498" width="34" height="34" />
@@ -494,7 +493,7 @@ DMN 참조: D04 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 
           <dc:Bounds x="2571" y="1086" width="73" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="AP_h11_di" bpmnElement="AP_h11" bioc:stroke="#334155" bioc:fill="#f3f7fa">
+      <bpmndi:BPMNShape id="AP_h11_di" bpmnElement="AP_h11">
         <dc:Bounds x="3236" y="498" width="34" height="34" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="3208" y="541" width="91" height="27" />
@@ -521,9 +520,6 @@ DMN 참조: D04 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 
       <bpmndi:BPMNShape id="AP_h16_di" bpmnElement="AP_h16" bioc:stroke="#334155" bioc:fill="#ffffff">
         <dc:Bounds x="3618" y="1017" width="174" height="76" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="AP_h17_di" bpmnElement="AP_h17" bioc:stroke="#334155" bioc:fill="#ffffff">
-        <dc:Bounds x="3844" y="1017" width="174" height="76" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="AP_h18_di" bpmnElement="AP_h18" bioc:stroke="#334155" bioc:fill="#ffffff">
         <dc:Bounds x="4296" y="1017" width="174" height="76" />
       </bpmndi:BPMNShape>
@@ -538,6 +534,9 @@ DMN 참조: D04 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 
         <bpmndi:BPMNLabel>
           <dc:Bounds x="3205" y="1081" width="97" height="14" />
         </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="AP_h17_di" bpmnElement="AP_h17" bioc:stroke="#334155" bioc:fill="#ffffff">
+        <dc:Bounds x="3844" y="1017" width="174" height="76" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="AP_f11_di" bpmnElement="AP_f11" bioc:stroke="#596575">
         <di:waypoint x="1042" y="515" />
@@ -707,10 +706,6 @@ DMN 참조: D04 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 
         <di:waypoint x="4470" y="1640" />
         <di:waypoint x="4592" y="1640" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="AP_h9_InterviewNote_association_di" bpmnElement="AP_h9_InterviewNote_association" bioc:stroke="#514286">
-        <di:waypoint x="2621" y="1047" />
-        <di:waypoint x="2800" y="1090" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="AP_h9_InterviewNote_di" bpmnElement="AP_h9_InterviewNote" bioc:stroke="#514286">
         <dc:Bounds x="2657" y="1090" width="378" height="112" />
       </bpmndi:BPMNShape>
@@ -739,17 +734,6 @@ DMN 참조: D04 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 
           <dc:Bounds x="2276" y="343" width="67" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="AP_m6_di" bpmnElement="AP_m6">
-        <di:waypoint x="4460" y="1600" />
-        <di:waypoint x="4460" y="1480" />
-        <di:waypoint x="4500" y="1480" />
-        <di:waypoint x="4500" y="900" />
-        <di:waypoint x="3931" y="900" />
-        <di:waypoint x="3931" y="198" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="4169" y="960" width="88" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="AP_m4_di" bpmnElement="AP_m4">
         <di:waypoint x="4000" y="1093" />
         <di:waypoint x="4000" y="1480" />
@@ -765,6 +749,21 @@ DMN 참조: D04 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 
         <bpmndi:BPMNLabel>
           <dc:Bounds x="4386" y="1336" width="68" height="14" />
         </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="AP_m6_di" bpmnElement="AP_m6">
+        <di:waypoint x="4460" y="1600" />
+        <di:waypoint x="4460" y="1480" />
+        <di:waypoint x="4500" y="1480" />
+        <di:waypoint x="4500" y="900" />
+        <di:waypoint x="3931" y="900" />
+        <di:waypoint x="3931" y="198" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="4169" y="960" width="88" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="AP_h9_InterviewNote_association_di" bpmnElement="AP_h9_InterviewNote_association" bioc:stroke="#514286">
+        <di:waypoint x="2621" y="1047" />
+        <di:waypoint x="2800" y="1090" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

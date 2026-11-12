@@ -23,12 +23,12 @@
         <bpmn:flowNodeRef>ST_s6</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>ST_s7</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>ST_s9</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>ST_s10</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>ST_s12</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>ST_s14</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>ST_s8</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>ST_s13</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>ST_s5</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ST_s13</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ST_s10</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ST_s14</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
     <bpmn:startEvent id="ST_s0" name="유효 등록·납부 완료">
@@ -78,17 +78,9 @@
       <bpmn:outgoing>ST_f12</bpmn:outgoing>
       <bpmn:outgoing>ST_f13</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:endEvent id="ST_s10" name="취소 종료">
-      <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
-      <bpmn:incoming>ST_f11</bpmn:incoming>
-    </bpmn:endEvent>
     <bpmn:endEvent id="ST_s12" name="학적 예외 · 수학 상태 확인">
       <bpmn:documentation>근거: W01 제8·16·18조; W02 4.다.2</bpmn:documentation>
       <bpmn:incoming>ST_f14</bpmn:incoming>
-    </bpmn:endEvent>
-    <bpmn:endEvent id="ST_s14" name="취소 상태 미확정&#10;담당확인 인계">
-      <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
-      <bpmn:incoming>ST_f13</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:userTask id="ST_s8" name="취소 절차 수행&#10;양교 처리 결과 확인">
       <bpmn:documentation>근거: S02; W01 제12조; S04 P117
@@ -96,10 +88,6 @@
       <bpmn:incoming>ST_f9</bpmn:incoming>
       <bpmn:outgoing>ST_f10</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:endEvent id="ST_s13" name="수업·시험 종료">
-      <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
-      <bpmn:incoming>ST_f15</bpmn:incoming>
-    </bpmn:endEvent>
     <bpmn:sequenceFlow id="ST_f1" sourceRef="ST_s0" targetRef="ST_s2" />
     <bpmn:sequenceFlow id="ST_f2" sourceRef="ST_s2" targetRef="ST_s3" />
     <bpmn:sequenceFlow id="ST_f6" name="결과 확인 후" sourceRef="ST_s6" targetRef="ST_s3" />
@@ -136,6 +124,18 @@
       <bpmn:incoming>ST_f4</bpmn:incoming>
       <bpmn:outgoing>ST_f5</bpmn:outgoing>
     </bpmn:userTask>
+    <bpmn:endEvent id="ST_s13" name="수업·시험 종료">
+      <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
+      <bpmn:incoming>ST_f15</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:endEvent id="ST_s10" name="취소 종료">
+      <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
+      <bpmn:incoming>ST_f11</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:endEvent id="ST_s14" name="취소 상태 미확정&#10;담당확인 인계">
+      <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
+      <bpmn:incoming>ST_f13</bpmn:incoming>
+    </bpmn:endEvent>
   </bpmn:process>
   <bpmn:process id="ST_H_process" name="04 수업·시험·공결·시설 / 본교 · 숭실대학교" isExecutable="false">
     <bpmn:documentation>수업 기간 중 발생하는 공결과 취소 신청을 처리한다. 시설 이용과 일반 추가시험 안내는 수업 절차에 참고한다. 문서 기반 서술 모델. 미확정 끝 이벤트는 확인된 절차의 범위를 나타낸다.</bpmn:documentation>
@@ -253,11 +253,8 @@ DMN 참조: D09 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 
       <bpmndi:BPMNShape id="ST_s4_di" bpmnElement="ST_s4" isMarkerVisible="true">
         <dc:Bounds x="1229" y="148" width="44" height="44" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1207" y="124" width="87" height="14" />
+          <dc:Bounds x="1145.5" y="143" width="87" height="14" />
         </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="ST_s5_di" bpmnElement="ST_s5" bioc:stroke="#334155" bioc:fill="#ffffff">
-        <dc:Bounds x="1390" y="262" width="174" height="76" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="ST_s6_di" bpmnElement="ST_s6" bioc:stroke="#334155" bioc:fill="#ffffff">
         <dc:Bounds x="1842" y="262" width="174" height="76" />
@@ -268,13 +265,7 @@ DMN 참조: D09 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 
       <bpmndi:BPMNShape id="ST_s9_di" bpmnElement="ST_s9" isMarkerVisible="true">
         <dc:Bounds x="1907" y="148" width="44" height="44" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1881" y="201" width="97" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="ST_s10_di" bpmnElement="ST_s10">
-        <dc:Bounds x="2138" y="153" width="34" height="34" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="2134" y="196" width="44" height="14" />
+          <dc:Bounds x="1831" y="123" width="97" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="ST_s12_di" bpmnElement="ST_s12">
@@ -283,20 +274,29 @@ DMN 참조: D09 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 
           <dc:Bounds x="2321" y="441" width="121" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="ST_s14_di" bpmnElement="ST_s14">
-        <dc:Bounds x="2590" y="283" width="34" height="34" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="2569" y="326" width="77" height="27" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="ST_s8_di" bpmnElement="ST_s8" bioc:stroke="#334155" bioc:fill="#ffffff">
         <dc:Bounds x="1643" y="132" width="174" height="76" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ST_s5_di" bpmnElement="ST_s5" bioc:stroke="#334155" bioc:fill="#ffffff">
+        <dc:Bounds x="1390" y="262" width="174" height="76" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="ST_s13_di" bpmnElement="ST_s13">
-        <dc:Bounds x="2364" y="303" width="34" height="34" />
+        <dc:Bounds x="2364" y="339" width="34" height="34" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="2347" y="346" width="68" height="14" />
+          <dc:Bounds x="2347" y="382" width="68" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ST_s10_di" bpmnElement="ST_s10">
+        <dc:Bounds x="2364" y="153" width="34" height="34" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2360" y="196" width="44" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ST_s14_di" bpmnElement="ST_s14">
+        <dc:Bounds x="2364" y="223" width="34" height="34" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2343" y="266" width="77" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="ST_f1_di" bpmnElement="ST_f1" bioc:stroke="#596575">
@@ -341,9 +341,9 @@ DMN 참조: D09 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="ST_f16_di" bpmnElement="ST_f16" bioc:stroke="#596575">
-        <di:waypoint x="1239" y="180" />
-        <di:waypoint x="1210" y="180" />
-        <di:waypoint x="1210" y="240" />
+        <di:waypoint x="1229" y="170" />
+        <di:waypoint x="1175" y="170" />
+        <di:waypoint x="1175" y="240" />
         <di:waypoint x="904" y="240" />
         <di:waypoint x="904" y="195.33333333333337" />
         <di:waypoint x="938" y="195" />
@@ -352,8 +352,10 @@ DMN 참조: D09 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="ST_f3_di" bpmnElement="ST_f3" bioc:stroke="#596575">
-        <di:waypoint x="1112" y="170" />
-        <di:waypoint x="1229" y="170" />
+        <di:waypoint x="1110" y="136" />
+        <di:waypoint x="1110" y="130" />
+        <di:waypoint x="1251" y="130" />
+        <di:waypoint x="1251" y="148" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="ST_f4_di" bpmnElement="ST_f4" bioc:stroke="#596575">
         <di:waypoint x="1251" y="192" />
@@ -391,11 +393,9 @@ DMN 참조: D09 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 
         <di:waypoint x="1273" y="170" />
         <di:waypoint x="1582" y="170" />
         <di:waypoint x="1582" y="356" />
-        <di:waypoint x="2303" y="356" />
-        <di:waypoint x="2303" y="320" />
-        <di:waypoint x="2364" y="320" />
+        <di:waypoint x="2364" y="356" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="2006" y="363" width="68" height="14" />
+          <dc:Bounds x="2056" y="363" width="68" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="ST_f5_di" bpmnElement="ST_f5" bioc:stroke="#596575">
@@ -407,23 +407,18 @@ DMN 참조: D09 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 
         <di:waypoint x="1907" y="170" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="ST_f11_di" bpmnElement="ST_f11" bioc:stroke="#596575">
-        <di:waypoint x="1951" y="159" />
-        <di:waypoint x="1965" y="159" />
-        <di:waypoint x="1965" y="170" />
-        <di:waypoint x="2138" y="170" />
+        <di:waypoint x="1951" y="170" />
+        <di:waypoint x="2364" y="170" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="2018" y="133" width="67" height="14" />
+          <dc:Bounds x="2125" y="133" width="67" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="ST_f13_di" bpmnElement="ST_f13" bioc:stroke="#596575">
-        <di:waypoint x="1951" y="181" />
-        <di:waypoint x="2077" y="181" />
-        <di:waypoint x="2077" y="265" />
-        <di:waypoint x="2576" y="265" />
-        <di:waypoint x="2576" y="300" />
-        <di:waypoint x="2590" y="300" />
+        <di:waypoint x="1929" y="192" />
+        <di:waypoint x="1929" y="240" />
+        <di:waypoint x="2364" y="240" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="2300" y="228" width="54" height="14" />
+          <dc:Bounds x="1964" y="209" width="54" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ST_H_di" bpmnElement="ST_H" isHorizontal="true" bioc:stroke="#475569" bioc:fill="#ffffff">
@@ -458,11 +453,11 @@ DMN 참조: D09 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 
       <bpmndi:BPMNShape id="ST_J_di" bpmnElement="ST_J" isHorizontal="true" bioc:stroke="#475569" bioc:fill="#ffffff">
         <dc:Bounds x="150" y="770" width="2594" height="380" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="ST_J_lane1_di" bpmnElement="ST_J_lane1" isHorizontal="true">
-        <dc:Bounds x="180" y="960" width="2564" height="190" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="ST_J_lane0_di" bpmnElement="ST_J_lane0" isHorizontal="true">
         <dc:Bounds x="180" y="770" width="2564" height="190" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ST_J_lane1_di" bpmnElement="ST_J_lane1" isHorizontal="true">
+        <dc:Bounds x="180" y="960" width="2564" height="190" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="ST_j0_di" bpmnElement="ST_j0">
         <dc:Bounds x="1008" y="833" width="34" height="34" />
@@ -531,6 +526,15 @@ DMN 참조: D09 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 
           <dc:Bounds x="1035" y="506" width="44" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="ST_m2_di" bpmnElement="ST_m2">
+        <di:waypoint x="1477" y="478" />
+        <di:waypoint x="1477" y="645" />
+        <di:waypoint x="1251" y="645" />
+        <di:waypoint x="1251" y="812" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1486" y="571" width="68" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="ST_m3_di" bpmnElement="ST_m3">
         <di:waypoint x="1477" y="340" />
         <di:waypoint x="1477" y="380" />
@@ -548,15 +552,6 @@ DMN 참조: D09 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 
         <di:waypoint x="1929" y="338" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="1796" y="641" width="44" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="ST_m2_di" bpmnElement="ST_m2">
-        <di:waypoint x="1477" y="478" />
-        <di:waypoint x="1477" y="645" />
-        <di:waypoint x="1251" y="645" />
-        <di:waypoint x="1251" y="812" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="1486" y="571" width="68" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
