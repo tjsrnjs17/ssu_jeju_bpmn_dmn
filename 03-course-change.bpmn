@@ -234,13 +234,13 @@ DMN 참조: D04 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 
       <bpmndi:BPMNShape id="CH_s3_di" bpmnElement="CH_s3" bioc:stroke="#334155" bioc:fill="#ffffff">
         <dc:Bounds x="938" y="122" width="174" height="76" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="CH_s5_di" bpmnElement="CH_s5" bioc:stroke="#334155" bioc:fill="#f3f7fa">
+      <bpmndi:BPMNShape id="CH_s5_di" bpmnElement="CH_s5">
         <dc:Bounds x="782" y="273" width="34" height="34" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="754" y="316" width="91" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="CH_s11_di" bpmnElement="CH_s11" bioc:stroke="#334155" bioc:fill="#f3f7fa">
+      <bpmndi:BPMNShape id="CH_s11_di" bpmnElement="CH_s11">
         <dc:Bounds x="1008" y="348" width="34" height="34" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="975" y="391" width="101" height="14" />
@@ -334,14 +334,14 @@ DMN 참조: D04 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 
       <bpmndi:BPMNShape id="CH_H_di" bpmnElement="CH_H" isHorizontal="true" bioc:stroke="#475569" bioc:fill="#ffffff">
         <dc:Bounds x="150" y="490" width="3692" height="540" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="CH_H_lane2_di" bpmnElement="CH_H_lane2" isHorizontal="true">
-        <dc:Bounds x="180" y="850" width="3662" height="180" />
+      <bpmndi:BPMNShape id="CH_H_lane0_di" bpmnElement="CH_H_lane0" isHorizontal="true">
+        <dc:Bounds x="180" y="490" width="3662" height="180" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="CH_H_lane1_di" bpmnElement="CH_H_lane1" isHorizontal="true">
         <dc:Bounds x="180" y="670" width="3662" height="180" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="CH_H_lane0_di" bpmnElement="CH_H_lane0" isHorizontal="true">
-        <dc:Bounds x="180" y="490" width="3662" height="180" />
+      <bpmndi:BPMNShape id="CH_H_lane2_di" bpmnElement="CH_H_lane2" isHorizontal="true">
+        <dc:Bounds x="180" y="850" width="3662" height="180" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="CH_h0_di" bpmnElement="CH_h0">
         <dc:Bounds x="1008" y="553" width="34" height="34" />
@@ -452,10 +452,6 @@ DMN 참조: D04 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 
         <di:waypoint x="3566" y="1155" />
         <di:waypoint x="3688" y="1155" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="CH_h7_InterviewNote_association_di" bpmnElement="CH_h7_InterviewNote_association" bioc:stroke="#514286">
-        <di:waypoint x="2242" y="908" />
-        <di:waypoint x="2370" y="908" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="CH_h7_InterviewNote_di" bpmnElement="CH_h7_InterviewNote" bioc:stroke="#514286">
         <dc:Bounds x="2370" y="892" width="378" height="112" />
       </bpmndi:BPMNShape>
@@ -479,15 +475,6 @@ DMN 참조: D04 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 
           <dc:Bounds x="2485" y="605" width="54" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="CH_m4_di" bpmnElement="CH_m4">
-        <di:waypoint x="3479" y="1117" />
-        <di:waypoint x="3479" y="658" />
-        <di:waypoint x="3320" y="658" />
-        <di:waypoint x="3320" y="200" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="3376" y="643" width="67" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="CH_m3_di" bpmnElement="CH_m3">
         <di:waypoint x="3253" y="200" />
         <di:waypoint x="3253" y="263" />
@@ -498,6 +485,19 @@ DMN 참조: D04 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 
         <bpmndi:BPMNLabel>
           <dc:Bounds x="3226" y="723" width="67" height="14" />
         </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="CH_m4_di" bpmnElement="CH_m4">
+        <di:waypoint x="3479" y="1117" />
+        <di:waypoint x="3479" y="658" />
+        <di:waypoint x="3320" y="658" />
+        <di:waypoint x="3320" y="200" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3376" y="643" width="67" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="CH_h7_InterviewNote_association_di" bpmnElement="CH_h7_InterviewNote_association" bioc:stroke="#514286">
+        <di:waypoint x="2242" y="908" />
+        <di:waypoint x="2370" y="908" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

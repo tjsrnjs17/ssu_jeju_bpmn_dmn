@@ -304,7 +304,7 @@ DMN 참조: D02 D10 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이
         <dc:Bounds x="180" y="425" width="3662" height="290" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="GR_h0_di" bpmnElement="GR_h0" bioc:stroke="#334155" bioc:fill="#f3f7fa">
+      <bpmndi:BPMNShape id="GR_h0_di" bpmnElement="GR_h0">
         <dc:Bounds x="1912" y="488" width="34" height="34" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="1878" y="464" width="101" height="14" />
@@ -352,10 +352,6 @@ DMN 참조: D02 D10 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="GR_f9_di" bpmnElement="GR_f9" bioc:stroke="#596575">
         <di:waypoint x="2242" y="505" />
-        <di:waypoint x="2256" y="505" />
-        <di:waypoint x="2256" y="450" />
-        <di:waypoint x="2700" y="450" />
-        <di:waypoint x="2700" y="505" />
         <di:waypoint x="2714" y="505" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="GR_f10_di" bpmnElement="GR_f10" bioc:stroke="#596575">
@@ -404,11 +400,11 @@ DMN 참조: D02 D10 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이
       <bpmndi:BPMNShape id="GR_J_di" bpmnElement="GR_J" isHorizontal="true" bioc:stroke="#475569" bioc:fill="#ffffff">
         <dc:Bounds x="150" y="760" width="3692" height="420" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="GR_J_lane1_di" bpmnElement="GR_J_lane1" isHorizontal="true">
-        <dc:Bounds x="180" y="970" width="3662" height="210" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="GR_J_lane0_di" bpmnElement="GR_J_lane0" isHorizontal="true">
         <dc:Bounds x="180" y="760" width="3662" height="210" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="GR_J_lane1_di" bpmnElement="GR_J_lane1" isHorizontal="true">
+        <dc:Bounds x="180" y="970" width="3662" height="210" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="GR_j0_di" bpmnElement="GR_j0">
         <dc:Bounds x="330" y="823" width="34" height="34" />
@@ -480,8 +476,8 @@ DMN 참조: D02 D10 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이
         <di:waypoint x="2138" y="1050" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="GR_h1_InterviewNote_association_di" bpmnElement="GR_h1_InterviewNote_association" bioc:stroke="#514286">
-        <di:waypoint x="2242" y="502" />
-        <di:waypoint x="2416" y="540" />
+        <di:waypoint x="2206" y="543" />
+        <di:waypoint x="2245" y="590" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="GR_m1_di" bpmnElement="GR_m1">
         <di:waypoint x="573" y="800" />
@@ -508,6 +504,13 @@ DMN 참조: D02 D10 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이
           <dc:Bounds x="1361" y="513" width="67" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="GR_m4_di" bpmnElement="GR_m4">
+        <di:waypoint x="1929" y="1012" />
+        <di:waypoint x="1929" y="522" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1963" y="753" width="67" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="GR_m5_di" bpmnElement="GR_m5">
         <di:waypoint x="3253" y="467" />
         <di:waypoint x="3253" y="343" />
@@ -517,15 +520,8 @@ DMN 참조: D02 D10 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이
           <dc:Bounds x="3317" y="323" width="88" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="GR_m4_di" bpmnElement="GR_m4">
-        <di:waypoint x="1929" y="1012" />
-        <di:waypoint x="1929" y="522" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="1963" y="753" width="67" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="GR_h1_InterviewNote_di" bpmnElement="GR_h1_InterviewNote" bioc:stroke="#514286">
-        <dc:Bounds x="2300" y="540" width="378" height="112" />
+        <dc:Bounds x="2070" y="590" width="378" height="112" />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
