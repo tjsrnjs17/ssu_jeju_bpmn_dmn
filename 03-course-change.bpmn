@@ -583,7 +583,7 @@ DMN 참조: D04 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 
         <di:waypoint x="1660" y="290" />
         <di:waypoint x="1660" y="220" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1714" y="756" width="67" height="14" />
+          <dc:Bounds x="1714" y="703" width="67" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="CH_m3_di" bpmnElement="CH_m3">

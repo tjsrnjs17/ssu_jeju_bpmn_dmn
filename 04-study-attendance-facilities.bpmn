@@ -517,7 +517,7 @@ DMN 참조: D09 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 
         <di:waypoint x="700" y="220" />
         <di:waypoint x="700" y="1083" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="609" y="637" width="44" height="14" />
+          <dc:Bounds x="638" y="637" width="44" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="ST_m2_di" bpmnElement="ST_m2">

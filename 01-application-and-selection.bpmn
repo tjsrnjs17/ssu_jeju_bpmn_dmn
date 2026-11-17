@@ -15,18 +15,6 @@
     <bpmn:messageFlow id="AP_m8" name="추천 공문·명단" sourceRef="AP_h17" targetRef="AP_j0" />
     <bpmn:messageFlow id="AP_m9" name="선발 공문" sourceRef="AP_j2" targetRef="AP_h18" />
     <bpmn:messageFlow id="AP_m10" name="홈페이지 공고 조회" sourceRef="AP_j2" targetRef="AP_s7" />
-    <bpmn:textAnnotation id="AP_note1">
-      <bpmn:text>인터뷰 Q1·Q19 | 두 제출 경로를 교차 확인하고 누락 자료는 보완한다.
-이수구분 오류는 정정·재서명 후 다시 점검한다.</bpmn:text>
-    </bpmn:textAnnotation>
-    <bpmn:textAnnotation id="AP_note2">
-      <bpmn:text>인터뷰 Q2–5·Q20 | 이수구분 판단은 학과장, 전달은 조교, 2차 점검은 학사팀.
-일반선택의 무승인 통과는 개선 아이디어이며 현행 절차가 아니다.</bpmn:text>
-    </bpmn:textAnnotation>
-    <bpmn:textAnnotation id="AP_note3">
-      <bpmn:text>추천은 대학별 일괄 취합. 선발 공지는 2026 여름 제주대 안내를 적용.
-문서상 추천 결재는 보완 근거로 유지하며 추가 방문을 가정하지 않는다.</bpmn:text>
-    </bpmn:textAnnotation>
   </bpmn:collaboration>
   <bpmn:process id="AP_S_process" name="01 공지·신청·본교 추천·제주대 선발 / 최종 As-Is / 학생" isExecutable="false">
     <bpmn:documentation>최종 As-Is. 근거 우선순위: 2026-11-13 담당자 인터뷰의 실제 운영 설명 &gt; 기존 신청서·학칙·안내문. 인터뷰 미설명 사항은 해당 문서로 보완한다. 숭실대 수신 절차를 제주대 파견에 전용하지 않는다. 자동화·통합 시스템·일반선택 무승인 통과는 현행 흐름에 포함하지 않는다. 주황색은 전문 판단·승인, 파란색은 DMN으로 정리한 수동 확인 기준이다. 실행 엔진 배포용 모델이 아니다.</bpmn:documentation>
@@ -94,41 +82,6 @@
       <bpmn:incoming>AP_f12</bpmn:incoming>
       <bpmn:outgoing>AP_f13</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:sequenceFlow id="AP_f1" sourceRef="AP_s0" targetRef="AP_s2" />
-    <bpmn:sequenceFlow id="AP_f2" sourceRef="AP_s2" targetRef="AP_s3" />
-    <bpmn:sequenceFlow id="AP_f13" name="재서명 요청" sourceRef="AP_sCorrect" targetRef="AP_s3" />
-    <bpmn:sequenceFlow id="AP_f3" sourceRef="AP_s3" targetRef="AP_s4" />
-    <bpmn:sequenceFlow id="AP_f4" sourceRef="AP_s4" targetRef="AP_s5" />
-    <bpmn:sequenceFlow id="AP_f5" name="승인" sourceRef="AP_s5" targetRef="AP_sDept">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">승인</bpmn:conditionExpression>
-    </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="AP_f6" name="미승인" sourceRef="AP_s5" targetRef="AP_s10" />
-    <bpmn:sequenceFlow id="AP_f7" sourceRef="AP_sDept" targetRef="AP_s6" />
-    <bpmn:sequenceFlow id="AP_f8" sourceRef="AP_s6" targetRef="AP_sReview" />
-    <bpmn:sequenceFlow id="AP_f11" name="보완 제출 후" sourceRef="AP_sFix" targetRef="AP_sReview" />
-    <bpmn:sequenceFlow id="AP_f17" name="결과 확인 후" sourceRef="AP_sPending" targetRef="AP_sReview" />
-    <bpmn:sequenceFlow id="AP_f9" sourceRef="AP_sReview" targetRef="AP_sIssue" />
-    <bpmn:sequenceFlow id="AP_f10" name="자료·제출 누락" sourceRef="AP_sIssue" targetRef="AP_sFix">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">자료·제출 누락</bpmn:conditionExpression>
-    </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="AP_f12" name="이수구분 정정" sourceRef="AP_sIssue" targetRef="AP_sCorrect">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">이수구분 정정</bpmn:conditionExpression>
-    </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="AP_f14" name="추천 완료" sourceRef="AP_sIssue" targetRef="AP_s7">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">추천 완료</bpmn:conditionExpression>
-    </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="AP_f15" name="미추천 확정" sourceRef="AP_sIssue" targetRef="AP_s11">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">미추천 확정</bpmn:conditionExpression>
-    </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="AP_f16" name="결과 대기" sourceRef="AP_sIssue" targetRef="AP_sPending" />
-    <bpmn:sequenceFlow id="AP_f18" sourceRef="AP_s7" targetRef="AP_s8" />
-    <bpmn:sequenceFlow id="AP_f19" name="선발" sourceRef="AP_s8" targetRef="AP_s9">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">선발</bpmn:conditionExpression>
-    </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="AP_f20" name="미선발" sourceRef="AP_s8" targetRef="AP_s11">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">미선발</bpmn:conditionExpression>
-    </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="AP_f21" name="미발표" sourceRef="AP_s8" targetRef="AP_sPending" />
     <bpmn:endEvent id="AP_s10" name="학과 미승인">
       <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
       <bpmn:incoming>AP_f6</bpmn:incoming>
@@ -186,10 +139,56 @@
       <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
       <bpmn:incoming>AP_f19</bpmn:incoming>
     </bpmn:endEvent>
+    <bpmn:sequenceFlow id="AP_f1" sourceRef="AP_s0" targetRef="AP_s2" />
+    <bpmn:sequenceFlow id="AP_f2" sourceRef="AP_s2" targetRef="AP_s3" />
+    <bpmn:sequenceFlow id="AP_f13" name="재서명 요청" sourceRef="AP_sCorrect" targetRef="AP_s3" />
+    <bpmn:sequenceFlow id="AP_f3" sourceRef="AP_s3" targetRef="AP_s4" />
+    <bpmn:sequenceFlow id="AP_f4" sourceRef="AP_s4" targetRef="AP_s5" />
+    <bpmn:sequenceFlow id="AP_f5" name="승인" sourceRef="AP_s5" targetRef="AP_sDept">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">승인</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="AP_f6" name="미승인" sourceRef="AP_s5" targetRef="AP_s10" />
+    <bpmn:sequenceFlow id="AP_f7" sourceRef="AP_sDept" targetRef="AP_s6" />
+    <bpmn:sequenceFlow id="AP_f8" sourceRef="AP_s6" targetRef="AP_sReview" />
+    <bpmn:sequenceFlow id="AP_f12" name="이수구분 정정" sourceRef="AP_sIssue" targetRef="AP_sCorrect">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">이수구분 정정</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="AP_f11" name="보완 제출 후" sourceRef="AP_sFix" targetRef="AP_sReview" />
+    <bpmn:sequenceFlow id="AP_f17" name="결과 확인 후" sourceRef="AP_sPending" targetRef="AP_sReview" />
+    <bpmn:sequenceFlow id="AP_f9" sourceRef="AP_sReview" targetRef="AP_sIssue" />
+    <bpmn:sequenceFlow id="AP_f10" name="자료·제출 누락" sourceRef="AP_sIssue" targetRef="AP_sFix">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">자료·제출 누락</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="AP_f14" name="추천 완료" sourceRef="AP_sIssue" targetRef="AP_s7">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">추천 완료</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="AP_f15" name="미추천 확정" sourceRef="AP_sIssue" targetRef="AP_s11">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">미추천 확정</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="AP_f16" name="결과 대기" sourceRef="AP_sIssue" targetRef="AP_sPending" />
+    <bpmn:sequenceFlow id="AP_f18" sourceRef="AP_s7" targetRef="AP_s8" />
+    <bpmn:sequenceFlow id="AP_f19" name="선발" sourceRef="AP_s8" targetRef="AP_s9">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">선발</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="AP_f20" name="미선발" sourceRef="AP_s8" targetRef="AP_s11">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">미선발</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="AP_f21" name="미발표" sourceRef="AP_s8" targetRef="AP_sPending" />
   </bpmn:process>
   <bpmn:process id="AP_H_process" name="01 공지·신청·본교 추천·제주대 선발 / 최종 As-Is / 본교 · 숭실대학교" isExecutable="false">
     <bpmn:documentation>최종 As-Is. 근거 우선순위: 2026-11-13 담당자 인터뷰의 실제 운영 설명 &gt; 기존 신청서·학칙·안내문. 인터뷰 미설명 사항은 해당 문서로 보완한다. 숭실대 수신 절차를 제주대 파견에 전용하지 않는다. 자동화·통합 시스템·일반선택 무승인 통과는 현행 흐름에 포함하지 않는다. 주황색은 전문 판단·승인, 파란색은 DMN으로 정리한 수동 확인 기준이다. 실행 엔진 배포용 모델이 아니다.</bpmn:documentation>
     <bpmn:laneSet id="AP_H_lanes">
+      <bpmn:lane id="AP_H_lane0" name="학과장 · 이수구분 심사">
+        <bpmn:flowNodeRef>AP_h0</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>AP_h3</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>AP_h5</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>AP_hSignEnd</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="AP_H_lane1" name="학과 행정 · 조교">
+        <bpmn:flowNodeRef>AP_hDept0</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>AP_hForward</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>AP_hDeptEnd</bpmn:flowNodeRef>
+      </bpmn:lane>
       <bpmn:lane id="AP_H_lane2" name="학사팀 · 학점교류 담당">
         <bpmn:flowNodeRef>AP_h8</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>AP_h2</bpmn:flowNodeRef>
@@ -204,17 +203,6 @@
         <bpmn:flowNodeRef>AP_hReject</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>AP_hPublish</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>AP_hNotice</bpmn:flowNodeRef>
-      </bpmn:lane>
-      <bpmn:lane id="AP_H_lane1" name="학과 행정 · 조교">
-        <bpmn:flowNodeRef>AP_hDept0</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>AP_hForward</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>AP_hDeptEnd</bpmn:flowNodeRef>
-      </bpmn:lane>
-      <bpmn:lane id="AP_H_lane0" name="학과장 · 이수구분 심사">
-        <bpmn:flowNodeRef>AP_h0</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>AP_h3</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>AP_h5</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>AP_hSignEnd</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
     <bpmn:startEvent id="AP_h0" name="승인·재서명 요청 접수">
@@ -344,12 +332,21 @@ DMN 참조: D01 D02 D03 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표�
     </bpmn:endEvent>
     <bpmn:dataObjectReference id="AP_DeptDocumentsRef" name="학과 제출자료" dataObjectRef="AP_DeptDocuments" />
     <bpmn:dataObject id="AP_DeptDocuments" />
+    <bpmn:userTask id="AP_hPublish" name="학교별 제출기한 설정&#10;모집 공지 게시">
+      <bpmn:documentation>근거: I20261113 학사팀 학점교류 담당자 인터뷰 Q16
+대학별 공문을 보고 학생 제출일을 정해 개별 공지한다. 30~40개는 전체 업무 규모의 설명이며 이 제주대 사례의 반복 횟수가 아니다.</bpmn:documentation>
+      <bpmn:incoming>AP_f27</bpmn:incoming>
+      <bpmn:outgoing>AP_f28</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:startEvent id="AP_hNotice" name="타교 시행 안내 수신">
+      <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
+      <bpmn:outgoing>AP_f27</bpmn:outgoing>
+    </bpmn:startEvent>
     <bpmn:sequenceFlow id="AP_f22" sourceRef="AP_h0" targetRef="AP_h3" />
     <bpmn:sequenceFlow id="AP_f23" sourceRef="AP_h3" targetRef="AP_h5" />
     <bpmn:sequenceFlow id="AP_f24" sourceRef="AP_h5" targetRef="AP_hSignEnd" />
     <bpmn:sequenceFlow id="AP_f25" sourceRef="AP_hDept0" targetRef="AP_hForward" />
     <bpmn:sequenceFlow id="AP_f26" sourceRef="AP_hForward" targetRef="AP_hDeptEnd" />
-    <bpmn:sequenceFlow id="AP_f27" sourceRef="AP_hNotice" targetRef="AP_hPublish" />
     <bpmn:sequenceFlow id="AP_f28" sourceRef="AP_hPublish" targetRef="AP_h8" />
     <bpmn:sequenceFlow id="AP_f33" sourceRef="AP_hCorrection" targetRef="AP_h8" />
     <bpmn:sequenceFlow id="AP_f29" sourceRef="AP_h8" targetRef="AP_h2" />
@@ -369,16 +366,7 @@ DMN 참조: D01 D02 D03 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표�
     <bpmn:sequenceFlow id="AP_f38" sourceRef="AP_hApproval" targetRef="AP_h17" />
     <bpmn:sequenceFlow id="AP_f39" sourceRef="AP_h17" targetRef="AP_h18" />
     <bpmn:sequenceFlow id="AP_f40" sourceRef="AP_h18" targetRef="AP_h19" />
-    <bpmn:userTask id="AP_hPublish" name="학교별 제출기한 설정&#10;모집 공지 게시">
-      <bpmn:documentation>근거: I20261113 학사팀 학점교류 담당자 인터뷰 Q16
-대학별 공문을 보고 학생 제출일을 정해 개별 공지한다. 30~40개는 전체 업무 규모의 설명이며 이 제주대 사례의 반복 횟수가 아니다.</bpmn:documentation>
-      <bpmn:incoming>AP_f27</bpmn:incoming>
-      <bpmn:outgoing>AP_f28</bpmn:outgoing>
-    </bpmn:userTask>
-    <bpmn:startEvent id="AP_hNotice" name="타교 시행 안내 수신">
-      <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
-      <bpmn:outgoing>AP_f27</bpmn:outgoing>
-    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="AP_f27" sourceRef="AP_hNotice" targetRef="AP_hPublish" />
   </bpmn:process>
   <bpmn:process id="AP_J_process" name="01 공지·신청·본교 추천·제주대 선발 / 최종 As-Is / 교류대 · 제주대학교" isExecutable="false">
     <bpmn:documentation>최종 As-Is. 근거 우선순위: 2026-11-13 담당자 인터뷰의 실제 운영 설명 &gt; 기존 신청서·학칙·안내문. 인터뷰 미설명 사항은 해당 문서로 보완한다. 숭실대 수신 절차를 제주대 파견에 전용하지 않는다. 자동화·통합 시스템·일반선택 무승인 통과는 현행 흐름에 포함하지 않는다. 주황색은 전문 판단·승인, 파란색은 DMN으로 정리한 수동 확인 기준이다. 실행 엔진 배포용 모델이 아니다.</bpmn:documentation>
@@ -419,578 +407,568 @@ DMN 참조: D01 D02 D03 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표�
   <bpmndi:BPMNDiagram id="AP_Diagram" name="01 공지·신청·본교 추천·제주대 선발 / 최종 As-Is">
     <bpmndi:BPMNPlane id="AP_Plane" bpmnElement="AP_Collaboration">
       <bpmndi:BPMNShape id="AP_S_di" bpmnElement="AP_S" isHorizontal="true">
-        <dc:Bounds x="160" y="170" width="3784" height="440" />
+        <dc:Bounds x="160" y="80" width="3784" height="440" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="AP_S_lane0_di" bpmnElement="AP_S_lane0" isHorizontal="true">
-        <dc:Bounds x="190" y="170" width="3754" height="440" />
+        <dc:Bounds x="190" y="80" width="3754" height="440" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="AP_s0_di" bpmnElement="AP_s0">
-        <dc:Bounds x="340" y="233" width="34" height="34" />
+        <dc:Bounds x="340" y="143" width="34" height="34" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="324" y="276" width="67" height="14" />
+          <dc:Bounds x="324" y="186" width="67" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="AP_s2_di" bpmnElement="AP_s2">
-        <dc:Bounds x="496" y="212" width="174" height="76" />
+        <dc:Bounds x="496" y="122" width="174" height="76" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="AP_s3_di" bpmnElement="AP_s3">
-        <dc:Bounds x="722" y="212" width="174" height="76" />
+        <dc:Bounds x="722" y="122" width="174" height="76" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="AP_s4_di" bpmnElement="AP_s4">
-        <dc:Bounds x="948" y="212" width="174" height="76" />
+        <dc:Bounds x="948" y="122" width="174" height="76" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="AP_s5_di" bpmnElement="AP_s5" isMarkerVisible="true">
-        <dc:Bounds x="1239" y="228" width="44" height="44" />
+        <dc:Bounds x="1239" y="138" width="44" height="44" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1173" y="223" width="73" height="14" />
+          <dc:Bounds x="1173" y="133" width="73" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="AP_sDept_di" bpmnElement="AP_sDept">
-        <dc:Bounds x="1400" y="212" width="174" height="76" />
+        <dc:Bounds x="1400" y="122" width="174" height="76" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="AP_s6_di" bpmnElement="AP_s6">
-        <dc:Bounds x="1626" y="212" width="174" height="76" />
+        <dc:Bounds x="1626" y="122" width="174" height="76" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="AP_sCorrect_di" bpmnElement="AP_sCorrect">
-        <dc:Bounds x="1400" y="432" width="174" height="76" />
+        <dc:Bounds x="1400" y="342" width="174" height="76" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="AP_s10_di" bpmnElement="AP_s10">
-        <dc:Bounds x="1313" y="323" width="34" height="34" />
+        <dc:Bounds x="1313" y="233" width="34" height="34" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1303" y="366" width="54" height="14" />
+          <dc:Bounds x="1303" y="276" width="54" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="AP_sReview_di" bpmnElement="AP_sReview">
-        <dc:Bounds x="1912" y="212" width="174" height="76" />
+        <dc:Bounds x="1912" y="122" width="174" height="76" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="AP_sIssue_di" bpmnElement="AP_sIssue" isMarkerVisible="true">
-        <dc:Bounds x="2203" y="228" width="44" height="44" />
+        <dc:Bounds x="2203" y="138" width="44" height="44" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="2243" y="263" width="73" height="14" />
+          <dc:Bounds x="2243" y="173" width="73" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="AP_sFix_di" bpmnElement="AP_sFix">
-        <dc:Bounds x="1912" y="432" width="174" height="76" />
+        <dc:Bounds x="1912" y="342" width="174" height="76" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="AP_s7_di" bpmnElement="AP_s7">
-        <dc:Bounds x="2590" y="212" width="174" height="76" />
+        <dc:Bounds x="2590" y="122" width="174" height="76" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="AP_s8_di" bpmnElement="AP_s8" isMarkerVisible="true">
-        <dc:Bounds x="2881" y="228" width="44" height="44" />
+        <dc:Bounds x="2881" y="138" width="44" height="44" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="2830" y="223" width="60" height="14" />
+          <dc:Bounds x="2830" y="133" width="60" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="AP_s11_di" bpmnElement="AP_s11">
-        <dc:Bounds x="2660" y="453" width="34" height="34" />
+        <dc:Bounds x="2660" y="363" width="34" height="34" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="2633" y="496" width="88" height="14" />
+          <dc:Bounds x="2633" y="406" width="88" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="AP_sPending_di" bpmnElement="AP_sPending">
-        <dc:Bounds x="2433" y="513" width="34" height="34" />
+        <dc:Bounds x="2433" y="423" width="34" height="34" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="2405" y="556" width="91" height="14" />
+          <dc:Bounds x="2405" y="466" width="91" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="AP_s9_di" bpmnElement="AP_s9">
-        <dc:Bounds x="3112" y="183" width="34" height="34" />
+        <dc:Bounds x="3112" y="93" width="34" height="34" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="3091" y="226" width="77" height="14" />
+          <dc:Bounds x="3091" y="136" width="77" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="AP_f1_di" bpmnElement="AP_f1">
-        <di:waypoint x="374" y="250" />
-        <di:waypoint x="496" y="250" />
+        <di:waypoint x="374" y="160" />
+        <di:waypoint x="496" y="160" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="AP_f2_di" bpmnElement="AP_f2">
-        <di:waypoint x="670" y="250" />
-        <di:waypoint x="722" y="250" />
+        <di:waypoint x="670" y="160" />
+        <di:waypoint x="722" y="160" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="AP_f13_di" bpmnElement="AP_f13">
-        <di:waypoint x="1574" y="470" />
-        <di:waypoint x="1588" y="470" />
-        <di:waypoint x="1588" y="410" />
-        <di:waypoint x="708" y="410" />
-        <di:waypoint x="708" y="262.66666666666663" />
-        <di:waypoint x="722" y="263" />
+        <di:waypoint x="1574" y="380" />
+        <di:waypoint x="1588" y="380" />
+        <di:waypoint x="1588" y="320" />
+        <di:waypoint x="708" y="320" />
+        <di:waypoint x="708" y="172.66666666666663" />
+        <di:waypoint x="722" y="173" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1121" y="417" width="54" height="14" />
+          <dc:Bounds x="1121" y="327" width="54" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="AP_f3_di" bpmnElement="AP_f3">
-        <di:waypoint x="896" y="250" />
-        <di:waypoint x="948" y="250" />
+        <di:waypoint x="896" y="160" />
+        <di:waypoint x="948" y="160" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="AP_f4_di" bpmnElement="AP_f4">
-        <di:waypoint x="1122" y="250" />
-        <di:waypoint x="1239" y="250" />
+        <di:waypoint x="1122" y="160" />
+        <di:waypoint x="1239" y="160" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="AP_f5_di" bpmnElement="AP_f5">
-        <di:waypoint x="1261" y="228" />
-        <di:waypoint x="1261" y="190" />
-        <di:waypoint x="1350" y="190" />
-        <di:waypoint x="1350" y="250" />
-        <di:waypoint x="1400" y="250" />
+        <di:waypoint x="1283" y="160" />
+        <di:waypoint x="1400" y="160" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1270" y="142" width="21" height="14" />
+          <dc:Bounds x="1319" y="143" width="21" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="AP_f6_di" bpmnElement="AP_f6">
-        <di:waypoint x="1283" y="250" />
-        <di:waypoint x="1330" y="250" />
-        <di:waypoint x="1330" y="323" />
+        <di:waypoint x="1261" y="182" />
+        <di:waypoint x="1261" y="250" />
+        <di:waypoint x="1313" y="250" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1279" y="263" width="31" height="14" />
+          <dc:Bounds x="1225" y="192" width="31" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="AP_f7_di" bpmnElement="AP_f7">
-        <di:waypoint x="1574" y="250" />
-        <di:waypoint x="1626" y="250" />
+        <di:waypoint x="1574" y="160" />
+        <di:waypoint x="1626" y="160" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="AP_f8_di" bpmnElement="AP_f8">
-        <di:waypoint x="1800" y="250" />
-        <di:waypoint x="1870" y="250" />
-        <di:waypoint x="1870" y="231" />
-        <di:waypoint x="1910" y="231" />
+        <di:waypoint x="1800" y="160" />
+        <di:waypoint x="1870" y="160" />
+        <di:waypoint x="1870" y="141" />
+        <di:waypoint x="1910" y="141" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="AP_f11_di" bpmnElement="AP_f11">
-        <di:waypoint x="1999" y="432" />
-        <di:waypoint x="1999" y="360" />
-        <di:waypoint x="1870" y="360" />
-        <di:waypoint x="1870" y="250" />
-        <di:waypoint x="1910" y="250" />
+        <di:waypoint x="1999" y="342" />
+        <di:waypoint x="1999" y="270" />
+        <di:waypoint x="1870" y="270" />
+        <di:waypoint x="1870" y="160" />
+        <di:waypoint x="1910" y="160" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="2011" y="383" width="57" height="14" />
+          <dc:Bounds x="2011" y="293" width="57" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="AP_f17_di" bpmnElement="AP_f17">
-        <di:waypoint x="2450" y="513" />
-        <di:waypoint x="2450" y="310" />
-        <di:waypoint x="1890" y="310" />
-        <di:waypoint x="1890" y="270" />
-        <di:waypoint x="1910" y="270" />
+        <di:waypoint x="2450" y="423" />
+        <di:waypoint x="2450" y="220" />
+        <di:waypoint x="1890" y="220" />
+        <di:waypoint x="1890" y="180" />
+        <di:waypoint x="1910" y="180" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="2140" y="318" width="57" height="14" />
+          <dc:Bounds x="2140" y="228" width="57" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="AP_f9_di" bpmnElement="AP_f9">
-        <di:waypoint x="2086" y="250" />
-        <di:waypoint x="2203" y="250" />
+        <di:waypoint x="2086" y="160" />
+        <di:waypoint x="2203" y="160" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="AP_f10_di" bpmnElement="AP_f10">
-        <di:waypoint x="2210" y="243" />
-        <di:waypoint x="2210" y="194" />
-        <di:waypoint x="1830" y="194" />
-        <di:waypoint x="1830" y="470" />
-        <di:waypoint x="1912" y="470" />
+        <di:waypoint x="2210" y="153" />
+        <di:waypoint x="2210" y="104" />
+        <di:waypoint x="1830" y="104" />
+        <di:waypoint x="1830" y="380" />
+        <di:waypoint x="1912" y="380" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1986" y="157" width="68" height="14" />
+          <dc:Bounds x="1976" y="93" width="68" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="AP_f12_di" bpmnElement="AP_f12">
-        <di:waypoint x="2210" y="257" />
-        <di:waypoint x="2210" y="530" />
-        <di:waypoint x="1660" y="530" />
-        <di:waypoint x="1660" y="490" />
-        <di:waypoint x="1574" y="490" />
+        <di:waypoint x="2210" y="167" />
+        <di:waypoint x="2210" y="440" />
+        <di:waypoint x="1660" y="440" />
+        <di:waypoint x="1660" y="400" />
+        <di:waypoint x="1574" y="400" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1878" y="533" width="64" height="14" />
+          <dc:Bounds x="1878" y="443" width="64" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="AP_f14_di" bpmnElement="AP_f14">
-        <di:waypoint x="2225" y="228" />
-        <di:waypoint x="2225" y="200" />
-        <di:waypoint x="2360" y="200" />
-        <di:waypoint x="2360" y="230" />
-        <di:waypoint x="2590" y="230" />
+        <di:waypoint x="2225" y="138" />
+        <di:waypoint x="2225" y="110" />
+        <di:waypoint x="2360" y="110" />
+        <di:waypoint x="2360" y="140" />
+        <di:waypoint x="2590" y="140" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="2268" y="207" width="44" height="14" />
+          <dc:Bounds x="2268" y="117" width="44" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="AP_f15_di" bpmnElement="AP_f15">
-        <di:waypoint x="2247" y="250" />
-        <di:waypoint x="2572" y="250" />
-        <di:waypoint x="2572" y="470" />
-        <di:waypoint x="2660" y="470" />
+        <di:waypoint x="2247" y="160" />
+        <di:waypoint x="2572" y="160" />
+        <di:waypoint x="2572" y="380" />
+        <di:waypoint x="2660" y="380" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="2383" y="257" width="54" height="14" />
+          <dc:Bounds x="2383" y="167" width="54" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="AP_f16_di" bpmnElement="AP_f16">
-        <di:waypoint x="2225" y="272" />
-        <di:waypoint x="2225" y="530" />
-        <di:waypoint x="2430" y="530" />
+        <di:waypoint x="2225" y="182" />
+        <di:waypoint x="2225" y="440" />
+        <di:waypoint x="2430" y="440" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="2228" y="383" width="44" height="14" />
+          <dc:Bounds x="2228" y="293" width="44" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="AP_f18_di" bpmnElement="AP_f18">
-        <di:waypoint x="2764" y="250" />
-        <di:waypoint x="2881" y="250" />
+        <di:waypoint x="2764" y="160" />
+        <di:waypoint x="2881" y="160" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="AP_f19_di" bpmnElement="AP_f19">
-        <di:waypoint x="2903" y="228" />
-        <di:waypoint x="2903" y="200" />
-        <di:waypoint x="3112" y="200" />
+        <di:waypoint x="2903" y="138" />
+        <di:waypoint x="2903" y="110" />
+        <di:waypoint x="3112" y="110" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="2998" y="183" width="21" height="14" />
+          <dc:Bounds x="2998" y="93" width="21" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="AP_f20_di" bpmnElement="AP_f20">
-        <di:waypoint x="2903" y="272" />
-        <di:waypoint x="2903" y="470" />
-        <di:waypoint x="2694" y="470" />
+        <di:waypoint x="2903" y="182" />
+        <di:waypoint x="2903" y="380" />
+        <di:waypoint x="2694" y="380" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="2917" y="364" width="31" height="14" />
+          <dc:Bounds x="2917" y="274" width="31" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="AP_f21_di" bpmnElement="AP_f21">
-        <di:waypoint x="2925" y="250" />
-        <di:waypoint x="3008" y="250" />
-        <di:waypoint x="3008" y="530" />
-        <di:waypoint x="2470" y="530" />
+        <di:waypoint x="2925" y="160" />
+        <di:waypoint x="3008" y="160" />
+        <di:waypoint x="3008" y="440" />
+        <di:waypoint x="2470" y="440" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="3022" y="377" width="31" height="14" />
+          <dc:Bounds x="3022" y="287" width="31" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="AP_H_di" bpmnElement="AP_H" isHorizontal="true">
-        <dc:Bounds x="160" y="655" width="3724" height="900" />
+        <dc:Bounds x="160" y="565" width="3724" height="900" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="AP_H_lane0_di" bpmnElement="AP_H_lane0" isHorizontal="true">
-        <dc:Bounds x="190" y="655" width="3694" height="300" />
+        <dc:Bounds x="190" y="565" width="3694" height="300" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="AP_H_lane1_di" bpmnElement="AP_H_lane1" isHorizontal="true">
-        <dc:Bounds x="190" y="955" width="3694" height="300" />
+        <dc:Bounds x="190" y="865" width="3694" height="300" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="AP_H_lane2_di" bpmnElement="AP_H_lane2" isHorizontal="true">
-        <dc:Bounds x="190" y="1255" width="3694" height="300" />
+        <dc:Bounds x="190" y="1165" width="3694" height="300" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="AP_h0_di" bpmnElement="AP_h0">
-        <dc:Bounds x="792" y="718" width="34" height="34" />
+        <dc:Bounds x="792" y="628" width="34" height="34" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="759" y="761" width="101" height="14" />
+          <dc:Bounds x="759" y="671" width="101" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="AP_h3_di" bpmnElement="AP_h3">
-        <dc:Bounds x="948" y="697" width="174" height="76" />
+        <dc:Bounds x="948" y="607" width="174" height="76" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="AP_h5_di" bpmnElement="AP_h5">
-        <dc:Bounds x="1174" y="697" width="174" height="76" />
+        <dc:Bounds x="1174" y="607" width="174" height="76" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="AP_hSignEnd_di" bpmnElement="AP_hSignEnd">
-        <dc:Bounds x="1470" y="718" width="34" height="34" />
+        <dc:Bounds x="1470" y="628" width="34" height="34" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1442" y="761" width="91" height="14" />
+          <dc:Bounds x="1442" y="671" width="91" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="AP_hDept0_di" bpmnElement="AP_hDept0">
-        <dc:Bounds x="1470" y="1018" width="34" height="34" />
+        <dc:Bounds x="1470" y="928" width="34" height="34" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1437" y="1061" width="101" height="14" />
+          <dc:Bounds x="1437" y="971" width="101" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="AP_hForward_di" bpmnElement="AP_hForward">
-        <dc:Bounds x="1626" y="997" width="174" height="76" />
+        <dc:Bounds x="1626" y="907" width="174" height="76" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="AP_hDeptEnd_di" bpmnElement="AP_hDeptEnd">
-        <dc:Bounds x="1922" y="1018" width="34" height="34" />
+        <dc:Bounds x="1922" y="928" width="34" height="34" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1895" y="1061" width="88" height="14" />
+          <dc:Bounds x="1895" y="971" width="88" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="AP_h8_di" bpmnElement="AP_h8">
-        <dc:Bounds x="1852" y="1297" width="174" height="76" />
+        <dc:Bounds x="1852" y="1207" width="174" height="76" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="AP_h2_di" bpmnElement="AP_h2">
-        <dc:Bounds x="2078" y="1297" width="174" height="76" />
+        <dc:Bounds x="2078" y="1207" width="174" height="76" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="AP_h9_di" bpmnElement="AP_h9" isMarkerVisible="true">
-        <dc:Bounds x="2369" y="1313" width="44" height="44" />
+        <dc:Bounds x="2369" y="1223" width="44" height="44" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="2366" y="1289" width="50" height="14" />
+          <dc:Bounds x="2366" y="1199" width="50" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="AP_hContact_di" bpmnElement="AP_hContact">
-        <dc:Bounds x="2078" y="1447" width="174" height="76" />
+        <dc:Bounds x="2078" y="1357" width="174" height="76" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="AP_hCorrection_di" bpmnElement="AP_hCorrection">
-        <dc:Bounds x="1852" y="1447" width="174" height="76" />
+        <dc:Bounds x="1852" y="1357" width="174" height="76" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="AP_hBatch_di" bpmnElement="AP_hBatch">
-        <dc:Bounds x="2530" y="1297" width="174" height="76" />
+        <dc:Bounds x="2530" y="1207" width="174" height="76" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="AP_hApproval_di" bpmnElement="AP_hApproval">
-        <dc:Bounds x="2756" y="1297" width="174" height="76" />
+        <dc:Bounds x="2756" y="1207" width="174" height="76" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="AP_h17_di" bpmnElement="AP_h17">
-        <dc:Bounds x="2982" y="1297" width="174" height="76" />
+        <dc:Bounds x="2982" y="1207" width="174" height="76" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="AP_h18_di" bpmnElement="AP_h18">
-        <dc:Bounds x="3208" y="1297" width="174" height="76" />
+        <dc:Bounds x="3208" y="1207" width="174" height="76" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="AP_h19_di" bpmnElement="AP_h19">
-        <dc:Bounds x="3504" y="1318" width="34" height="34" />
+        <dc:Bounds x="3504" y="1228" width="34" height="34" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="3488" y="1361" width="67" height="14" />
+          <dc:Bounds x="3488" y="1271" width="67" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="AP_hReject_di" bpmnElement="AP_hReject">
-        <dc:Bounds x="2600" y="1468" width="34" height="34" />
+        <dc:Bounds x="2600" y="1378" width="34" height="34" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="2567" y="1511" width="101" height="27" />
+          <dc:Bounds x="2567" y="1421" width="101" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="AP_DeptDocumentsRef_di" bpmnElement="AP_DeptDocumentsRef">
-        <dc:Bounds x="1695" y="1128" width="36" height="50" />
+        <dc:Bounds x="1695" y="1038" width="36" height="50" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1681" y="1184" width="64" height="14" />
+          <dc:Bounds x="1681" y="1094" width="64" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="AP_hPublish_di" bpmnElement="AP_hPublish">
-        <dc:Bounds x="496" y="1284" width="174" height="76" />
+        <dc:Bounds x="496" y="1194" width="174" height="76" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="AP_hNotice_di" bpmnElement="AP_hNotice">
-        <dc:Bounds x="340" y="1305" width="34" height="34" />
+        <dc:Bounds x="340" y="1215" width="34" height="34" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="312" y="1348" width="91" height="14" />
+          <dc:Bounds x="312" y="1258" width="91" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="AP_f22_di" bpmnElement="AP_f22">
-        <di:waypoint x="826" y="735" />
-        <di:waypoint x="948" y="735" />
+        <di:waypoint x="826" y="645" />
+        <di:waypoint x="948" y="645" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="AP_f23_di" bpmnElement="AP_f23">
-        <di:waypoint x="1122" y="735" />
-        <di:waypoint x="1174" y="735" />
+        <di:waypoint x="1122" y="645" />
+        <di:waypoint x="1174" y="645" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="AP_f24_di" bpmnElement="AP_f24">
-        <di:waypoint x="1348" y="735" />
-        <di:waypoint x="1470" y="735" />
+        <di:waypoint x="1348" y="645" />
+        <di:waypoint x="1470" y="645" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="AP_f25_di" bpmnElement="AP_f25">
-        <di:waypoint x="1504" y="1035" />
-        <di:waypoint x="1626" y="1035" />
+        <di:waypoint x="1504" y="945" />
+        <di:waypoint x="1626" y="945" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="AP_f26_di" bpmnElement="AP_f26">
-        <di:waypoint x="1800" y="1035" />
-        <di:waypoint x="1922" y="1035" />
+        <di:waypoint x="1800" y="945" />
+        <di:waypoint x="1922" y="945" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="AP_f27_di" bpmnElement="AP_f27">
-        <di:waypoint x="374" y="1322" />
-        <di:waypoint x="496" y="1322" />
+        <di:waypoint x="374" y="1232" />
+        <di:waypoint x="496" y="1232" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="AP_f28_di" bpmnElement="AP_f28">
-        <di:waypoint x="670" y="1322" />
-        <di:waypoint x="1852" y="1322" />
+        <di:waypoint x="670" y="1232" />
+        <di:waypoint x="1852" y="1232" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="AP_f33_di" bpmnElement="AP_f33">
-        <di:waypoint x="1939" y="1447" />
-        <di:waypoint x="1939" y="1373" />
+        <di:waypoint x="1939" y="1357" />
+        <di:waypoint x="1939" y="1283" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="AP_f29_di" bpmnElement="AP_f29">
-        <di:waypoint x="2026" y="1335" />
-        <di:waypoint x="2078" y="1335" />
+        <di:waypoint x="2026" y="1245" />
+        <di:waypoint x="2078" y="1245" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="AP_f30_di" bpmnElement="AP_f30">
-        <di:waypoint x="2252" y="1335" />
-        <di:waypoint x="2369" y="1335" />
+        <di:waypoint x="2252" y="1245" />
+        <di:waypoint x="2369" y="1245" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="AP_f31_di" bpmnElement="AP_f31">
-        <di:waypoint x="2380" y="1346" />
-        <di:waypoint x="2380" y="1500" />
-        <di:waypoint x="2252" y="1500" />
+        <di:waypoint x="2380" y="1256" />
+        <di:waypoint x="2380" y="1410" />
+        <di:waypoint x="2252" y="1410" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="2296" y="1483" width="68" height="14" />
+          <dc:Bounds x="2296" y="1393" width="68" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="AP_f34_di" bpmnElement="AP_f34">
-        <di:waypoint x="2413" y="1335" />
-        <di:waypoint x="2512" y="1335" />
-        <di:waypoint x="2512" y="1485" />
-        <di:waypoint x="2600" y="1485" />
+        <di:waypoint x="2413" y="1245" />
+        <di:waypoint x="2512" y="1245" />
+        <di:waypoint x="2512" y="1395" />
+        <di:waypoint x="2600" y="1395" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="2519" y="1433" width="101" height="14" />
+          <dc:Bounds x="2519" y="1343" width="101" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="AP_f35_di" bpmnElement="AP_f35">
-        <di:waypoint x="2398" y="1320" />
-        <di:waypoint x="2530" y="1320" />
+        <di:waypoint x="2398" y="1230" />
+        <di:waypoint x="2530" y="1230" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="2436" y="1303" width="68" height="14" />
+          <dc:Bounds x="2436" y="1213" width="68" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="AP_f36_di" bpmnElement="AP_f36">
-        <di:waypoint x="2391" y="1357" />
-        <di:waypoint x="2391" y="1540" />
-        <di:waypoint x="1830" y="1540" />
-        <di:waypoint x="1830" y="1485" />
-        <di:waypoint x="1850" y="1485" />
+        <di:waypoint x="2391" y="1267" />
+        <di:waypoint x="2391" y="1450" />
+        <di:waypoint x="1830" y="1450" />
+        <di:waypoint x="1830" y="1395" />
+        <di:waypoint x="1850" y="1395" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="2396" y="1411" width="67" height="14" />
+          <dc:Bounds x="2396" y="1321" width="67" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="AP_f32_di" bpmnElement="AP_f32">
-        <di:waypoint x="2078" y="1485" />
-        <di:waypoint x="2026" y="1485" />
+        <di:waypoint x="2078" y="1395" />
+        <di:waypoint x="2026" y="1395" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="AP_f37_di" bpmnElement="AP_f37">
-        <di:waypoint x="2704" y="1335" />
-        <di:waypoint x="2756" y="1335" />
+        <di:waypoint x="2704" y="1245" />
+        <di:waypoint x="2756" y="1245" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="AP_f38_di" bpmnElement="AP_f38">
-        <di:waypoint x="2930" y="1335" />
-        <di:waypoint x="2982" y="1335" />
+        <di:waypoint x="2930" y="1245" />
+        <di:waypoint x="2982" y="1245" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="AP_f39_di" bpmnElement="AP_f39">
-        <di:waypoint x="3156" y="1335" />
-        <di:waypoint x="3208" y="1335" />
+        <di:waypoint x="3156" y="1245" />
+        <di:waypoint x="3208" y="1245" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="AP_f40_di" bpmnElement="AP_f40">
-        <di:waypoint x="3382" y="1335" />
-        <di:waypoint x="3504" y="1335" />
+        <di:waypoint x="3382" y="1245" />
+        <di:waypoint x="3504" y="1245" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="AP_J_di" bpmnElement="AP_J" isHorizontal="true">
-        <dc:Bounds x="160" y="1600" width="3724" height="230" />
+        <dc:Bounds x="160" y="1510" width="3724" height="230" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="AP_J_lane0_di" bpmnElement="AP_J_lane0" isHorizontal="true">
-        <dc:Bounds x="190" y="1600" width="3694" height="230" />
+        <dc:Bounds x="190" y="1510" width="3694" height="230" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="AP_j0_di" bpmnElement="AP_j0">
-        <dc:Bounds x="3052" y="1663" width="34" height="34" />
+        <dc:Bounds x="3052" y="1573" width="34" height="34" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="3036" y="1706" width="67" height="14" />
+          <dc:Bounds x="3036" y="1616" width="67" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="AP_j1_di" bpmnElement="AP_j1">
-        <dc:Bounds x="3208" y="1642" width="174" height="76" />
+        <dc:Bounds x="3208" y="1552" width="174" height="76" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="AP_j2_di" bpmnElement="AP_j2">
-        <dc:Bounds x="3434" y="1642" width="174" height="76" />
+        <dc:Bounds x="3434" y="1552" width="174" height="76" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="AP_j3_di" bpmnElement="AP_j3">
-        <dc:Bounds x="3730" y="1663" width="34" height="34" />
+        <dc:Bounds x="3730" y="1573" width="34" height="34" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="3714" y="1706" width="67" height="14" />
+          <dc:Bounds x="3714" y="1616" width="67" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="AP_f41_di" bpmnElement="AP_f41">
-        <di:waypoint x="3086" y="1680" />
-        <di:waypoint x="3208" y="1680" />
+        <di:waypoint x="3086" y="1590" />
+        <di:waypoint x="3208" y="1590" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="AP_f42_di" bpmnElement="AP_f42">
-        <di:waypoint x="3382" y="1680" />
-        <di:waypoint x="3434" y="1680" />
+        <di:waypoint x="3382" y="1590" />
+        <di:waypoint x="3434" y="1590" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="AP_f43_di" bpmnElement="AP_f43">
-        <di:waypoint x="3608" y="1680" />
-        <di:waypoint x="3730" y="1680" />
+        <di:waypoint x="3608" y="1590" />
+        <di:waypoint x="3730" y="1590" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="AP_note1_di" bpmnElement="AP_note1">
-        <dc:Bounds x="270" y="82" width="760" height="78" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="AP_note2_di" bpmnElement="AP_note2">
-        <dc:Bounds x="1070" y="82" width="760" height="78" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="AP_note3_di" bpmnElement="AP_note3">
-        <dc:Bounds x="1870" y="82" width="760" height="78" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="AP_DeptDeliver_di" bpmnElement="AP_DeptDeliver">
-        <di:waypoint x="1713" y="1073" />
-        <di:waypoint x="1713" y="1128" />
+        <di:waypoint x="1713" y="983" />
+        <di:waypoint x="1713" y="1038" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="AP_DeptCompare_di" bpmnElement="AP_DeptCompare">
-        <di:waypoint x="1731" y="1153" />
-        <di:waypoint x="1939" y="1153" />
-        <di:waypoint x="1939" y="1297" />
+        <di:waypoint x="1731" y="1063" />
+        <di:waypoint x="1939" y="1063" />
+        <di:waypoint x="1939" y="1207" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="AP_m1_di" bpmnElement="AP_m1">
-        <di:waypoint x="583" y="1284" />
-        <di:waypoint x="583" y="288" />
+        <di:waypoint x="583" y="1194" />
+        <di:waypoint x="583" y="198" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="483" y="772" width="67" height="14" />
+          <dc:Bounds x="483" y="682" width="67" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="AP_m2_di" bpmnElement="AP_m2">
-        <di:waypoint x="809" y="290" />
-        <di:waypoint x="809" y="718" />
+        <di:waypoint x="809" y="200" />
+        <di:waypoint x="809" y="628" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="821" y="489" width="78" height="14" />
+          <dc:Bounds x="821" y="399" width="78" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="AP_m3_di" bpmnElement="AP_m3">
-        <di:waypoint x="1261" y="697" />
-        <di:waypoint x="1261" y="550" />
-        <di:waypoint x="1035" y="550" />
-        <di:waypoint x="1035" y="288" />
+        <di:waypoint x="1261" y="607" />
+        <di:waypoint x="1261" y="460" />
+        <di:waypoint x="1035" y="460" />
+        <di:waypoint x="1035" y="198" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1096" y="533" width="88" height="14" />
+          <dc:Bounds x="1096" y="443" width="88" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="AP_m4_di" bpmnElement="AP_m4">
-        <di:waypoint x="1573" y="280" />
-        <di:waypoint x="1610" y="280" />
-        <di:waypoint x="1610" y="860" />
-        <di:waypoint x="1487" y="860" />
-        <di:waypoint x="1487" y="1010" />
+        <di:waypoint x="1573" y="190" />
+        <di:waypoint x="1610" y="190" />
+        <di:waypoint x="1610" y="770" />
+        <di:waypoint x="1487" y="770" />
+        <di:waypoint x="1487" y="920" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1558" y="541" width="44" height="14" />
+          <dc:Bounds x="1558" y="451" width="44" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="AP_m5_di" bpmnElement="AP_m5">
-        <di:waypoint x="1713" y="290" />
-        <di:waypoint x="1713" y="860" />
-        <di:waypoint x="1980" y="860" />
-        <di:waypoint x="1980" y="1290" />
+        <di:waypoint x="1713" y="200" />
+        <di:waypoint x="1713" y="770" />
+        <di:waypoint x="1980" y="770" />
+        <di:waypoint x="1980" y="1200" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1716" y="541" width="67" height="14" />
+          <dc:Bounds x="1716" y="451" width="67" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="AP_m6_di" bpmnElement="AP_m6">
-        <di:waypoint x="2165" y="1447" />
-        <di:waypoint x="2165" y="1405" />
-        <di:waypoint x="2300" y="1405" />
-        <di:waypoint x="2300" y="868" />
-        <di:waypoint x="2080" y="868" />
-        <di:waypoint x="2080" y="287" />
+        <di:waypoint x="2165" y="1357" />
+        <di:waypoint x="2165" y="1315" />
+        <di:waypoint x="2300" y="1315" />
+        <di:waypoint x="2300" y="778" />
+        <di:waypoint x="2120" y="778" />
+        <di:waypoint x="2120" y="240" />
+        <di:waypoint x="2067" y="240" />
+        <di:waypoint x="2070" y="200" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="2166" y="883" width="68" height="14" />
+          <dc:Bounds x="2316" y="1043" width="68" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="AP_m7_di" bpmnElement="AP_m7">
-        <di:waypoint x="2050" y="508" />
-        <di:waypoint x="2050" y="1405" />
-        <di:waypoint x="2000" y="1405" />
-        <di:waypoint x="2000" y="1440" />
+        <di:waypoint x="2050" y="418" />
+        <di:waypoint x="2050" y="1315" />
+        <di:waypoint x="2000" y="1315" />
+        <di:waypoint x="2000" y="1350" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1998" y="851" width="44" height="14" />
+          <dc:Bounds x="2000" y="688" width="44" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="AP_m8_di" bpmnElement="AP_m8">
-        <di:waypoint x="3070" y="1373" />
-        <di:waypoint x="3070" y="1660" />
+        <di:waypoint x="3070" y="1283" />
+        <di:waypoint x="3070" y="1570" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="3076" y="1501" width="68" height="14" />
+          <dc:Bounds x="3076" y="1411" width="68" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="AP_m9_di" bpmnElement="AP_m9">
-        <di:waypoint x="3480" y="1640" />
-        <di:waypoint x="3480" y="1508" />
-        <di:waypoint x="3295" y="1508" />
-        <di:waypoint x="3295" y="1373" />
+        <di:waypoint x="3480" y="1550" />
+        <di:waypoint x="3480" y="1418" />
+        <di:waypoint x="3295" y="1418" />
+        <di:waypoint x="3295" y="1283" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="3366" y="1515" width="44" height="14" />
+          <dc:Bounds x="3366" y="1425" width="44" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="AP_m10_di" bpmnElement="AP_m10">
-        <di:waypoint x="3560" y="1640" />
-        <di:waypoint x="3560" y="860" />
-        <di:waypoint x="2780" y="860" />
-        <di:waypoint x="2780" y="390" />
-        <di:waypoint x="2677" y="390" />
-        <di:waypoint x="2677" y="288" />
+        <di:waypoint x="3560" y="1550" />
+        <di:waypoint x="3560" y="770" />
+        <di:waypoint x="2780" y="770" />
+        <di:waypoint x="2780" y="300" />
+        <di:waypoint x="2677" y="300" />
+        <di:waypoint x="2677" y="198" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="3121" y="778" width="88" height="14" />
+          <dc:Bounds x="3121" y="688" width="88" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
