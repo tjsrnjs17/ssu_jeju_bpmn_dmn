@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<dmn:definitions xmlns:dmn="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dmndiway="http://www.omg.org/spec/DMN/20180521/DI/" id="Definitions_CreditExchange" name="숭실대→제주대 2026 여름 As-Is 의사결정" namespace="https://example.org/ssu-jeju/2026/decisions" exporter="Document-grounded DMN" exporterVersion="1.0">
-  <dmn:description>문서에 명시된 기준의 정형화. 실제 학교가 DMN을 운영한다고 주장하지 않으며 담당자의 판단을 대체하지 않는다. 빈 입력은 null, 분류 미확인은 UNKNOWN/UNCONFIRMED 등 표별 값을 사용한다. 일반 파견 기준이다.</dmn:description>
+<dmn:definitions xmlns:dmn="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dmndiway="http://www.omg.org/spec/DMN/20180521/DI/" id="Definitions_CreditExchange" name="숭실대 → 제주대 2026 여름 최종 As-Is · 인터뷰 우선" namespace="https://example.org/ssu-jeju/2026/decisions" exporter="Interview-first final As-Is" exporterVersion="2026.11.15">
+  <dmn:description>최종 As-Is. 근거 우선순위: 2026-11-13 담당자 인터뷰의 실제 운영 설명 &gt; 기존 신청서·학칙·안내문. 인터뷰 미설명 사항은 해당 문서로 보완한다. 숭실대 수신 절차를 제주대 파견에 전용하지 않는다. 자동화·통합 시스템·일반선택 무승인 통과는 현행 흐름에 포함하지 않는다. 주황색은 전문 판단·승인, 파란색은 DMN으로 정리한 수동 확인 기준이다. 실행 엔진 배포용 모델이 아니다. DMN은 현행 판단 기준의 정리이며 자동 시스템 도입을 뜻하지 않는다.</dmn:description>
   <dmn:inputData id="Input_D01" name="01 지원 자격 확인 자료">
     <dmn:description>입력 계약: [{"key": "track", "label": "교류 유형", "type": "string", "domain": ["GENERAL", "OTHER", "UNKNOWN"], "note": "GENERAL=일반 학부 교류. 차세대반도체 등 별도 트랙은 OTHER."}, {"key": "studentState", "label": "숭실대 재학 학부생", "type": "string", "domain": ["YES", "NO", "UNKNOWN"], "note": ""}, {"key": "semester", "label": "2026-1 재학 학기", "type": "number", "domain": null, "note": "학년이 아닌 재학 학기. 정수 여부는 입력 계약에서 확인."}, {"key": "gpa", "label": "직전 학기까지 총 평점", "type": "number", "domain": null, "note": "공식 학적부 총 평점평균. 직전 학기 단독 GPA가 아님."}, {"key": "discipline", "label": "징계 사실", "type": "string", "domain": ["NONE", "EXISTS", "UNKNOWN"], "note": ""}]</dmn:description>
     <dmn:variable id="Var_Input_D01" name="source_D01" typeRef="Any" />
@@ -14,11 +14,11 @@
     <dmn:variable id="Var_Input_D03" name="source_D03" typeRef="Any" />
   </dmn:inputData>
   <dmn:inputData id="Input_D04" name="04 신청 자료 준비 확인 자료">
-    <dmn:description>입력 계약: [{"key": "consent", "label": "신청서 개인정보 동의", "type": "string", "domain": ["YES", "NO", "UNKNOWN"], "note": ""}, {"key": "deptSubmission", "label": "학과 제출", "type": "string", "domain": ["DONE", "MISSING", "UNKNOWN"], "note": ""}, {"key": "xlsxFile", "label": "신청서 엑셀 원본", "type": "string", "domain": ["PRESENT", "MISSING", "UNKNOWN"], "note": ""}, {"key": "signedScan", "label": "학과장 서명 스캔", "type": "string", "domain": ["PRESENT", "MISSING", "UNKNOWN"], "note": ""}, {"key": "lmsSubmission", "label": "LMS 신청", "type": "string", "domain": ["DONE", "MISSING", "UNKNOWN"], "note": ""}, {"key": "otherRequired", "label": "해당 공지 추가서류", "type": "string", "domain": ["COMPLETE", "MISSING", "UNKNOWN"], "note": ""}]</dmn:description>
+    <dmn:description>최종 입력 계약: [{"expression": "source_D04.consent", "label": "신청서 개인정보 동의", "values": "\"YES\", \"NO\", \"UNKNOWN\""}, {"expression": "source_D04.deptSubmission", "label": "학과 제출", "values": "\"DONE\", \"MISSING\", \"UNKNOWN\""}, {"expression": "source_D04.xlsxFile", "label": "신청서 엑셀 원본", "values": "\"PRESENT\", \"MISSING\", \"UNKNOWN\""}, {"expression": "source_D04.signedScan", "label": "학과장 서명 스캔", "values": "\"PRESENT\", \"MISSING\", \"UNKNOWN\""}, {"expression": "source_D04.lmsSubmission", "label": "LMS 신청", "values": "\"DONE\", \"MISSING\", \"UNKNOWN\""}, {"expression": "source_D04.otherRequired", "label": "해당 공지 추가서류", "values": "\"COMPLETE\", \"MISSING\", \"UNKNOWN\""}]</dmn:description>
     <dmn:variable id="Var_Input_D04" name="source_D04" typeRef="Any" />
   </dmn:inputData>
   <dmn:inputData id="Input_D05" name="05 변경 과목 처리 확인 자료">
-    <dmn:description>입력 계약: [{"key": "courseMatches", "label": "기승인 신청서와 실제 과목", "type": "string", "domain": ["MATCH", "DIFFERENT", "UNKNOWN"], "note": ""}, {"key": "priorApproval", "label": "변경 전 재신청·승인", "type": "string", "domain": ["APPROVED", "NOT_YET", "DENIED", "UNKNOWN"], "note": ""}, {"key": "registrationWindow", "label": "제주대 신청기간", "type": "string", "domain": ["OPEN", "NOT_STARTED", "CLOSED", "UNKNOWN"], "note": "CLOSED는 해당 신청기간 종료 상태다."}]</dmn:description>
+    <dmn:description>최종 입력 계약: [{"expression": "source_D05.processingPhase", "label": "처리 시점", "values": "\"BEFORE_REGISTRATION\", \"AFTER_REGISTRATION\", \"UNKNOWN\""}, {"expression": "source_D05.courseMatches", "label": "기승인 신청서와 실제 과목", "values": "\"MATCH\", \"DIFFERENT\", \"UNKNOWN\""}, {"expression": "source_D05.priorApproval", "label": "변경 전 재신청·승인", "values": "\"APPROVED\", \"NOT_YET\", \"DENIED\", \"UNKNOWN\""}, {"expression": "source_D05.registrationWindow", "label": "제주대 신청기간", "values": "\"OPEN\", \"NOT_STARTED\", \"CLOSED\", \"UNKNOWN\""}]</dmn:description>
     <dmn:variable id="Var_Input_D05" name="source_D05" typeRef="Any" />
   </dmn:inputData>
   <dmn:inputData id="Input_D06" name="06 수강료 단가 확인 자료">
@@ -38,7 +38,7 @@
     <dmn:variable id="Var_Input_D09" name="source_D09" typeRef="Any" />
   </dmn:inputData>
   <dmn:inputData id="Input_D10" name="10 학점·성적 반영 경로 확인 자료">
-    <dmn:description>입력 계약: [{"key": "officialGrades", "label": "제주대 공식 성적 수신", "type": "string", "domain": ["RECEIVED", "WAITING", "UNCONFIRMED"], "note": ""}, {"key": "recognitionApproval", "label": "해당 과목의 본교 승인", "type": "string", "domain": ["APPROVED_ORIGINAL", "APPROVED_CHANGE", "NOT_APPROVED", "UNCONFIRMED"], "note": ""}, {"key": "creditCheck", "label": "실제 인정 학점 한도", "type": "string", "domain": ["WITHIN", "OVER", "UNCONFIRMED"], "note": ""}, {"key": "deptCategory", "label": "확정된 인정 이수구분", "type": "string", "domain": ["MAJOR_ELECTIVE", "GENERAL_ELECTIVE", "NOT_RECOGNIZED", "UNDECIDED"], "note": "사전 승인 기록 또는 실제 인정 결과에서 확인한다. 변경 과목의 인정 적용이나 이수구분이 미확정이면 UNDECIDED를 입력한다."}, {"key": "conversion", "label": "성적 환산·학적 조건 확인", "type": "string", "domain": ["CONFIRMED", "UNCONFIRMED"], "note": ""}]</dmn:description>
+    <dmn:description>최종 입력 계약: [{"expression": "source_D10.officialGrades", "label": "제주대 공식 성적 수신", "values": "\"RECEIVED\", \"WAITING\", \"UNCONFIRMED\""}, {"expression": "source_D10.recognitionApproval", "label": "해당 과목의 본교 승인", "values": "\"APPROVED_ORIGINAL\", \"APPROVED_CHANGE\", \"PENDING_REAPPROVAL\", \"DENIED\", \"UNCONFIRMED\""}, {"expression": "source_D10.creditCheck", "label": "실제 인정 학점 한도", "values": "\"WITHIN\", \"OVER\", \"UNCONFIRMED\""}, {"expression": "source_D10.deptCategory", "label": "확정된 인정 이수구분", "values": "\"MAJOR_ELECTIVE\", \"LIBERAL_ELECTIVE\", \"GENERAL_ELECTIVE\", \"NOT_RECOGNIZED\", \"UNDECIDED\""}, {"expression": "source_D10.conversion", "label": "성적 환산·학적 조건 확인", "values": "\"CONFIRMED\", \"UNCONFIRMED\""}, {"expression": "source_D10.courseComparison", "label": "실제 과목·승인 대조", "values": "\"MATCH\", \"CHANGED_UNREVIEWED\", \"CHANGE_REVIEWED\", \"UNCONFIRMED\""}]</dmn:description>
     <dmn:variable id="Var_Input_D10" name="source_D10" typeRef="Any" />
   </dmn:inputData>
   <dmn:decision id="D01" name="01 지원 자격">
@@ -813,7 +813,7 @@
     </dmn:decisionTable>
   </dmn:decision>
   <dmn:decision id="D04" name="04 신청 자료 준비">
-    <dmn:description>숭실대 학과 제출 후 LMS 신청 순서를 따른다. 학과장 서명은 직접 판단·서명 작업이다.</dmn:description>
+    <dmn:description>인터뷰 Q1 우선. 학과 제출과 LMS 업로드를 교차 확인한다. 누락 결과는 보완 작업으로 연결하고, 자료가 불명확하면 제출 사실을 확인한다. 준비 완료는 이수구분 승인·추천·제주대 선발을 뜻하지 않는다.</dmn:description>
     <dmn:variable id="Var_D04" name="D04_result" typeRef="string" />
     <dmn:informationRequirement id="Req_D04">
       <dmn:requiredInput href="#Input_D04" />
@@ -876,7 +876,7 @@
       <dmn:output id="D04_out" name="D04_result" label="판정 / 다음 처리" typeRef="string" />
       <dmn:annotation name="근거·해석 범위" />
       <dmn:rule id="D04_r1">
-        <dmn:description>S01 C31 | </dmn:description>
+        <dmn:description>I20261113 학사팀 학점교류 담당자 인터뷰 Q1. 두 제출 경로 대조 후 누락은 보완. 이수구분 오류는 학과장 재서명.</dmn:description>
         <dmn:inputEntry id="D04_r1_i1">
           <dmn:text>"NO"</dmn:text>
         </dmn:inputEntry>
@@ -899,11 +899,11 @@
           <dmn:text>"신청 취소 대상"</dmn:text>
         </dmn:outputEntry>
         <dmn:annotationEntry>
-          <dmn:text>S01 C31</dmn:text>
+          <dmn:text>I20261113 학사팀 학점교류 담당자 인터뷰 Q1. 두 제출 경로 대조 후 누락은 보완. 이수구분 오류는 학과장 재서명.</dmn:text>
         </dmn:annotationEntry>
       </dmn:rule>
       <dmn:rule id="D04_r2">
-        <dmn:description>W02 3.다 | 승인·추천·제주대 선발은 별도.</dmn:description>
+        <dmn:description>I20261113 학사팀 학점교류 담당자 인터뷰 Q1. 두 제출 경로 대조 후 누락은 보완. 이수구분 오류는 학과장 재서명.</dmn:description>
         <dmn:inputEntry id="D04_r2_i1">
           <dmn:text>"YES"</dmn:text>
         </dmn:inputEntry>
@@ -926,11 +926,11 @@
           <dmn:text>"서류 요건 준비"</dmn:text>
         </dmn:outputEntry>
         <dmn:annotationEntry>
-          <dmn:text>W02 3.다 — 승인·추천·제주대 선발은 별도.</dmn:text>
+          <dmn:text>I20261113 학사팀 학점교류 담당자 인터뷰 Q1. 두 제출 경로 대조 후 누락은 보완. 이수구분 오류는 학과장 재서명.</dmn:text>
         </dmn:annotationEntry>
       </dmn:rule>
       <dmn:rule id="D04_r3">
-        <dmn:description>W02 3.다 | </dmn:description>
+        <dmn:description>I20261113 학사팀 학점교류 담당자 인터뷰 Q1. 두 제출 경로 대조 후 누락은 보완. 이수구분 오류는 학과장 재서명.</dmn:description>
         <dmn:inputEntry id="D04_r3_i1">
           <dmn:text>-</dmn:text>
         </dmn:inputEntry>
@@ -950,14 +950,14 @@
           <dmn:text>-</dmn:text>
         </dmn:inputEntry>
         <dmn:outputEntry id="D04_r3_o">
-          <dmn:text>"서류 미완비"</dmn:text>
+          <dmn:text>"누락 자료 보완"</dmn:text>
         </dmn:outputEntry>
         <dmn:annotationEntry>
-          <dmn:text>W02 3.다</dmn:text>
+          <dmn:text>I20261113 학사팀 학점교류 담당자 인터뷰 Q1. 두 제출 경로 대조 후 누락은 보완. 이수구분 오류는 학과장 재서명.</dmn:text>
         </dmn:annotationEntry>
       </dmn:rule>
       <dmn:rule id="D04_r4">
-        <dmn:description>W02 3.다 | </dmn:description>
+        <dmn:description>I20261113 학사팀 학점교류 담당자 인터뷰 Q1. 두 제출 경로 대조 후 누락은 보완. 이수구분 오류는 학과장 재서명.</dmn:description>
         <dmn:inputEntry id="D04_r4_i1">
           <dmn:text>-</dmn:text>
         </dmn:inputEntry>
@@ -977,14 +977,14 @@
           <dmn:text>-</dmn:text>
         </dmn:inputEntry>
         <dmn:outputEntry id="D04_r4_o">
-          <dmn:text>"서류 미완비"</dmn:text>
+          <dmn:text>"누락 자료 보완"</dmn:text>
         </dmn:outputEntry>
         <dmn:annotationEntry>
-          <dmn:text>W02 3.다</dmn:text>
+          <dmn:text>I20261113 학사팀 학점교류 담당자 인터뷰 Q1. 두 제출 경로 대조 후 누락은 보완. 이수구분 오류는 학과장 재서명.</dmn:text>
         </dmn:annotationEntry>
       </dmn:rule>
       <dmn:rule id="D04_r5">
-        <dmn:description>W02 3.다 | </dmn:description>
+        <dmn:description>I20261113 학사팀 학점교류 담당자 인터뷰 Q1. 두 제출 경로 대조 후 누락은 보완. 이수구분 오류는 학과장 재서명.</dmn:description>
         <dmn:inputEntry id="D04_r5_i1">
           <dmn:text>-</dmn:text>
         </dmn:inputEntry>
@@ -1004,14 +1004,14 @@
           <dmn:text>-</dmn:text>
         </dmn:inputEntry>
         <dmn:outputEntry id="D04_r5_o">
-          <dmn:text>"서류 미완비"</dmn:text>
+          <dmn:text>"누락 자료 보완"</dmn:text>
         </dmn:outputEntry>
         <dmn:annotationEntry>
-          <dmn:text>W02 3.다</dmn:text>
+          <dmn:text>I20261113 학사팀 학점교류 담당자 인터뷰 Q1. 두 제출 경로 대조 후 누락은 보완. 이수구분 오류는 학과장 재서명.</dmn:text>
         </dmn:annotationEntry>
       </dmn:rule>
       <dmn:rule id="D04_r6">
-        <dmn:description>W02 3.다 | </dmn:description>
+        <dmn:description>I20261113 학사팀 학점교류 담당자 인터뷰 Q1. 두 제출 경로 대조 후 누락은 보완. 이수구분 오류는 학과장 재서명.</dmn:description>
         <dmn:inputEntry id="D04_r6_i1">
           <dmn:text>-</dmn:text>
         </dmn:inputEntry>
@@ -1031,14 +1031,14 @@
           <dmn:text>-</dmn:text>
         </dmn:inputEntry>
         <dmn:outputEntry id="D04_r6_o">
-          <dmn:text>"서류 미완비"</dmn:text>
+          <dmn:text>"누락 자료 보완"</dmn:text>
         </dmn:outputEntry>
         <dmn:annotationEntry>
-          <dmn:text>W02 3.다</dmn:text>
+          <dmn:text>I20261113 학사팀 학점교류 담당자 인터뷰 Q1. 두 제출 경로 대조 후 누락은 보완. 이수구분 오류는 학과장 재서명.</dmn:text>
         </dmn:annotationEntry>
       </dmn:rule>
       <dmn:rule id="D04_r7">
-        <dmn:description>W02 3.다 | </dmn:description>
+        <dmn:description>I20261113 학사팀 학점교류 담당자 인터뷰 Q1. 두 제출 경로 대조 후 누락은 보완. 이수구분 오류는 학과장 재서명.</dmn:description>
         <dmn:inputEntry id="D04_r7_i1">
           <dmn:text>-</dmn:text>
         </dmn:inputEntry>
@@ -1058,14 +1058,14 @@
           <dmn:text>"MISSING"</dmn:text>
         </dmn:inputEntry>
         <dmn:outputEntry id="D04_r7_o">
-          <dmn:text>"서류 미완비"</dmn:text>
+          <dmn:text>"누락 자료 보완"</dmn:text>
         </dmn:outputEntry>
         <dmn:annotationEntry>
-          <dmn:text>W02 3.다</dmn:text>
+          <dmn:text>I20261113 학사팀 학점교류 담당자 인터뷰 Q1. 두 제출 경로 대조 후 누락은 보완. 이수구분 오류는 학과장 재서명.</dmn:text>
         </dmn:annotationEntry>
       </dmn:rule>
       <dmn:rule id="D04_r8">
-        <dmn:description>G01 | 보완·재접수의 실제 절차는 I06/I07에서 확인한다.</dmn:description>
+        <dmn:description>I20261113 학사팀 학점교류 담당자 인터뷰 Q1. 두 제출 경로 대조 후 누락은 보완. 이수구분 오류는 학과장 재서명.</dmn:description>
         <dmn:inputEntry id="D04_r8_i1">
           <dmn:text>-</dmn:text>
         </dmn:inputEntry>
@@ -1085,21 +1085,30 @@
           <dmn:text>-</dmn:text>
         </dmn:inputEntry>
         <dmn:outputEntry id="D04_r8_o">
-          <dmn:text>"서류 상태 미확정"</dmn:text>
+          <dmn:text>"제출 사실 확인"</dmn:text>
         </dmn:outputEntry>
         <dmn:annotationEntry>
-          <dmn:text>G01 — 보완·재접수의 실제 절차는 I06/I07에서 확인한다.</dmn:text>
+          <dmn:text>I20261113 학사팀 학점교류 담당자 인터뷰 Q1. 두 제출 경로 대조 후 누락은 보완. 이수구분 오류는 학과장 재서명.</dmn:text>
         </dmn:annotationEntry>
       </dmn:rule>
     </dmn:decisionTable>
   </dmn:decision>
   <dmn:decision id="D05" name="05 변경 과목 처리">
-    <dmn:description>수강신청 가능 경로를 판정한다. 변경 과목의 최종 인정과 S01 C30의 적용 범위는 I15에서 확인하며 D10에는 확정된 인정 정보를 입력한다.</dmn:description>
+    <dmn:description>인터뷰 우선: 사전 수강신청 경로와 이미 등록·이수한 과목의 사후 재승인을 구분한다. 사전 신청기간 조건은 사후 인정 심사를 거절하는 근거가 아니다. 과목 유사성 판단은 학과장이 수행한다.</dmn:description>
     <dmn:variable id="Var_D05" name="D05_result" typeRef="string" />
     <dmn:informationRequirement id="Req_D05">
       <dmn:requiredInput href="#Input_D05" />
     </dmn:informationRequirement>
     <dmn:decisionTable id="Table_D05" hitPolicy="FIRST" preferredOrientation="Rule-as-Row">
+      <dmn:input id="D05_in4" label="처리 시점">
+        <dmn:description>AFTER_REGISTRATION은 이미 등록·이수한 과목의 변경을 확인한 경우다. 신청기간 종료 여부와 별도로 사후 재승인을 진행한다.</dmn:description>
+        <dmn:inputExpression id="D05_expr4" typeRef="string">
+          <dmn:text>source_D05.processingPhase</dmn:text>
+        </dmn:inputExpression>
+        <dmn:inputValues id="D05_values4">
+          <dmn:text>"BEFORE_REGISTRATION", "AFTER_REGISTRATION", "UNKNOWN"</dmn:text>
+        </dmn:inputValues>
+      </dmn:input>
       <dmn:input id="D05_in1" label="기승인 신청서와 실제 과목">
         <dmn:description>확인된 원자료를 입력하며 추정값을 넣지 않는다.</dmn:description>
         <dmn:inputExpression id="D05_expr1" typeRef="string">
@@ -1130,147 +1139,213 @@
       <dmn:output id="D05_out" name="D05_result" label="판정 / 다음 처리" typeRef="string" />
       <dmn:annotation name="근거·해석 범위" />
       <dmn:rule id="D05_r1">
-        <dmn:description>S04 P039; G05 | </dmn:description>
+        <dmn:description>I20261113 학사팀 학점교류 담당자 인터뷰 Q10·Q11. 등록마감일로 사후 재승인을 차단하지 않는다.</dmn:description>
         <dmn:inputEntry id="D05_r1_i1">
-          <dmn:text>-</dmn:text>
+          <dmn:text>"AFTER_REGISTRATION"</dmn:text>
         </dmn:inputEntry>
         <dmn:inputEntry id="D05_r1_i2">
-          <dmn:text>-</dmn:text>
+          <dmn:text>"DIFFERENT"</dmn:text>
         </dmn:inputEntry>
         <dmn:inputEntry id="D05_r1_i3">
-          <dmn:text>"CLOSED"</dmn:text>
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D05_r1_i4">
+          <dmn:text>-</dmn:text>
         </dmn:inputEntry>
         <dmn:outputEntry id="D05_r1_o">
-          <dmn:text>"추가 수강신청 불가"</dmn:text>
+          <dmn:text>"사후 이수구분 재승인"</dmn:text>
         </dmn:outputEntry>
         <dmn:annotationEntry>
-          <dmn:text>S04 P039; G05</dmn:text>
+          <dmn:text>I20261113 학사팀 학점교류 담당자 인터뷰 Q10·Q11. 등록마감일로 사후 재승인을 차단하지 않는다.</dmn:text>
         </dmn:annotationEntry>
       </dmn:rule>
       <dmn:rule id="D05_r2">
-        <dmn:description>W01 제11조제1항; S04 P023–039 | </dmn:description>
+        <dmn:description>I20261113 학사팀 학점교류 담당자 인터뷰 Q10·Q13. 실제 과목이 승인 내역과 일치함.</dmn:description>
         <dmn:inputEntry id="D05_r2_i1">
-          <dmn:text>"MATCH"</dmn:text>
+          <dmn:text>"AFTER_REGISTRATION"</dmn:text>
         </dmn:inputEntry>
         <dmn:inputEntry id="D05_r2_i2">
-          <dmn:text>-</dmn:text>
+          <dmn:text>"MATCH"</dmn:text>
         </dmn:inputEntry>
         <dmn:inputEntry id="D05_r2_i3">
-          <dmn:text>"OPEN"</dmn:text>
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D05_r2_i4">
+          <dmn:text>-</dmn:text>
         </dmn:inputEntry>
         <dmn:outputEntry id="D05_r2_o">
-          <dmn:text>"승인 과목 신청 진행"</dmn:text>
+          <dmn:text>"기존 승인·성적 처리 계속"</dmn:text>
         </dmn:outputEntry>
         <dmn:annotationEntry>
-          <dmn:text>W01 제11조제1항; S04 P023–039</dmn:text>
+          <dmn:text>I20261113 학사팀 학점교류 담당자 인터뷰 Q10·Q13. 실제 과목이 승인 내역과 일치함.</dmn:text>
         </dmn:annotationEntry>
       </dmn:rule>
       <dmn:rule id="D05_r3">
-        <dmn:description>W01 제5·6·11조; W02 4.나.4 | </dmn:description>
+        <dmn:description>S04 P039; G05 | </dmn:description>
         <dmn:inputEntry id="D05_r3_i1">
-          <dmn:text>"DIFFERENT"</dmn:text>
+          <dmn:text>"BEFORE_REGISTRATION"</dmn:text>
         </dmn:inputEntry>
         <dmn:inputEntry id="D05_r3_i2">
-          <dmn:text>"NOT_YET"</dmn:text>
+          <dmn:text>-</dmn:text>
         </dmn:inputEntry>
         <dmn:inputEntry id="D05_r3_i3">
           <dmn:text>-</dmn:text>
         </dmn:inputEntry>
+        <dmn:inputEntry id="D05_r3_i4">
+          <dmn:text>"CLOSED"</dmn:text>
+        </dmn:inputEntry>
         <dmn:outputEntry id="D05_r3_o">
-          <dmn:text>"수강신청 전 재승인"</dmn:text>
+          <dmn:text>"추가 수강신청 불가"</dmn:text>
         </dmn:outputEntry>
         <dmn:annotationEntry>
-          <dmn:text>W01 제5·6·11조; W02 4.나.4</dmn:text>
+          <dmn:text>S04 P039; G05 | </dmn:text>
         </dmn:annotationEntry>
       </dmn:rule>
       <dmn:rule id="D05_r4">
-        <dmn:description>W01 제11조 | </dmn:description>
+        <dmn:description>W01 제11조제1항; S04 P023–039 | </dmn:description>
         <dmn:inputEntry id="D05_r4_i1">
-          <dmn:text>"DIFFERENT"</dmn:text>
+          <dmn:text>"BEFORE_REGISTRATION"</dmn:text>
         </dmn:inputEntry>
         <dmn:inputEntry id="D05_r4_i2">
-          <dmn:text>"DENIED"</dmn:text>
+          <dmn:text>"MATCH"</dmn:text>
         </dmn:inputEntry>
         <dmn:inputEntry id="D05_r4_i3">
           <dmn:text>-</dmn:text>
         </dmn:inputEntry>
+        <dmn:inputEntry id="D05_r4_i4">
+          <dmn:text>"OPEN"</dmn:text>
+        </dmn:inputEntry>
         <dmn:outputEntry id="D05_r4_o">
-          <dmn:text>"변경 과목 신청 중지"</dmn:text>
+          <dmn:text>"승인 과목 신청 진행"</dmn:text>
         </dmn:outputEntry>
         <dmn:annotationEntry>
-          <dmn:text>W01 제11조</dmn:text>
+          <dmn:text>W01 제11조제1항; S04 P023–039 | </dmn:text>
         </dmn:annotationEntry>
       </dmn:rule>
       <dmn:rule id="D05_r5">
-        <dmn:description>W01 제11조 | </dmn:description>
+        <dmn:description>W01 제5·6·11조; W02 4.나.4 | </dmn:description>
         <dmn:inputEntry id="D05_r5_i1">
-          <dmn:text>"DIFFERENT"</dmn:text>
+          <dmn:text>"BEFORE_REGISTRATION"</dmn:text>
         </dmn:inputEntry>
         <dmn:inputEntry id="D05_r5_i2">
-          <dmn:text>"APPROVED"</dmn:text>
+          <dmn:text>"DIFFERENT"</dmn:text>
         </dmn:inputEntry>
         <dmn:inputEntry id="D05_r5_i3">
-          <dmn:text>"OPEN"</dmn:text>
+          <dmn:text>"NOT_YET"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D05_r5_i4">
+          <dmn:text>-</dmn:text>
         </dmn:inputEntry>
         <dmn:outputEntry id="D05_r5_o">
-          <dmn:text>"재승인 과목 신청 진행"</dmn:text>
+          <dmn:text>"수강신청 전 재승인"</dmn:text>
         </dmn:outputEntry>
         <dmn:annotationEntry>
-          <dmn:text>W01 제11조</dmn:text>
+          <dmn:text>W01 제5·6·11조; W02 4.나.4 | </dmn:text>
         </dmn:annotationEntry>
       </dmn:rule>
       <dmn:rule id="D05_r6">
-        <dmn:description>S04 P023–039 | </dmn:description>
+        <dmn:description>W01 제11조 | </dmn:description>
         <dmn:inputEntry id="D05_r6_i1">
-          <dmn:text>"MATCH"</dmn:text>
+          <dmn:text>"BEFORE_REGISTRATION"</dmn:text>
         </dmn:inputEntry>
         <dmn:inputEntry id="D05_r6_i2">
-          <dmn:text>-</dmn:text>
+          <dmn:text>"DIFFERENT"</dmn:text>
         </dmn:inputEntry>
         <dmn:inputEntry id="D05_r6_i3">
-          <dmn:text>"NOT_STARTED"</dmn:text>
+          <dmn:text>"DENIED"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D05_r6_i4">
+          <dmn:text>-</dmn:text>
         </dmn:inputEntry>
         <dmn:outputEntry id="D05_r6_o">
-          <dmn:text>"수강신청 기간 대기"</dmn:text>
+          <dmn:text>"변경 과목 신청 중지"</dmn:text>
         </dmn:outputEntry>
         <dmn:annotationEntry>
-          <dmn:text>S04 P023–039</dmn:text>
+          <dmn:text>W01 제11조 | </dmn:text>
         </dmn:annotationEntry>
       </dmn:rule>
       <dmn:rule id="D05_r7">
-        <dmn:description>S04 P023–039 | </dmn:description>
+        <dmn:description>W01 제11조 | </dmn:description>
         <dmn:inputEntry id="D05_r7_i1">
-          <dmn:text>"DIFFERENT"</dmn:text>
+          <dmn:text>"BEFORE_REGISTRATION"</dmn:text>
         </dmn:inputEntry>
         <dmn:inputEntry id="D05_r7_i2">
-          <dmn:text>"APPROVED"</dmn:text>
+          <dmn:text>"DIFFERENT"</dmn:text>
         </dmn:inputEntry>
         <dmn:inputEntry id="D05_r7_i3">
-          <dmn:text>"NOT_STARTED"</dmn:text>
+          <dmn:text>"APPROVED"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D05_r7_i4">
+          <dmn:text>"OPEN"</dmn:text>
         </dmn:inputEntry>
         <dmn:outputEntry id="D05_r7_o">
-          <dmn:text>"수강신청 기간 대기"</dmn:text>
+          <dmn:text>"재승인 과목 신청 진행"</dmn:text>
         </dmn:outputEntry>
         <dmn:annotationEntry>
-          <dmn:text>S04 P023–039</dmn:text>
+          <dmn:text>W01 제11조 | </dmn:text>
         </dmn:annotationEntry>
       </dmn:rule>
       <dmn:rule id="D05_r8">
-        <dmn:description>G04·G05 | </dmn:description>
+        <dmn:description>S04 P023–039 | </dmn:description>
         <dmn:inputEntry id="D05_r8_i1">
-          <dmn:text>-</dmn:text>
+          <dmn:text>"BEFORE_REGISTRATION"</dmn:text>
         </dmn:inputEntry>
         <dmn:inputEntry id="D05_r8_i2">
-          <dmn:text>-</dmn:text>
+          <dmn:text>"MATCH"</dmn:text>
         </dmn:inputEntry>
         <dmn:inputEntry id="D05_r8_i3">
           <dmn:text>-</dmn:text>
         </dmn:inputEntry>
+        <dmn:inputEntry id="D05_r8_i4">
+          <dmn:text>"NOT_STARTED"</dmn:text>
+        </dmn:inputEntry>
         <dmn:outputEntry id="D05_r8_o">
+          <dmn:text>"수강신청 기간 대기"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>S04 P023–039 | </dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D05_r9">
+        <dmn:description>S04 P023–039 | </dmn:description>
+        <dmn:inputEntry id="D05_r9_i1">
+          <dmn:text>"BEFORE_REGISTRATION"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D05_r9_i2">
+          <dmn:text>"DIFFERENT"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D05_r9_i3">
+          <dmn:text>"APPROVED"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D05_r9_i4">
+          <dmn:text>"NOT_STARTED"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D05_r9_o">
+          <dmn:text>"수강신청 기간 대기"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>S04 P023–039 | </dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D05_r10">
+        <dmn:description>처리 시점·실제 과목 확인 후 담당자가 진행 경로를 결정한다.</dmn:description>
+        <dmn:inputEntry id="D05_r10_i1">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D05_r10_i2">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D05_r10_i3">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D05_r10_i4">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D05_r10_o">
           <dmn:text>"신청·승인 상태 미확정"</dmn:text>
         </dmn:outputEntry>
         <dmn:annotationEntry>
-          <dmn:text>G04·G05</dmn:text>
+          <dmn:text>처리 시점·실제 과목 확인 후 담당자가 진행 경로를 결정한다.</dmn:text>
         </dmn:annotationEntry>
       </dmn:rule>
     </dmn:decisionTable>
@@ -1851,7 +1926,7 @@
     </dmn:decisionTable>
   </dmn:decision>
   <dmn:decision id="D10" name="10 학점·성적 반영 경로">
-    <dmn:description>공식 성적과 승인·이수구분 기록을 사용한다. 성적 수신 후 별도 학과 재심사 유무는 I30에서 확인한다. 실제 적용 환산 기준과 변경 과목 인정 여부가 확인되어야 반영한다.</dmn:description>
+    <dmn:description>인터뷰 Q10·Q11·Q13 우선. 변경 과목은 사후 재승인 결과로 반영 가능하다. 학과의 전문 판단은 입력값으로 받고 자동 유사도 판정을 하지 않는다. 교양선택도 학과 승인 결과로 구분한다. 학기 전체 공문 취합 대기는 BPMN 06의 공통 처리 조건이다.</dmn:description>
     <dmn:variable id="Var_D10" name="D10_result" typeRef="string" />
     <dmn:informationRequirement id="Req_D10">
       <dmn:requiredInput href="#Input_D10" />
@@ -1867,12 +1942,12 @@
         </dmn:inputValues>
       </dmn:input>
       <dmn:input id="D10_in2" label="해당 과목의 본교 승인">
-        <dmn:description>확인된 원자료를 입력하며 추정값을 넣지 않는다.</dmn:description>
+        <dmn:description>사전 승인 또는 인터뷰상 사후 재승인의 확정 결과. PENDING_REAPPROVAL과 명시적인 DENIED를 구분한다. 사전승인 부재만으로 DENIED를 입력하지 않는다.</dmn:description>
         <dmn:inputExpression id="D10_expr2" typeRef="string">
           <dmn:text>source_D10.recognitionApproval</dmn:text>
         </dmn:inputExpression>
         <dmn:inputValues id="D10_values2">
-          <dmn:text>"APPROVED_ORIGINAL", "APPROVED_CHANGE", "NOT_APPROVED", "UNCONFIRMED"</dmn:text>
+          <dmn:text>"APPROVED_ORIGINAL", "APPROVED_CHANGE", "PENDING_REAPPROVAL", "DENIED", "UNCONFIRMED"</dmn:text>
         </dmn:inputValues>
       </dmn:input>
       <dmn:input id="D10_in3" label="실제 인정 학점 한도">
@@ -1885,12 +1960,12 @@
         </dmn:inputValues>
       </dmn:input>
       <dmn:input id="D10_in4" label="확정된 인정 이수구분">
-        <dmn:description>사전 승인 기록 또는 실제 인정 결과에서 확인한다. 변경 과목의 인정 적용이나 이수구분이 미확정이면 UNDECIDED를 입력한다.</dmn:description>
+        <dmn:description>학과장이 확정한 전공선택·교양선택·일반선택 또는 불인정 결과. 이름 유사성으로 자동 추론하지 않는다.</dmn:description>
         <dmn:inputExpression id="D10_expr4" typeRef="string">
           <dmn:text>source_D10.deptCategory</dmn:text>
         </dmn:inputExpression>
         <dmn:inputValues id="D10_values4">
-          <dmn:text>"MAJOR_ELECTIVE", "GENERAL_ELECTIVE", "NOT_RECOGNIZED", "UNDECIDED"</dmn:text>
+          <dmn:text>"MAJOR_ELECTIVE", "LIBERAL_ELECTIVE", "GENERAL_ELECTIVE", "NOT_RECOGNIZED", "UNDECIDED"</dmn:text>
         </dmn:inputValues>
       </dmn:input>
       <dmn:input id="D10_in5" label="성적 환산·학적 조건 확인">
@@ -1902,10 +1977,19 @@
           <dmn:text>"CONFIRMED", "UNCONFIRMED"</dmn:text>
         </dmn:inputValues>
       </dmn:input>
+      <dmn:input id="D10_in6" label="실제 과목·승인 대조">
+        <dmn:description>MATCH는 원 승인 과목 일치, CHANGED_UNREVIEWED는 사후 재승인 전, CHANGE_REVIEWED는 변경 과목 재승인 결과가 기록된 상태다.</dmn:description>
+        <dmn:inputExpression id="D10_expr6" typeRef="string">
+          <dmn:text>source_D10.courseComparison</dmn:text>
+        </dmn:inputExpression>
+        <dmn:inputValues id="D10_values6">
+          <dmn:text>"MATCH", "CHANGED_UNREVIEWED", "CHANGE_REVIEWED", "UNCONFIRMED"</dmn:text>
+        </dmn:inputValues>
+      </dmn:input>
       <dmn:output id="D10_out" name="D10_result" label="판정 / 다음 처리" typeRef="string" />
       <dmn:annotation name="근거·해석 범위" />
       <dmn:rule id="D10_r1">
-        <dmn:description>S04 P066–069·P120–126 | </dmn:description>
+        <dmn:description>S04 공식 성적 송부</dmn:description>
         <dmn:inputEntry id="D10_r1_i1">
           <dmn:text>"WAITING"</dmn:text>
         </dmn:inputEntry>
@@ -1921,15 +2005,18 @@
         <dmn:inputEntry id="D10_r1_i5">
           <dmn:text>-</dmn:text>
         </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r1_i6">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
         <dmn:outputEntry id="D10_r1_o">
           <dmn:text>"공식 성적 수신 대기"</dmn:text>
         </dmn:outputEntry>
         <dmn:annotationEntry>
-          <dmn:text>S04 P066–069·P120–126</dmn:text>
+          <dmn:text>S04 공식 성적 송부</dmn:text>
         </dmn:annotationEntry>
       </dmn:rule>
       <dmn:rule id="D10_r2">
-        <dmn:description>G10 | </dmn:description>
+        <dmn:description>실제 공식 성적 수신 여부 확인</dmn:description>
         <dmn:inputEntry id="D10_r2_i1">
           <dmn:text>"UNCONFIRMED", null</dmn:text>
         </dmn:inputEntry>
@@ -1945,20 +2032,23 @@
         <dmn:inputEntry id="D10_r2_i5">
           <dmn:text>-</dmn:text>
         </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r2_i6">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
         <dmn:outputEntry id="D10_r2_o">
           <dmn:text>"공식 성적 수신 미확정"</dmn:text>
         </dmn:outputEntry>
         <dmn:annotationEntry>
-          <dmn:text>G10</dmn:text>
+          <dmn:text>실제 공식 성적 수신 여부 확인</dmn:text>
         </dmn:annotationEntry>
       </dmn:rule>
       <dmn:rule id="D10_r3">
-        <dmn:description>W01 제11조·제13조 | 담당자가 사실과 적용 규정 확인. 소급 자동 승인 없음.</dmn:description>
+        <dmn:description>담당자의 명시적인 최종 불인정 결과</dmn:description>
         <dmn:inputEntry id="D10_r3_i1">
           <dmn:text>"RECEIVED"</dmn:text>
         </dmn:inputEntry>
         <dmn:inputEntry id="D10_r3_i2">
-          <dmn:text>"NOT_APPROVED"</dmn:text>
+          <dmn:text>"DENIED"</dmn:text>
         </dmn:inputEntry>
         <dmn:inputEntry id="D10_r3_i3">
           <dmn:text>-</dmn:text>
@@ -1969,15 +2059,18 @@
         <dmn:inputEntry id="D10_r3_i5">
           <dmn:text>-</dmn:text>
         </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r3_i6">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
         <dmn:outputEntry id="D10_r3_o">
-          <dmn:text>"미승인 과목 인정 불가 확인"</dmn:text>
+          <dmn:text>"불인정 결과 기록"</dmn:text>
         </dmn:outputEntry>
         <dmn:annotationEntry>
-          <dmn:text>W01 제11조·제13조 — 담당자가 사실과 적용 규정 확인. 소급 자동 승인 없음.</dmn:text>
+          <dmn:text>담당자의 명시적인 최종 불인정 결과</dmn:text>
         </dmn:annotationEntry>
       </dmn:rule>
       <dmn:rule id="D10_r4">
-        <dmn:description>W01 제10조; G02 | </dmn:description>
+        <dmn:description>학과의 확정 불인정 결과</dmn:description>
         <dmn:inputEntry id="D10_r4_i1">
           <dmn:text>"RECEIVED"</dmn:text>
         </dmn:inputEntry>
@@ -1985,23 +2078,26 @@
           <dmn:text>-</dmn:text>
         </dmn:inputEntry>
         <dmn:inputEntry id="D10_r4_i3">
-          <dmn:text>"OVER"</dmn:text>
+          <dmn:text>-</dmn:text>
         </dmn:inputEntry>
         <dmn:inputEntry id="D10_r4_i4">
-          <dmn:text>-</dmn:text>
+          <dmn:text>"NOT_RECOGNIZED"</dmn:text>
         </dmn:inputEntry>
         <dmn:inputEntry id="D10_r4_i5">
           <dmn:text>-</dmn:text>
         </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r4_i6">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
         <dmn:outputEntry id="D10_r4_o">
-          <dmn:text>"한도 초과 범위 담당확인"</dmn:text>
+          <dmn:text>"불인정 결과 기록"</dmn:text>
         </dmn:outputEntry>
         <dmn:annotationEntry>
-          <dmn:text>W01 제10조; G02</dmn:text>
+          <dmn:text>학과의 확정 불인정 결과</dmn:text>
         </dmn:annotationEntry>
       </dmn:rule>
       <dmn:rule id="D10_r5">
-        <dmn:description>W01 제13조; S03 K1 | 학과가 내린 결과이며 DMN의 내용 유사도 판단이 아님.</dmn:description>
+        <dmn:description>I20261113 학사팀 학점교류 담당자 인터뷰 Q10·Q11</dmn:description>
         <dmn:inputEntry id="D10_r5_i1">
           <dmn:text>"RECEIVED"</dmn:text>
         </dmn:inputEntry>
@@ -2012,88 +2108,262 @@
           <dmn:text>-</dmn:text>
         </dmn:inputEntry>
         <dmn:inputEntry id="D10_r5_i4">
-          <dmn:text>"NOT_RECOGNIZED"</dmn:text>
+          <dmn:text>-</dmn:text>
         </dmn:inputEntry>
         <dmn:inputEntry id="D10_r5_i5">
           <dmn:text>-</dmn:text>
         </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r5_i6">
+          <dmn:text>"CHANGED_UNREVIEWED"</dmn:text>
+        </dmn:inputEntry>
         <dmn:outputEntry id="D10_r5_o">
-          <dmn:text>"불인정 결과 기록"</dmn:text>
+          <dmn:text>"사후 이수구분 재승인"</dmn:text>
         </dmn:outputEntry>
         <dmn:annotationEntry>
-          <dmn:text>W01 제13조; S03 K1 — 학과가 내린 결과이며 DMN의 내용 유사도 판단이 아님.</dmn:text>
+          <dmn:text>I20261113 학사팀 학점교류 담당자 인터뷰 Q10·Q11</dmn:text>
         </dmn:annotationEntry>
       </dmn:rule>
       <dmn:rule id="D10_r6">
-        <dmn:description>W02 4.가.2; W01 제13조 | </dmn:description>
+        <dmn:description>I20261113 학사팀 학점교류 담당자 인터뷰 Q10·Q11</dmn:description>
         <dmn:inputEntry id="D10_r6_i1">
           <dmn:text>"RECEIVED"</dmn:text>
         </dmn:inputEntry>
         <dmn:inputEntry id="D10_r6_i2">
-          <dmn:text>"APPROVED_ORIGINAL", "APPROVED_CHANGE"</dmn:text>
+          <dmn:text>"PENDING_REAPPROVAL"</dmn:text>
         </dmn:inputEntry>
         <dmn:inputEntry id="D10_r6_i3">
-          <dmn:text>"WITHIN"</dmn:text>
+          <dmn:text>-</dmn:text>
         </dmn:inputEntry>
         <dmn:inputEntry id="D10_r6_i4">
-          <dmn:text>"MAJOR_ELECTIVE"</dmn:text>
+          <dmn:text>-</dmn:text>
         </dmn:inputEntry>
         <dmn:inputEntry id="D10_r6_i5">
-          <dmn:text>"CONFIRMED"</dmn:text>
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r6_i6">
+          <dmn:text>-</dmn:text>
         </dmn:inputEntry>
         <dmn:outputEntry id="D10_r6_o">
-          <dmn:text>"전공선택 인정 결과 반영"</dmn:text>
+          <dmn:text>"사후 이수구분 재승인"</dmn:text>
         </dmn:outputEntry>
         <dmn:annotationEntry>
-          <dmn:text>W02 4.가.2; W01 제13조</dmn:text>
+          <dmn:text>I20261113 학사팀 학점교류 담당자 인터뷰 Q10·Q11</dmn:text>
         </dmn:annotationEntry>
       </dmn:rule>
       <dmn:rule id="D10_r7">
-        <dmn:description>W02 4.가.2; W01 제13조 | </dmn:description>
+        <dmn:description>W01 제10조</dmn:description>
         <dmn:inputEntry id="D10_r7_i1">
           <dmn:text>"RECEIVED"</dmn:text>
         </dmn:inputEntry>
         <dmn:inputEntry id="D10_r7_i2">
-          <dmn:text>"APPROVED_ORIGINAL", "APPROVED_CHANGE"</dmn:text>
+          <dmn:text>-</dmn:text>
         </dmn:inputEntry>
         <dmn:inputEntry id="D10_r7_i3">
-          <dmn:text>"WITHIN"</dmn:text>
+          <dmn:text>"OVER"</dmn:text>
         </dmn:inputEntry>
         <dmn:inputEntry id="D10_r7_i4">
-          <dmn:text>"GENERAL_ELECTIVE"</dmn:text>
+          <dmn:text>-</dmn:text>
         </dmn:inputEntry>
         <dmn:inputEntry id="D10_r7_i5">
-          <dmn:text>"CONFIRMED"</dmn:text>
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r7_i6">
+          <dmn:text>-</dmn:text>
         </dmn:inputEntry>
         <dmn:outputEntry id="D10_r7_o">
-          <dmn:text>"일반선택 인정 결과 반영"</dmn:text>
+          <dmn:text>"한도 초과 범위 담당확인"</dmn:text>
         </dmn:outputEntry>
         <dmn:annotationEntry>
-          <dmn:text>W02 4.가.2; W01 제13조</dmn:text>
+          <dmn:text>W01 제10조</dmn:text>
         </dmn:annotationEntry>
       </dmn:rule>
       <dmn:rule id="D10_r8">
-        <dmn:description>G03·G04·G10 | </dmn:description>
+        <dmn:description>I20261113 학사팀 학점교류 담당자 인터뷰 Q2–5·Q10·Q11·Q13; W01 제10·13조. 학과장 확정 결과를 반영한다.</dmn:description>
         <dmn:inputEntry id="D10_r8_i1">
-          <dmn:text>-</dmn:text>
+          <dmn:text>"RECEIVED"</dmn:text>
         </dmn:inputEntry>
         <dmn:inputEntry id="D10_r8_i2">
-          <dmn:text>-</dmn:text>
+          <dmn:text>"APPROVED_ORIGINAL"</dmn:text>
         </dmn:inputEntry>
         <dmn:inputEntry id="D10_r8_i3">
-          <dmn:text>-</dmn:text>
+          <dmn:text>"WITHIN"</dmn:text>
         </dmn:inputEntry>
         <dmn:inputEntry id="D10_r8_i4">
-          <dmn:text>-</dmn:text>
+          <dmn:text>"MAJOR_ELECTIVE"</dmn:text>
         </dmn:inputEntry>
         <dmn:inputEntry id="D10_r8_i5">
-          <dmn:text>-</dmn:text>
+          <dmn:text>"CONFIRMED"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r8_i6">
+          <dmn:text>"MATCH"</dmn:text>
         </dmn:inputEntry>
         <dmn:outputEntry id="D10_r8_o">
+          <dmn:text>"전공선택 인정 결과 반영"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>I20261113 학사팀 학점교류 담당자 인터뷰 Q2–5·Q10·Q11·Q13; W01 제10·13조. 학과장 확정 결과를 반영한다.</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D10_r9">
+        <dmn:description>I20261113 학사팀 학점교류 담당자 인터뷰 Q2–5·Q10·Q11·Q13; W01 제10·13조. 학과장 확정 결과를 반영한다.</dmn:description>
+        <dmn:inputEntry id="D10_r9_i1">
+          <dmn:text>"RECEIVED"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r9_i2">
+          <dmn:text>"APPROVED_CHANGE"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r9_i3">
+          <dmn:text>"WITHIN"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r9_i4">
+          <dmn:text>"MAJOR_ELECTIVE"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r9_i5">
+          <dmn:text>"CONFIRMED"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r9_i6">
+          <dmn:text>"CHANGE_REVIEWED"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D10_r9_o">
+          <dmn:text>"전공선택 인정 결과 반영"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>I20261113 학사팀 학점교류 담당자 인터뷰 Q2–5·Q10·Q11·Q13; W01 제10·13조. 학과장 확정 결과를 반영한다.</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D10_r10">
+        <dmn:description>I20261113 학사팀 학점교류 담당자 인터뷰 Q2–5·Q10·Q11·Q13; W01 제10·13조. 학과장 확정 결과를 반영한다.</dmn:description>
+        <dmn:inputEntry id="D10_r10_i1">
+          <dmn:text>"RECEIVED"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r10_i2">
+          <dmn:text>"APPROVED_ORIGINAL"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r10_i3">
+          <dmn:text>"WITHIN"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r10_i4">
+          <dmn:text>"LIBERAL_ELECTIVE"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r10_i5">
+          <dmn:text>"CONFIRMED"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r10_i6">
+          <dmn:text>"MATCH"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D10_r10_o">
+          <dmn:text>"교양선택 인정 결과 반영"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>I20261113 학사팀 학점교류 담당자 인터뷰 Q2–5·Q10·Q11·Q13; W01 제10·13조. 학과장 확정 결과를 반영한다.</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D10_r11">
+        <dmn:description>I20261113 학사팀 학점교류 담당자 인터뷰 Q2–5·Q10·Q11·Q13; W01 제10·13조. 학과장 확정 결과를 반영한다.</dmn:description>
+        <dmn:inputEntry id="D10_r11_i1">
+          <dmn:text>"RECEIVED"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r11_i2">
+          <dmn:text>"APPROVED_CHANGE"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r11_i3">
+          <dmn:text>"WITHIN"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r11_i4">
+          <dmn:text>"LIBERAL_ELECTIVE"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r11_i5">
+          <dmn:text>"CONFIRMED"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r11_i6">
+          <dmn:text>"CHANGE_REVIEWED"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D10_r11_o">
+          <dmn:text>"교양선택 인정 결과 반영"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>I20261113 학사팀 학점교류 담당자 인터뷰 Q2–5·Q10·Q11·Q13; W01 제10·13조. 학과장 확정 결과를 반영한다.</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D10_r12">
+        <dmn:description>I20261113 학사팀 학점교류 담당자 인터뷰 Q2–5·Q10·Q11·Q13; W01 제10·13조. 학과장 확정 결과를 반영한다.</dmn:description>
+        <dmn:inputEntry id="D10_r12_i1">
+          <dmn:text>"RECEIVED"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r12_i2">
+          <dmn:text>"APPROVED_ORIGINAL"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r12_i3">
+          <dmn:text>"WITHIN"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r12_i4">
+          <dmn:text>"GENERAL_ELECTIVE"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r12_i5">
+          <dmn:text>"CONFIRMED"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r12_i6">
+          <dmn:text>"MATCH"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D10_r12_o">
+          <dmn:text>"일반선택 인정 결과 반영"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>I20261113 학사팀 학점교류 담당자 인터뷰 Q2–5·Q10·Q11·Q13; W01 제10·13조. 학과장 확정 결과를 반영한다.</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D10_r13">
+        <dmn:description>I20261113 학사팀 학점교류 담당자 인터뷰 Q2–5·Q10·Q11·Q13; W01 제10·13조. 학과장 확정 결과를 반영한다.</dmn:description>
+        <dmn:inputEntry id="D10_r13_i1">
+          <dmn:text>"RECEIVED"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r13_i2">
+          <dmn:text>"APPROVED_CHANGE"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r13_i3">
+          <dmn:text>"WITHIN"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r13_i4">
+          <dmn:text>"GENERAL_ELECTIVE"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r13_i5">
+          <dmn:text>"CONFIRMED"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r13_i6">
+          <dmn:text>"CHANGE_REVIEWED"</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D10_r13_o">
+          <dmn:text>"일반선택 인정 결과 반영"</dmn:text>
+        </dmn:outputEntry>
+        <dmn:annotationEntry>
+          <dmn:text>I20261113 학사팀 학점교류 담당자 인터뷰 Q2–5·Q10·Q11·Q13; W01 제10·13조. 학과장 확정 결과를 반영한다.</dmn:text>
+        </dmn:annotationEntry>
+      </dmn:rule>
+      <dmn:rule id="D10_r14">
+        <dmn:description>미확인 승인·이수구분·환산·대조 결과는 담당자가 확인한다.</dmn:description>
+        <dmn:inputEntry id="D10_r14_i1">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r14_i2">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r14_i3">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r14_i4">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r14_i5">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:inputEntry id="D10_r14_i6">
+          <dmn:text>-</dmn:text>
+        </dmn:inputEntry>
+        <dmn:outputEntry id="D10_r14_o">
           <dmn:text>"반영 보류·판정 자료 미확정"</dmn:text>
         </dmn:outputEntry>
         <dmn:annotationEntry>
-          <dmn:text>G03·G04·G10</dmn:text>
+          <dmn:text>미확인 승인·이수구분·환산·대조 결과는 담당자가 확인한다.</dmn:text>
         </dmn:annotationEntry>
       </dmn:rule>
     </dmn:decisionTable>

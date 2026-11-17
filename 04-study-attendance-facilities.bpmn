@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Defs_ST" targetNamespace="https://example.org/ssu-jeju/2026/asis" exporter="Camunda Modeler" exporterVersion="5.52.0">
-  <bpmn:collaboration id="ST_Collaboration" name="04 수업·시험·공결·시설">
-    <bpmn:documentation>As-Is 규정 모델. 04 수업·시험·공결·시설
-수업 기간 중 발생하는 공결과 취소 신청을 처리한다. 시설 이용과 일반 추가시험 안내는 수업 절차에 참고한다.
-주황색은 담당자의 승인 또는 판단 단계. I번호 주석은 인터뷰 확인 사항. 참고 BPMN은 근거에서 제외.</bpmn:documentation>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Defs_ST" targetNamespace="https://example.org/ssu-jeju/2026/asis" exporter="Camunda Modeler" exporterVersion="5.52.0">
+  <bpmn:collaboration id="ST_Collaboration" name="04 수업·시험·공결·시설 / 최종 As-Is">
+    <bpmn:documentation>최종 As-Is. 근거 우선순위: 2026-11-13 담당자 인터뷰의 실제 운영 설명 &gt; 기존 신청서·학칙·안내문. 인터뷰 미설명 사항은 해당 문서로 보완한다. 숭실대 수신 절차를 제주대 파견에 전용하지 않는다. 자동화·통합 시스템·일반선택 무승인 통과는 현행 흐름에 포함하지 않는다. 주황색은 전문 판단·승인, 파란색은 DMN으로 정리한 수동 확인 기준이다. 실행 엔진 배포용 모델이 아니다.</bpmn:documentation>
     <bpmn:participant id="ST_S" name="학생" processRef="ST_S_process" />
     <bpmn:participant id="ST_H" name="본교 · 숭실대학교" processRef="ST_H_process" />
     <bpmn:participant id="ST_J" name="교류대 · 제주대학교" processRef="ST_J_process" />
@@ -12,29 +10,106 @@
     <bpmn:messageFlow id="ST_m3" name="공결 신청·증빙" sourceRef="ST_s5" targetRef="ST_j5" />
     <bpmn:messageFlow id="ST_m4" name="공결 결정" sourceRef="ST_j6" targetRef="ST_s6" />
   </bpmn:collaboration>
-  <bpmn:process id="ST_S_process" name="04 수업·시험·공결·시설 / 학생" isExecutable="false">
-    <bpmn:documentation>수업 기간 중 발생하는 공결과 취소 신청을 처리한다. 시설 이용과 일반 추가시험 안내는 수업 절차에 참고한다. 문서 기반 서술 모델. 미확정 끝 이벤트는 확인된 절차의 범위를 나타낸다.</bpmn:documentation>
+  <bpmn:process id="ST_S_process" name="04 수업·시험·공결·시설 / 최종 As-Is / 학생" isExecutable="false">
+    <bpmn:documentation>최종 As-Is. 근거 우선순위: 2026-11-13 담당자 인터뷰의 실제 운영 설명 &gt; 기존 신청서·학칙·안내문. 인터뷰 미설명 사항은 해당 문서로 보완한다. 숭실대 수신 절차를 제주대 파견에 전용하지 않는다. 자동화·통합 시스템·일반선택 무승인 통과는 현행 흐름에 포함하지 않는다. 주황색은 전문 판단·승인, 파란색은 DMN으로 정리한 수동 확인 기준이다. 실행 엔진 배포용 모델이 아니다.</bpmn:documentation>
     <bpmn:laneSet id="ST_S_lanes">
       <bpmn:lane id="ST_S_lane0" name="수학 중 학생">
         <bpmn:flowNodeRef>ST_s0</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ST_s4</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ST_s9</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ST_s14</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ST_s12</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ST_s5</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ST_s6</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ST_s13</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>ST_s2</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>ST_s3</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>ST_s4</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>ST_s6</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>ST_s7</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>ST_s9</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>ST_s12</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>ST_s8</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>ST_s5</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>ST_s13</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>ST_s10</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>ST_s14</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
     <bpmn:startEvent id="ST_s0" name="유효 등록·납부 완료">
       <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
       <bpmn:outgoing>ST_f1</bpmn:outgoing>
     </bpmn:startEvent>
+    <bpmn:exclusiveGateway id="ST_s4" name="진행 중 사건/상태?" default="ST_f6">
+      <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
+      <bpmn:incoming>ST_f7</bpmn:incoming>
+      <bpmn:outgoing>ST_f6</bpmn:outgoing>
+      <bpmn:outgoing>ST_f8</bpmn:outgoing>
+      <bpmn:outgoing>ST_f9</bpmn:outgoing>
+      <bpmn:outgoing>ST_f10</bpmn:outgoing>
+      <bpmn:outgoing>ST_f11</bpmn:outgoing>
+      <bpmn:outgoing>ST_f12</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:exclusiveGateway id="ST_s9" name="교류 전체 취소 완료?" default="ST_f16">
+      <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
+      <bpmn:incoming>ST_f14</bpmn:incoming>
+      <bpmn:incoming>ST_f25</bpmn:incoming>
+      <bpmn:outgoing>ST_f5</bpmn:outgoing>
+      <bpmn:outgoing>ST_f15</bpmn:outgoing>
+      <bpmn:outgoing>ST_f16</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:intermediateCatchEvent id="ST_s14" name="취소 처리 결과 대기">
+      <bpmn:documentation>근거: I20261113 학사팀 학점교류 담당자 인터뷰 또는 해당 문서상 결과 확인
+사실이 확인될 때까지 대기한다. 자동 조회·독촉 주기는 가정하지 않는다.</bpmn:documentation>
+      <bpmn:incoming>ST_f16</bpmn:incoming>
+      <bpmn:outgoing>ST_f25</bpmn:outgoing>
+      <bpmn:conditionalEventDefinition id="ST_s14_condition">
+        <bpmn:condition xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">실제 취소 처리 범위·결과가 확인됨</bpmn:condition>
+      </bpmn:conditionalEventDefinition>
+    </bpmn:intermediateCatchEvent>
+    <bpmn:sequenceFlow id="ST_f1" sourceRef="ST_s0" targetRef="ST_s2" />
+    <bpmn:sequenceFlow id="ST_f3" name="결과 확인 후" sourceRef="ST_s6" targetRef="ST_s3" />
+    <bpmn:sequenceFlow id="ST_f4" name="확인 후" sourceRef="ST_s7" targetRef="ST_s3" />
+    <bpmn:sequenceFlow id="ST_f5" name="유효 과목 수학 계속" sourceRef="ST_s9" targetRef="ST_s3">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">유효 과목 수학 계속</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="ST_f6" sourceRef="ST_s4" targetRef="ST_s3" />
+    <bpmn:sequenceFlow id="ST_f7" sourceRef="ST_s3" targetRef="ST_s4" />
+    <bpmn:sequenceFlow id="ST_f8" name="공결 사유" sourceRef="ST_s4" targetRef="ST_s5">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">공결 사유</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="ST_f9" name="강의·출결 문의" sourceRef="ST_s4" targetRef="ST_s7">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">강의·출결 문의</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="ST_f10" name="취소 의사" sourceRef="ST_s4" targetRef="ST_s8">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">취소 의사</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="ST_f11" name="학적 예외 발생" sourceRef="ST_s4" targetRef="ST_s12">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">학적 예외 발생</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="ST_f12" name="수업·시험 마침" sourceRef="ST_s4" targetRef="ST_s13">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">수업·시험 마침</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="ST_f13" sourceRef="ST_s5" targetRef="ST_s6" />
+    <bpmn:sequenceFlow id="ST_f14" sourceRef="ST_s8" targetRef="ST_s9" />
+    <bpmn:sequenceFlow id="ST_f25" sourceRef="ST_s14" targetRef="ST_s9" />
+    <bpmn:sequenceFlow id="ST_f15" name="전체 취소 완료" sourceRef="ST_s9" targetRef="ST_s10">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">전체 취소 완료</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="ST_f16" name="상태 미확정" sourceRef="ST_s9" targetRef="ST_s14" />
+    <bpmn:endEvent id="ST_s12" name="학적 예외 · 수학 상태 확인">
+      <bpmn:documentation>근거: W01 제8·16·18조; W02 4.다.2</bpmn:documentation>
+      <bpmn:incoming>ST_f11</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:userTask id="ST_s5" name="공결 사유 발생 후&#10;7일 이내 포털 신청">
+      <bpmn:documentation>근거: S04 P118–119; W04 출석인정
+포털 수업/성적 → 출석인정 신청. 일반 안내는 토요일·공휴일 제외 7일 및 증빙 첨부를 명시한다. 교류생의 승인 경로·해당 시점 적용 규정은 교육혁신과에서 G08 확인. 달력일 7일 자동 반려 없음.</bpmn:documentation>
+      <bpmn:incoming>ST_f8</bpmn:incoming>
+      <bpmn:outgoing>ST_f13</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="ST_s6" name="공결 처리 결과 확인">
+      <bpmn:documentation>근거: S04 P118–119
+신청만으로 출석 인정하지 않고 담당자의 승인 시수를 사용.</bpmn:documentation>
+      <bpmn:incoming>ST_f13</bpmn:incoming>
+      <bpmn:outgoing>ST_f3</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:endEvent id="ST_s13" name="수업·시험 종료">
+      <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
+      <bpmn:incoming>ST_f12</bpmn:incoming>
+    </bpmn:endEvent>
     <bpmn:userTask id="ST_s2" name="수업·시험 일정과&#10;응시 방식 확인">
       <bpmn:documentation>근거: S04 P048–061·P122–125; W02 4.나.3; W04 시험
 6/29–7/20 수업. JNUclass. 중간 7/8·기말 7/20, 과목별 상이. 원격 기말 7/17–20 예정. 일반 추가시험 안내에는 시험기간 개시 3일 전 신청·증빙·학장 승인, B+(3.3) 이하 원칙 및 시험시간 중복·출석인정 예외가 있다. 해당 교류 과목의 적용 여부는 관련 규정을 확인한다. 시설 이용 희망 시 모바일 학생증, 차량 등록, 학생생활관 안내를 이용한다.</bpmn:documentation>
@@ -44,128 +119,58 @@
     <bpmn:userTask id="ST_s3" name="수업 참여·시험 응시">
       <bpmn:documentation>근거: S04 P048–061</bpmn:documentation>
       <bpmn:incoming>ST_f2</bpmn:incoming>
-      <bpmn:incoming>ST_f6</bpmn:incoming>
-      <bpmn:incoming>ST_f8</bpmn:incoming>
-      <bpmn:incoming>ST_f12</bpmn:incoming>
-      <bpmn:incoming>ST_f16</bpmn:incoming>
-      <bpmn:outgoing>ST_f3</bpmn:outgoing>
-    </bpmn:userTask>
-    <bpmn:exclusiveGateway id="ST_s4" name="진행 중 사건/상태?" default="ST_f16">
-      <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
       <bpmn:incoming>ST_f3</bpmn:incoming>
-      <bpmn:outgoing>ST_f4</bpmn:outgoing>
-      <bpmn:outgoing>ST_f7</bpmn:outgoing>
-      <bpmn:outgoing>ST_f9</bpmn:outgoing>
-      <bpmn:outgoing>ST_f14</bpmn:outgoing>
-      <bpmn:outgoing>ST_f15</bpmn:outgoing>
-      <bpmn:outgoing>ST_f16</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:userTask id="ST_s6" name="공결 처리 결과 확인">
-      <bpmn:documentation>근거: S04 P118–119
-신청만으로 출석 인정하지 않고 담당자의 승인 시수를 사용.</bpmn:documentation>
+      <bpmn:incoming>ST_f4</bpmn:incoming>
       <bpmn:incoming>ST_f5</bpmn:incoming>
-      <bpmn:outgoing>ST_f6</bpmn:outgoing>
+      <bpmn:incoming>ST_f6</bpmn:incoming>
+      <bpmn:outgoing>ST_f7</bpmn:outgoing>
     </bpmn:userTask>
+    <bpmn:sequenceFlow id="ST_f2" sourceRef="ST_s2" targetRef="ST_s3" />
     <bpmn:userTask id="ST_s7" name="강의·출결 문제&#10;해당 대학에 문의">
       <bpmn:documentation>근거: W02 4.나.3; S04 P059–060</bpmn:documentation>
-      <bpmn:incoming>ST_f7</bpmn:incoming>
-      <bpmn:outgoing>ST_f8</bpmn:outgoing>
+      <bpmn:incoming>ST_f9</bpmn:incoming>
+      <bpmn:outgoing>ST_f4</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:exclusiveGateway id="ST_s9" name="교류 전체 취소 완료?" default="ST_f13">
-      <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
-      <bpmn:incoming>ST_f10</bpmn:incoming>
-      <bpmn:outgoing>ST_f11</bpmn:outgoing>
-      <bpmn:outgoing>ST_f12</bpmn:outgoing>
-      <bpmn:outgoing>ST_f13</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:endEvent id="ST_s12" name="학적 예외 · 수학 상태 확인">
-      <bpmn:documentation>근거: W01 제8·16·18조; W02 4.다.2</bpmn:documentation>
-      <bpmn:incoming>ST_f14</bpmn:incoming>
-    </bpmn:endEvent>
     <bpmn:userTask id="ST_s8" name="취소 절차 수행&#10;양교 처리 결과 확인">
       <bpmn:documentation>근거: S02; W01 제12조; S04 P117
 취소 요청만으로 현재 수강을 중단하는 모델이 아니다. 05에서 처리 완료가 확인되어야 한다.</bpmn:documentation>
-      <bpmn:incoming>ST_f9</bpmn:incoming>
-      <bpmn:outgoing>ST_f10</bpmn:outgoing>
+      <bpmn:incoming>ST_f10</bpmn:incoming>
+      <bpmn:outgoing>ST_f14</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:sequenceFlow id="ST_f1" sourceRef="ST_s0" targetRef="ST_s2" />
-    <bpmn:sequenceFlow id="ST_f2" sourceRef="ST_s2" targetRef="ST_s3" />
-    <bpmn:sequenceFlow id="ST_f6" name="결과 확인 후" sourceRef="ST_s6" targetRef="ST_s3" />
-    <bpmn:sequenceFlow id="ST_f8" name="확인 후" sourceRef="ST_s7" targetRef="ST_s3" />
-    <bpmn:sequenceFlow id="ST_f12" name="유효 과목 수학 계속" sourceRef="ST_s9" targetRef="ST_s3">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">유효 과목 수학 계속</bpmn:conditionExpression>
-    </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="ST_f16" sourceRef="ST_s4" targetRef="ST_s3" />
-    <bpmn:sequenceFlow id="ST_f3" sourceRef="ST_s3" targetRef="ST_s4" />
-    <bpmn:sequenceFlow id="ST_f4" name="공결 사유" sourceRef="ST_s4" targetRef="ST_s5">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">공결 사유</bpmn:conditionExpression>
-    </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="ST_f7" name="강의·출결 문의" sourceRef="ST_s4" targetRef="ST_s7">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">강의·출결 문의</bpmn:conditionExpression>
-    </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="ST_f9" name="취소 의사" sourceRef="ST_s4" targetRef="ST_s8">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">취소 의사</bpmn:conditionExpression>
-    </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="ST_f14" name="학적 예외 발생" sourceRef="ST_s4" targetRef="ST_s12">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">학적 예외 발생</bpmn:conditionExpression>
-    </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="ST_f15" name="수업·시험 마침" sourceRef="ST_s4" targetRef="ST_s13">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">수업·시험 마침</bpmn:conditionExpression>
-    </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="ST_f5" sourceRef="ST_s5" targetRef="ST_s6" />
-    <bpmn:sequenceFlow id="ST_f10" sourceRef="ST_s8" targetRef="ST_s9" />
-    <bpmn:sequenceFlow id="ST_f11" name="전체 취소 완료" sourceRef="ST_s9" targetRef="ST_s10">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">전체 취소 완료</bpmn:conditionExpression>
-    </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="ST_f13" name="상태 미확정" sourceRef="ST_s9" targetRef="ST_s14" />
-    <bpmn:userTask id="ST_s5" name="공결 사유 발생 후&#10;7일 이내 포털 신청">
-      <bpmn:documentation>근거: S04 P118–119; W04 출석인정
-포털 수업/성적 → 출석인정 신청. 일반 안내는 토요일·공휴일 제외 7일 및 증빙 첨부를 명시한다. 교류생의 승인 경로·해당 시점 적용 규정은 교육혁신과에서 G08 확인. 달력일 7일 자동 반려 없음.</bpmn:documentation>
-      <bpmn:incoming>ST_f4</bpmn:incoming>
-      <bpmn:outgoing>ST_f5</bpmn:outgoing>
-    </bpmn:userTask>
-    <bpmn:endEvent id="ST_s13" name="수업·시험 종료">
+    <bpmn:endEvent id="ST_s10" name="취소 종료">
       <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
       <bpmn:incoming>ST_f15</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:endEvent id="ST_s10" name="취소 종료">
-      <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
-      <bpmn:incoming>ST_f11</bpmn:incoming>
-    </bpmn:endEvent>
-    <bpmn:endEvent id="ST_s14" name="취소 상태 미확정&#10;담당확인 인계">
-      <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
-      <bpmn:incoming>ST_f13</bpmn:incoming>
-    </bpmn:endEvent>
   </bpmn:process>
-  <bpmn:process id="ST_H_process" name="04 수업·시험·공결·시설 / 본교 · 숭실대학교" isExecutable="false">
-    <bpmn:documentation>수업 기간 중 발생하는 공결과 취소 신청을 처리한다. 시설 이용과 일반 추가시험 안내는 수업 절차에 참고한다. 문서 기반 서술 모델. 미확정 끝 이벤트는 확인된 절차의 범위를 나타낸다.</bpmn:documentation>
+  <bpmn:process id="ST_H_process" name="04 수업·시험·공결·시설 / 최종 As-Is / 본교 · 숭실대학교" isExecutable="false">
+    <bpmn:documentation>최종 As-Is. 근거 우선순위: 2026-11-13 담당자 인터뷰의 실제 운영 설명 &gt; 기존 신청서·학칙·안내문. 인터뷰 미설명 사항은 해당 문서로 보완한다. 숭실대 수신 절차를 제주대 파견에 전용하지 않는다. 자동화·통합 시스템·일반선택 무승인 통과는 현행 흐름에 포함하지 않는다. 주황색은 전문 판단·승인, 파란색은 DMN으로 정리한 수동 확인 기준이다. 실행 엔진 배포용 모델이 아니다.</bpmn:documentation>
     <bpmn:laneSet id="ST_H_lanes">
       <bpmn:lane id="ST_H_lane0" name="학적·교류 담당">
-        <bpmn:flowNodeRef>ST_h0</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>ST_h1</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>ST_h2</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ST_h1</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ST_h0</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
-    <bpmn:startEvent id="ST_h0" name="학칙 위반 사안 발생">
-      <bpmn:documentation>근거: W01 제16조</bpmn:documentation>
-      <bpmn:outgoing>ST_f17</bpmn:outgoing>
-    </bpmn:startEvent>
-    <bpmn:userTask id="ST_h1" name="수학허가 유지·취소 판단">
-      <bpmn:documentation>근거: W01 제16·18조
-담당 판단·승인: G09. 세부 적용 기준은 해당 규정과 자료에서 확인한다.
-수학대학 학칙 위반이 발생한 경우 허가 취소가 가능하다. 실제 권한 분장과 통지 경로는 공개 근거에서 확인되지 않았다.</bpmn:documentation>
-      <bpmn:incoming>ST_f17</bpmn:incoming>
-      <bpmn:outgoing>ST_f18</bpmn:outgoing>
-    </bpmn:userTask>
     <bpmn:endEvent id="ST_h2" name="수학허가 판단 결과">
       <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
       <bpmn:incoming>ST_f18</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="ST_f17" sourceRef="ST_h0" targetRef="ST_h1" />
     <bpmn:sequenceFlow id="ST_f18" sourceRef="ST_h1" targetRef="ST_h2" />
+    <bpmn:userTask id="ST_h1" name="수학허가 유지·취소 판단">
+      <bpmn:documentation>근거: W01 제16·18조
+담당 판단·승인: 담당자 판단. 세부 적용 기준은 해당 규정과 자료에서 확인한다.
+수학대학 학칙 위반 시 본교 수학허가 취소가 가능하다. 구체적인 권한·통지는 담당자의 실제 판단 결과를 적용한다. 인터뷰에서 이 예외의 세부 운영은 설명되지 않았다.</bpmn:documentation>
+      <bpmn:incoming>ST_f17</bpmn:incoming>
+      <bpmn:outgoing>ST_f18</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:startEvent id="ST_h0" name="학칙 위반 사안 발생">
+      <bpmn:documentation>근거: W01 제16조</bpmn:documentation>
+      <bpmn:outgoing>ST_f17</bpmn:outgoing>
+    </bpmn:startEvent>
   </bpmn:process>
-  <bpmn:process id="ST_J_process" name="04 수업·시험·공결·시설 / 교류대 · 제주대학교" isExecutable="false">
-    <bpmn:documentation>수업 기간 중 발생하는 공결과 취소 신청을 처리한다. 시설 이용과 일반 추가시험 안내는 수업 절차에 참고한다. 문서 기반 서술 모델. 미확정 끝 이벤트는 확인된 절차의 범위를 나타낸다.</bpmn:documentation>
+  <bpmn:process id="ST_J_process" name="04 수업·시험·공결·시설 / 최종 As-Is / 교류대 · 제주대학교" isExecutable="false">
+    <bpmn:documentation>최종 As-Is. 근거 우선순위: 2026-11-13 담당자 인터뷰의 실제 운영 설명 &gt; 기존 신청서·학칙·안내문. 인터뷰 미설명 사항은 해당 문서로 보완한다. 숭실대 수신 절차를 제주대 파견에 전용하지 않는다. 자동화·통합 시스템·일반선택 무승인 통과는 현행 흐름에 포함하지 않는다. 주황색은 전문 판단·승인, 파란색은 DMN으로 정리한 수동 확인 기준이다. 실행 엔진 배포용 모델이 아니다.</bpmn:documentation>
     <bpmn:laneSet id="ST_J_lanes">
       <bpmn:lane id="ST_J_lane1" name="교육혁신과·공결 담당">
         <bpmn:flowNodeRef>ST_j5</bpmn:flowNodeRef>
@@ -173,36 +178,13 @@
         <bpmn:flowNodeRef>ST_j8</bpmn:flowNodeRef>
       </bpmn:lane>
       <bpmn:lane id="ST_J_lane0" name="과목 개설 학과·담당교원">
-        <bpmn:flowNodeRef>ST_j0</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>ST_j1</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>ST_j2</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>ST_j3</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>ST_j4</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ST_j3</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ST_j2</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ST_j1</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ST_j0</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
-    <bpmn:startEvent id="ST_j0" name="수학 개시">
-      <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
-      <bpmn:outgoing>ST_f19</bpmn:outgoing>
-      <bpmn:messageEventDefinition id="ST_j0_message" />
-    </bpmn:startEvent>
-    <bpmn:userTask id="ST_j1" name="강의·시험 실시&#10;과목별 일정 안내">
-      <bpmn:documentation>근거: S04 P048–061</bpmn:documentation>
-      <bpmn:incoming>ST_f19</bpmn:incoming>
-      <bpmn:outgoing>ST_f20</bpmn:outgoing>
-    </bpmn:userTask>
-    <bpmn:businessRuleTask id="ST_j2" name="확정 출석시수 확인">
-      <bpmn:documentation>근거: S04 P051
-DMN 참조: D09 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 현재 자동화 여부는 확인되지 않음)</bpmn:documentation>
-      <bpmn:incoming>ST_f20</bpmn:incoming>
-      <bpmn:outgoing>ST_f21</bpmn:outgoing>
-    </bpmn:businessRuleTask>
-    <bpmn:userTask id="ST_j3" name="절대평가로 성적 산정">
-      <bpmn:documentation>근거: S04 P062–069
-담당 판단·승인: G08. 세부 적용 기준은 해당 규정과 자료에서 확인한다.
-출석 요건 충족만으로 학점/합격을 자동 부여하지 않는다. 과목별 평가 기준·성적은 담당교원이 확정.</bpmn:documentation>
-      <bpmn:incoming>ST_f21</bpmn:incoming>
-      <bpmn:outgoing>ST_f22</bpmn:outgoing>
-    </bpmn:userTask>
     <bpmn:endEvent id="ST_j4" name="성적 처리 단계로">
       <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
       <bpmn:incoming>ST_f22</bpmn:incoming>
@@ -223,336 +205,348 @@ DMN 참조: D09 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 
       <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
       <bpmn:incoming>ST_f24</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:sequenceFlow id="ST_f19" sourceRef="ST_j0" targetRef="ST_j1" />
-    <bpmn:sequenceFlow id="ST_f20" sourceRef="ST_j1" targetRef="ST_j2" />
-    <bpmn:sequenceFlow id="ST_f21" sourceRef="ST_j2" targetRef="ST_j3" />
     <bpmn:sequenceFlow id="ST_f22" sourceRef="ST_j3" targetRef="ST_j4" />
     <bpmn:sequenceFlow id="ST_f23" sourceRef="ST_j5" targetRef="ST_j6" />
     <bpmn:sequenceFlow id="ST_f24" sourceRef="ST_j6" targetRef="ST_j8" />
+    <bpmn:userTask id="ST_j3" name="절대평가로 성적 산정">
+      <bpmn:documentation>근거: S04 P062–069; I20261113 학사팀 학점교류 담당자 인터뷰 Q15
+담당 판단·승인: 담당자 판단. 세부 적용 기준은 해당 규정과 자료에서 확인한다.
+출석 요건 충족만으로 합격·학점을 부여하지 않는다. 과목 담당교원이 평가 기준에 따라 실제 성적을 확정한다. 수강신청 후 수업을 방치해 F가 발생한 사례의 사후 민원은 05·06에서 처리한다.</bpmn:documentation>
+      <bpmn:incoming>ST_f21</bpmn:incoming>
+      <bpmn:outgoing>ST_f22</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="ST_f21" sourceRef="ST_j2" targetRef="ST_j3" />
+    <bpmn:businessRuleTask id="ST_j2" name="확정 출석시수 확인">
+      <bpmn:documentation>근거: S04 P051
+DMN 참조: D09 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 현재 자동화 여부는 확인되지 않음)</bpmn:documentation>
+      <bpmn:incoming>ST_f20</bpmn:incoming>
+      <bpmn:outgoing>ST_f21</bpmn:outgoing>
+    </bpmn:businessRuleTask>
+    <bpmn:userTask id="ST_j1" name="강의·시험 실시&#10;과목별 일정 안내">
+      <bpmn:documentation>근거: S04 P048–061</bpmn:documentation>
+      <bpmn:incoming>ST_f19</bpmn:incoming>
+      <bpmn:outgoing>ST_f20</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="ST_f20" sourceRef="ST_j1" targetRef="ST_j2" />
+    <bpmn:sequenceFlow id="ST_f19" sourceRef="ST_j0" targetRef="ST_j1" />
+    <bpmn:startEvent id="ST_j0" name="수학 개시">
+      <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
+      <bpmn:outgoing>ST_f19</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="ST_j0_message" />
+    </bpmn:startEvent>
   </bpmn:process>
-  <bpmndi:BPMNDiagram id="ST_Diagram" name="04 수업·시험·공결·시설">
+  <bpmndi:BPMNDiagram id="ST_Diagram" name="04 수업·시험·공결·시설 / 최종 As-Is">
     <bpmndi:BPMNPlane id="ST_Plane" bpmnElement="ST_Collaboration">
-      <bpmndi:BPMNShape id="ST_S_di" bpmnElement="ST_S" isHorizontal="true" bioc:stroke="#475569" bioc:fill="#ffffff">
-        <dc:Bounds x="150" y="90" width="2594" height="400" />
+      <bpmndi:BPMNShape id="ST_S_di" bpmnElement="ST_S" isHorizontal="true">
+        <dc:Bounds x="160" y="100" width="1916" height="620" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="ST_S_lane0_di" bpmnElement="ST_S_lane0" isHorizontal="true">
-        <dc:Bounds x="180" y="90" width="2564" height="400" />
+        <dc:Bounds x="190" y="100" width="1886" height="620" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="ST_s0_di" bpmnElement="ST_s0">
-        <dc:Bounds x="330" y="153" width="34" height="34" />
+        <dc:Bounds x="340" y="163" width="34" height="34" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="302" y="196" width="91" height="14" />
+          <dc:Bounds x="312" y="206" width="91" height="14" />
         </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="ST_s2_di" bpmnElement="ST_s2" bioc:stroke="#334155" bioc:fill="#ffffff">
-        <dc:Bounds x="712" y="132" width="174" height="76" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="ST_s3_di" bpmnElement="ST_s3" bioc:stroke="#334155" bioc:fill="#ffffff">
-        <dc:Bounds x="938" y="132" width="174" height="76" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="ST_s4_di" bpmnElement="ST_s4" isMarkerVisible="true">
-        <dc:Bounds x="1229" y="148" width="44" height="44" />
+        <dc:Bounds x="1013" y="158" width="44" height="44" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1145.5" y="143" width="87" height="14" />
+          <dc:Bounds x="1074.5" y="183" width="87" height="14" />
         </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="ST_s6_di" bpmnElement="ST_s6" bioc:stroke="#334155" bioc:fill="#ffffff">
-        <dc:Bounds x="1842" y="262" width="174" height="76" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="ST_s7_di" bpmnElement="ST_s7" bioc:stroke="#334155" bioc:fill="#ffffff">
-        <dc:Bounds x="1390" y="402" width="174" height="76" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="ST_s9_di" bpmnElement="ST_s9" isMarkerVisible="true">
-        <dc:Bounds x="1907" y="148" width="44" height="44" />
+        <dc:Bounds x="1465" y="478" width="44" height="44" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1831" y="123" width="97" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="ST_s12_di" bpmnElement="ST_s12">
-        <dc:Bounds x="2364" y="398" width="34" height="34" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="2321" y="441" width="121" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="ST_s8_di" bpmnElement="ST_s8" bioc:stroke="#334155" bioc:fill="#ffffff">
-        <dc:Bounds x="1643" y="132" width="174" height="76" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="ST_s5_di" bpmnElement="ST_s5" bioc:stroke="#334155" bioc:fill="#ffffff">
-        <dc:Bounds x="1390" y="262" width="174" height="76" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="ST_s13_di" bpmnElement="ST_s13">
-        <dc:Bounds x="2364" y="339" width="34" height="34" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="2347" y="382" width="68" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="ST_s10_di" bpmnElement="ST_s10">
-        <dc:Bounds x="2364" y="153" width="34" height="34" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="2360" y="196" width="44" height="14" />
+          <dc:Bounds x="1381" y="473" width="97" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="ST_s14_di" bpmnElement="ST_s14">
-        <dc:Bounds x="2364" y="223" width="34" height="34" />
+        <dc:Bounds x="1696" y="613" width="34" height="34" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="2343" y="266" width="77" height="27" />
+          <dc:Bounds x="1668" y="656" width="91" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="ST_f1_di" bpmnElement="ST_f1" bioc:stroke="#596575">
-        <di:waypoint x="364" y="170" />
-        <di:waypoint x="712" y="170" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="ST_f2_di" bpmnElement="ST_f2" bioc:stroke="#596575">
-        <di:waypoint x="886" y="145" />
-        <di:waypoint x="938" y="145" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="ST_f6_di" bpmnElement="ST_f6" bioc:stroke="#596575">
-        <di:waypoint x="2016" y="300" />
-        <di:waypoint x="2030" y="300" />
-        <di:waypoint x="2030" y="253" />
-        <di:waypoint x="890" y="253" />
-        <di:waypoint x="890" y="157" />
-        <di:waypoint x="938" y="157" />
+      <bpmndi:BPMNShape id="ST_s12_di" bpmnElement="ST_s12">
+        <dc:Bounds x="973" y="613" width="34" height="34" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1660" y="216" width="57" height="14" />
+          <dc:Bounds x="930" y="656" width="121" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ST_s5_di" bpmnElement="ST_s5">
+        <dc:Bounds x="1103" y="302" width="174" height="76" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ST_s6_di" bpmnElement="ST_s6">
+        <dc:Bounds x="1333" y="302" width="174" height="76" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ST_s13_di" bpmnElement="ST_s13">
+        <dc:Bounds x="873" y="613" width="34" height="34" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="856" y="656" width="68" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ST_s2_di" bpmnElement="ST_s2">
+        <dc:Bounds x="437" y="142" width="174" height="76" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ST_s3_di" bpmnElement="ST_s3">
+        <dc:Bounds x="663" y="142" width="174" height="76" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ST_s7_di" bpmnElement="ST_s7">
+        <dc:Bounds x="1400" y="132" width="174" height="76" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ST_s8_di" bpmnElement="ST_s8">
+        <dc:Bounds x="1073" y="562" width="174" height="76" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ST_s10_di" bpmnElement="ST_s10">
+        <dc:Bounds x="1733" y="463" width="34" height="34" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1728" y="506" width="44" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="ST_f1_di" bpmnElement="ST_f1">
+        <di:waypoint x="374" y="180" />
+        <di:waypoint x="437" y="180" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="ST_f3_di" bpmnElement="ST_f3">
+        <di:waypoint x="1420" y="302" />
+        <di:waypoint x="1420" y="260" />
+        <di:waypoint x="730" y="260" />
+        <di:waypoint x="730" y="220" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1180" y="223" width="57" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="ST_f8_di" bpmnElement="ST_f8" bioc:stroke="#596575">
-        <di:waypoint x="1564" y="440" />
-        <di:waypoint x="1578" y="440" />
-        <di:waypoint x="1578" y="356" />
-        <di:waypoint x="920" y="356" />
-        <di:waypoint x="920" y="170" />
-        <di:waypoint x="938" y="170" />
+      <bpmndi:BPMNEdge id="ST_f4_di" bpmnElement="ST_f4">
+        <di:waypoint x="1400" y="150" />
+        <di:waypoint x="837" y="150" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1213" y="333" width="34" height="14" />
+          <dc:Bounds x="1293" y="133" width="34" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="ST_f12_di" bpmnElement="ST_f12" bioc:stroke="#596575">
-        <di:waypoint x="1951" y="170" />
-        <di:waypoint x="1964" y="170" />
-        <di:waypoint x="1964" y="114" />
-        <di:waypoint x="904" y="114" />
-        <di:waypoint x="904" y="182.66666666666666" />
-        <di:waypoint x="938" y="182.66666666666666" />
+      <bpmndi:BPMNEdge id="ST_f5_di" bpmnElement="ST_f5">
+        <di:waypoint x="1487" y="478" />
+        <di:waypoint x="1487" y="450" />
+        <di:waypoint x="1630" y="450" />
+        <di:waypoint x="1630" y="240" />
+        <di:waypoint x="770" y="240" />
+        <di:waypoint x="770" y="220" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1389" y="77" width="91" height="14" />
+          <dc:Bounds x="1634" y="333" width="91" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="ST_f16_di" bpmnElement="ST_f16" bioc:stroke="#596575">
-        <di:waypoint x="1229" y="170" />
-        <di:waypoint x="1175" y="170" />
-        <di:waypoint x="1175" y="240" />
-        <di:waypoint x="904" y="240" />
-        <di:waypoint x="904" y="195.33333333333337" />
-        <di:waypoint x="938" y="195" />
+      <bpmndi:BPMNEdge id="ST_f6_di" bpmnElement="ST_f6">
+        <di:waypoint x="1013" y="180" />
+        <di:waypoint x="837" y="180" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="ST_f7_di" bpmnElement="ST_f7">
+        <di:waypoint x="837" y="160" />
+        <di:waypoint x="1033" y="160" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="ST_f8_di" bpmnElement="ST_f8">
+        <di:waypoint x="1060" y="180" />
+        <di:waypoint x="1060" y="340" />
+        <di:waypoint x="1103" y="340" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1035" y="273" width="44" height="14" />
+          <dc:Bounds x="1068" y="277" width="44" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="ST_f3_di" bpmnElement="ST_f3" bioc:stroke="#596575">
-        <di:waypoint x="1110" y="136" />
-        <di:waypoint x="1110" y="130" />
-        <di:waypoint x="1251" y="130" />
-        <di:waypoint x="1251" y="148" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="ST_f4_di" bpmnElement="ST_f4" bioc:stroke="#596575">
-        <di:waypoint x="1251" y="192" />
-        <di:waypoint x="1251" y="300" />
-        <di:waypoint x="1390" y="300" />
+      <bpmndi:BPMNEdge id="ST_f9_di" bpmnElement="ST_f9">
+        <di:waypoint x="1047" y="170" />
+        <di:waypoint x="1400" y="170" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1296" y="233" width="44" height="14" />
+          <dc:Bounds x="1276" y="173" width="68" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="ST_f7_di" bpmnElement="ST_f7" bioc:stroke="#596575">
-        <di:waypoint x="1251" y="192" />
-        <di:waypoint x="1251" y="440" />
-        <di:waypoint x="1390" y="440" />
+      <bpmndi:BPMNEdge id="ST_f10_di" bpmnElement="ST_f10">
+        <di:waypoint x="1050" y="187" />
+        <di:waypoint x="1050" y="600" />
+        <di:waypoint x="1073" y="600" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1150" y="302" width="68" height="14" />
+          <dc:Bounds x="1058" y="403" width="44" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="ST_f9_di" bpmnElement="ST_f9" bioc:stroke="#596575">
-        <di:waypoint x="1273" y="170" />
-        <di:waypoint x="1643" y="170" />
+      <bpmndi:BPMNEdge id="ST_f11_di" bpmnElement="ST_f11">
+        <di:waypoint x="1033" y="200" />
+        <di:waypoint x="990" y="200" />
+        <di:waypoint x="990" y="610" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1437" y="133" width="44" height="14" />
+          <dc:Bounds x="916" y="493" width="67" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="ST_f14_di" bpmnElement="ST_f14" bioc:stroke="#596575">
-        <di:waypoint x="1273" y="170" />
-        <di:waypoint x="1598" y="170" />
-        <di:waypoint x="1598" y="415" />
-        <di:waypoint x="2364" y="415" />
+      <bpmndi:BPMNEdge id="ST_f12_di" bpmnElement="ST_f12">
+        <di:waypoint x="1020" y="190" />
+        <di:waypoint x="890" y="190" />
+        <di:waypoint x="890" y="613" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1402" y="177" width="67" height="14" />
+          <dc:Bounds x="896" y="333" width="68" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="ST_f15_di" bpmnElement="ST_f15" bioc:stroke="#596575">
-        <di:waypoint x="1273" y="170" />
-        <di:waypoint x="1582" y="170" />
-        <di:waypoint x="1582" y="356" />
-        <di:waypoint x="2364" y="356" />
+      <bpmndi:BPMNEdge id="ST_f13_di" bpmnElement="ST_f13">
+        <di:waypoint x="1277" y="340" />
+        <di:waypoint x="1333" y="340" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="ST_f14_di" bpmnElement="ST_f14">
+        <di:waypoint x="1247" y="600" />
+        <di:waypoint x="1401" y="600" />
+        <di:waypoint x="1401" y="500" />
+        <di:waypoint x="1465" y="500" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="ST_f25_di" bpmnElement="ST_f25">
+        <di:waypoint x="1696" y="630" />
+        <di:waypoint x="1487" y="630" />
+        <di:waypoint x="1487" y="522" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="ST_f15_di" bpmnElement="ST_f15">
+        <di:waypoint x="1489" y="480" />
+        <di:waypoint x="1733" y="480" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="2056" y="363" width="68" height="14" />
+          <dc:Bounds x="1610" y="463" width="67" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="ST_f5_di" bpmnElement="ST_f5" bioc:stroke="#596575">
-        <di:waypoint x="1564" y="300" />
-        <di:waypoint x="1842" y="300" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="ST_f10_di" bpmnElement="ST_f10" bioc:stroke="#596575">
-        <di:waypoint x="1817" y="170" />
-        <di:waypoint x="1907" y="170" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="ST_f11_di" bpmnElement="ST_f11" bioc:stroke="#596575">
-        <di:waypoint x="1951" y="170" />
-        <di:waypoint x="2364" y="170" />
+      <bpmndi:BPMNEdge id="ST_f16_di" bpmnElement="ST_f16">
+        <di:waypoint x="1510" y="500" />
+        <di:waypoint x="1713" y="500" />
+        <di:waypoint x="1713" y="613" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="2125" y="133" width="67" height="14" />
+          <dc:Bounds x="1673" y="530" width="54" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="ST_f13_di" bpmnElement="ST_f13" bioc:stroke="#596575">
-        <di:waypoint x="1929" y="192" />
-        <di:waypoint x="1929" y="240" />
-        <di:waypoint x="2364" y="240" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="1964" y="209" width="54" height="14" />
-        </bpmndi:BPMNLabel>
+      <bpmndi:BPMNEdge id="ST_f2_di" bpmnElement="ST_f2">
+        <di:waypoint x="611" y="180" />
+        <di:waypoint x="663" y="180" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="ST_H_di" bpmnElement="ST_H" isHorizontal="true" bioc:stroke="#475569" bioc:fill="#ffffff">
-        <dc:Bounds x="150" y="535" width="2594" height="190" />
+      <bpmndi:BPMNShape id="ST_H_di" bpmnElement="ST_H" isHorizontal="true">
+        <dc:Bounds x="160" y="765" width="1916" height="210" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="ST_H_lane0_di" bpmnElement="ST_H_lane0" isHorizontal="true">
-        <dc:Bounds x="180" y="535" width="2564" height="190" />
+        <dc:Bounds x="190" y="765" width="1886" height="210" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="ST_h0_di" bpmnElement="ST_h0">
-        <dc:Bounds x="2138" y="598" width="34" height="34" />
+      <bpmndi:BPMNShape id="ST_h2_di" bpmnElement="ST_h2">
+        <dc:Bounds x="1696" y="828" width="34" height="34" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="2110" y="641" width="91" height="14" />
+          <dc:Bounds x="1669" y="871" width="88" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="ST_h1_di" bpmnElement="ST_h1">
-        <dc:Bounds x="2294" y="577" width="174" height="76" />
+        <dc:Bounds x="1375" y="807" width="174" height="76" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="ST_h2_di" bpmnElement="ST_h2">
-        <dc:Bounds x="2590" y="598" width="34" height="34" />
+      <bpmndi:BPMNShape id="ST_h0_di" bpmnElement="ST_h0">
+        <dc:Bounds x="1283" y="828" width="34" height="34" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="2563" y="641" width="88" height="14" />
+          <dc:Bounds x="1255" y="871" width="91" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="ST_f17_di" bpmnElement="ST_f17" bioc:stroke="#596575">
-        <di:waypoint x="2172" y="615" />
-        <di:waypoint x="2294" y="615" />
+      <bpmndi:BPMNEdge id="ST_f17_di" bpmnElement="ST_f17">
+        <di:waypoint x="1317" y="845" />
+        <di:waypoint x="1375" y="845" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="ST_f18_di" bpmnElement="ST_f18" bioc:stroke="#596575">
-        <di:waypoint x="2468" y="615" />
-        <di:waypoint x="2590" y="615" />
+      <bpmndi:BPMNEdge id="ST_f18_di" bpmnElement="ST_f18">
+        <di:waypoint x="1549" y="845" />
+        <di:waypoint x="1696" y="845" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="ST_J_di" bpmnElement="ST_J" isHorizontal="true" bioc:stroke="#475569" bioc:fill="#ffffff">
-        <dc:Bounds x="150" y="770" width="2594" height="380" />
+      <bpmndi:BPMNShape id="ST_J_di" bpmnElement="ST_J" isHorizontal="true">
+        <dc:Bounds x="160" y="1020" width="1916" height="500" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="ST_J_lane0_di" bpmnElement="ST_J_lane0" isHorizontal="true">
-        <dc:Bounds x="180" y="770" width="2564" height="190" />
+        <dc:Bounds x="190" y="1020" width="1886" height="250" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="ST_J_lane1_di" bpmnElement="ST_J_lane1" isHorizontal="true">
-        <dc:Bounds x="180" y="960" width="2564" height="190" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="ST_j0_di" bpmnElement="ST_j0">
-        <dc:Bounds x="1008" y="833" width="34" height="34" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="1003" y="876" width="44" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="ST_j1_di" bpmnElement="ST_j1" bioc:stroke="#334155" bioc:fill="#ffffff">
-        <dc:Bounds x="1164" y="812" width="174" height="76" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="ST_j2_di" bpmnElement="ST_j2">
-        <dc:Bounds x="2068" y="812" width="174" height="76" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="ST_j3_di" bpmnElement="ST_j3">
-        <dc:Bounds x="2294" y="812" width="174" height="76" />
-        <bpmndi:BPMNLabel />
+        <dc:Bounds x="190" y="1270" width="1886" height="250" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="ST_j4_di" bpmnElement="ST_j4">
-        <dc:Bounds x="2590" y="833" width="34" height="34" />
+        <dc:Bounds x="1696" y="1083" width="34" height="34" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="2569" y="876" width="77" height="14" />
+          <dc:Bounds x="1675" y="1126" width="77" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="ST_j5_di" bpmnElement="ST_j5">
-        <dc:Bounds x="1460" y="1023" width="34" height="34" />
+        <dc:Bounds x="1244" y="1333" width="34" height="34" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1455" y="1066" width="44" height="14" />
+          <dc:Bounds x="1239" y="1376" width="44" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="ST_j6_di" bpmnElement="ST_j6">
-        <dc:Bounds x="1616" y="1002" width="174" height="76" />
+        <dc:Bounds x="1400" y="1312" width="174" height="76" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="ST_j8_di" bpmnElement="ST_j8">
-        <dc:Bounds x="1912" y="1023" width="34" height="34" />
+        <dc:Bounds x="1696" y="1333" width="34" height="34" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1896" y="1066" width="67" height="14" />
+          <dc:Bounds x="1680" y="1376" width="67" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="ST_f19_di" bpmnElement="ST_f19" bioc:stroke="#596575">
-        <di:waypoint x="1042" y="850" />
-        <di:waypoint x="1164" y="850" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="ST_f20_di" bpmnElement="ST_f20" bioc:stroke="#596575">
-        <di:waypoint x="1338" y="850" />
-        <di:waypoint x="2068" y="850" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="ST_f21_di" bpmnElement="ST_f21" bioc:stroke="#596575">
-        <di:waypoint x="2242" y="850" />
-        <di:waypoint x="2294" y="850" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="ST_f22_di" bpmnElement="ST_f22" bioc:stroke="#596575">
-        <di:waypoint x="2468" y="850" />
-        <di:waypoint x="2590" y="850" />
+      <bpmndi:BPMNShape id="ST_j3_di" bpmnElement="ST_j3">
+        <dc:Bounds x="1375" y="1062" width="174" height="76" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ST_j2_di" bpmnElement="ST_j2">
+        <dc:Bounds x="1069" y="1062" width="174" height="76" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ST_j1_di" bpmnElement="ST_j1">
+        <dc:Bounds x="843" y="1062" width="174" height="76" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ST_j0_di" bpmnElement="ST_j0">
+        <dc:Bounds x="683" y="1083" width="34" height="34" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="678" y="1126" width="44" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="ST_f22_di" bpmnElement="ST_f22">
+        <di:waypoint x="1549" y="1100" />
+        <di:waypoint x="1696" y="1100" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="ST_f23_di" bpmnElement="ST_f23">
-        <di:waypoint x="1494" y="1040" />
-        <di:waypoint x="1616" y="1040" />
+        <di:waypoint x="1278" y="1350" />
+        <di:waypoint x="1400" y="1350" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="ST_f24_di" bpmnElement="ST_f24" bioc:stroke="#596575">
-        <di:waypoint x="1790" y="1040" />
-        <di:waypoint x="1912" y="1040" />
+      <bpmndi:BPMNEdge id="ST_f24_di" bpmnElement="ST_f24">
+        <di:waypoint x="1574" y="1350" />
+        <di:waypoint x="1696" y="1350" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="ST_f21_di" bpmnElement="ST_f21">
+        <di:waypoint x="1243" y="1100" />
+        <di:waypoint x="1375" y="1100" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="ST_f20_di" bpmnElement="ST_f20">
+        <di:waypoint x="1017" y="1100" />
+        <di:waypoint x="1069" y="1100" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="ST_f19_di" bpmnElement="ST_f19">
+        <di:waypoint x="717" y="1100" />
+        <di:waypoint x="843" y="1100" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="ST_m1_di" bpmnElement="ST_m1">
-        <di:waypoint x="1025" y="208" />
-        <di:waypoint x="1025" y="833" />
+        <di:waypoint x="700" y="220" />
+        <di:waypoint x="700" y="1083" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1035" y="506" width="44" height="14" />
+          <dc:Bounds x="609" y="637" width="44" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="ST_m2_di" bpmnElement="ST_m2">
-        <di:waypoint x="1477" y="478" />
-        <di:waypoint x="1477" y="645" />
-        <di:waypoint x="1251" y="645" />
-        <di:waypoint x="1251" y="812" />
+        <di:waypoint x="1487" y="210" />
+        <di:waypoint x="1487" y="260" />
+        <di:waypoint x="1560" y="260" />
+        <di:waypoint x="1560" y="740" />
+        <di:waypoint x="930" y="740" />
+        <di:waypoint x="930" y="1062" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1486" y="571" width="68" height="14" />
+          <dc:Bounds x="1150" y="743" width="68" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="ST_m3_di" bpmnElement="ST_m3">
-        <di:waypoint x="1477" y="340" />
-        <di:waypoint x="1477" y="380" />
-        <di:waypoint x="1370" y="380" />
-        <di:waypoint x="1370" y="1040" />
-        <di:waypoint x="1460" y="1040" />
+        <di:waypoint x="1261" y="378" />
+        <di:waypoint x="1261" y="1333" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1296" y="571" width="68" height="14" />
+          <dc:Bounds x="1186" y="473" width="68" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="ST_m4_di" bpmnElement="ST_m4">
-        <di:waypoint x="1703" y="1002" />
-        <di:waypoint x="1703" y="670" />
-        <di:waypoint x="1929" y="670" />
-        <di:waypoint x="1929" y="338" />
+        <di:waypoint x="1560" y="1310" />
+        <di:waypoint x="1560" y="750" />
+        <di:waypoint x="1360" y="750" />
+        <di:waypoint x="1360" y="410" />
+        <di:waypoint x="1487" y="410" />
+        <di:waypoint x="1487" y="380" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1796" y="641" width="44" height="14" />
+          <dc:Bounds x="1368" y="603" width="44" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>

@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Defs_GR" targetNamespace="https://example.org/ssu-jeju/2026/asis" exporter="Camunda Modeler" exporterVersion="5.52.0">
-  <bpmn:collaboration id="GR_Collaboration" name="06 성적 확인·송부·본교 인정">
-    <bpmn:documentation>As-Is 규정 모델. 06 성적 확인·송부·본교 인정
-제주대는 절대평가한 백분위 실점수를 공식 송부한다. 본교 성적 환산·개별 인정 판단을 담당확인으로 남기며 파견명단의 이수 여부와 인정 여부를 구분한다.
-주황색은 담당자의 승인 또는 판단 단계. I번호 주석은 인터뷰 확인 사항. 참고 BPMN은 근거에서 제외.</bpmn:documentation>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Defs_GR" targetNamespace="https://example.org/ssu-jeju/2026/asis" exporter="Camunda Modeler" exporterVersion="5.52.0">
+  <bpmn:collaboration id="GR_Collaboration" name="06 성적 확인·송부·본교 인정 / 최종 As-Is">
+    <bpmn:documentation>최종 As-Is. 근거 우선순위: 2026-11-13 담당자 인터뷰의 실제 운영 설명 &gt; 기존 신청서·학칙·안내문. 인터뷰 미설명 사항은 해당 문서로 보완한다. 숭실대 수신 절차를 제주대 파견에 전용하지 않는다. 자동화·통합 시스템·일반선택 무승인 통과는 현행 흐름에 포함하지 않는다. 주황색은 전문 판단·승인, 파란색은 DMN으로 정리한 수동 확인 기준이다. 실행 엔진 배포용 모델이 아니다.</bpmn:documentation>
     <bpmn:participant id="GR_S" name="학생" processRef="GR_S_process" />
     <bpmn:participant id="GR_H" name="본교 · 숭실대학교" processRef="GR_H_process" />
     <bpmn:participant id="GR_J" name="교류대 · 제주대학교" processRef="GR_J_process" />
@@ -11,18 +9,14 @@
     <bpmn:messageFlow id="GR_m2" name="성적 이의신청" sourceRef="GR_s3" targetRef="GR_j3" />
     <bpmn:messageFlow id="GR_m3" name="정정/유지 결과" sourceRef="GR_j3" targetRef="GR_s4" />
     <bpmn:messageFlow id="GR_m4" name="공식 성적 자료" sourceRef="GR_j7" targetRef="GR_h0" />
-    <bpmn:messageFlow id="GR_m5" name="반영된 성적표 조회" sourceRef="GR_h6" targetRef="GR_s6" />
-    <bpmn:textAnnotation id="GR_h1_InterviewNote">
-      <bpmn:text>I30 · 인터뷰 확인
-사전 승인받은 과목을 그대로 이수했다면, 성적을 받은 뒤 학
-과의 별도 학점인정 심사를 거쳐야 하나요?</bpmn:text>
-    </bpmn:textAnnotation>
-    <bpmn:association id="GR_h1_InterviewNote_association" associationDirection="None" sourceRef="GR_h1" targetRef="GR_h1_InterviewNote" />
+    <bpmn:messageFlow id="GR_m5" name="변경 사실 확인 연락" sourceRef="GR_hContact" targetRef="GR_sFacts0" />
+    <bpmn:messageFlow id="GR_m6" name="실제 과목·재승인 자료" sourceRef="GR_sFactsReply" targetRef="GR_hReapprove" />
+    <bpmn:messageFlow id="GR_m7" name="본교 반영 결과 조회" sourceRef="GR_hGraduate" targetRef="GR_s6" />
   </bpmn:collaboration>
-  <bpmn:process id="GR_S_process" name="06 성적 확인·송부·본교 인정 / 학생" isExecutable="false">
-    <bpmn:documentation>제주대는 절대평가한 백분위 실점수를 공식 송부한다. 본교 성적 환산·개별 인정 판단을 담당확인으로 남기며 파견명단의 이수 여부와 인정 여부를 구분한다. 문서 기반 서술 모델. 미확정 끝 이벤트는 확인된 절차의 범위를 나타낸다.</bpmn:documentation>
+  <bpmn:process id="GR_S_process" name="06 성적 확인·송부·본교 인정 / 최종 As-Is / 학생" isExecutable="false">
+    <bpmn:documentation>최종 As-Is. 근거 우선순위: 2026-11-13 담당자 인터뷰의 실제 운영 설명 &gt; 기존 신청서·학칙·안내문. 인터뷰 미설명 사항은 해당 문서로 보완한다. 숭실대 수신 절차를 제주대 파견에 전용하지 않는다. 자동화·통합 시스템·일반선택 무승인 통과는 현행 흐름에 포함하지 않는다. 주황색은 전문 판단·승인, 파란색은 DMN으로 정리한 수동 확인 기준이다. 실행 엔진 배포용 모델이 아니다.</bpmn:documentation>
     <bpmn:laneSet id="GR_S_lanes">
-      <bpmn:lane id="GR_S_lane0" name="수학 결과 확인">
+      <bpmn:lane id="GR_S_lane0" name="성적 확인·사후 자료 확인">
         <bpmn:flowNodeRef>GR_s0</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>GR_s1</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>GR_s2</bpmn:flowNodeRef>
@@ -30,6 +24,13 @@
         <bpmn:flowNodeRef>GR_s4</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>GR_s6</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>GR_s7</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>GR_sFacts0</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>GR_sFacts</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>GR_sFactsReply</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>GR_sFactsEnd</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>GR_sLate0</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>GR_sLate</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>GR_sLateEnd</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
     <bpmn:startEvent id="GR_s0" name="수업·시험 종료">
@@ -42,27 +43,27 @@
       <bpmn:incoming>GR_f1</bpmn:incoming>
       <bpmn:outgoing>GR_f2</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:exclusiveGateway id="GR_s2" name="성적 이의신청?" default="GR_f6">
+    <bpmn:exclusiveGateway id="GR_s2" name="성적 이의신청?" default="GR_f4">
       <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
       <bpmn:incoming>GR_f2</bpmn:incoming>
       <bpmn:outgoing>GR_f3</bpmn:outgoing>
-      <bpmn:outgoing>GR_f6</bpmn:outgoing>
+      <bpmn:outgoing>GR_f4</bpmn:outgoing>
     </bpmn:exclusiveGateway>
     <bpmn:userTask id="GR_s3" name="정해진 기간에&#10;성적 이의신청">
       <bpmn:documentation>근거: S04 P062–065
 상세 증빙·접수 방법·교원 처리 기한은 안내문 미제시: G08 담당확인.</bpmn:documentation>
       <bpmn:incoming>GR_f3</bpmn:incoming>
-      <bpmn:outgoing>GR_f4</bpmn:outgoing>
+      <bpmn:outgoing>GR_f5</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:userTask id="GR_s4" name="이의신청 처리&#10;결과 확인">
       <bpmn:documentation>근거: S04 P062–065</bpmn:documentation>
-      <bpmn:incoming>GR_f4</bpmn:incoming>
-      <bpmn:outgoing>GR_f5</bpmn:outgoing>
+      <bpmn:incoming>GR_f5</bpmn:incoming>
+      <bpmn:outgoing>GR_f6</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:userTask id="GR_s6" name="공식 송부·본교 성적&#10;인정 결과 확인">
       <bpmn:documentation>근거: S04 P066–069·P120–121; W01 제13조
 제주대 총장 명의 성적증명서 발급 불가. 학생 개인 증명서 제출을 필수 경로로 만들지 않음. 8/5 이전 조기 송부 불가.</bpmn:documentation>
-      <bpmn:incoming>GR_f5</bpmn:incoming>
+      <bpmn:incoming>GR_f4</bpmn:incoming>
       <bpmn:incoming>GR_f6</bpmn:incoming>
       <bpmn:outgoing>GR_f7</bpmn:outgoing>
     </bpmn:userTask>
@@ -70,103 +71,219 @@
       <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
       <bpmn:incoming>GR_f7</bpmn:incoming>
     </bpmn:endEvent>
+    <bpmn:startEvent id="GR_sFacts0" name="학사팀의 변경 확인 연락">
+      <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
+      <bpmn:outgoing>GR_f34</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="GR_sFacts0_message" />
+    </bpmn:startEvent>
+    <bpmn:userTask id="GR_sFacts" name="실제 수강과목 설명&#10;03 이수구분 재승인">
+      <bpmn:documentation>근거: I20261113 학사팀 학점교류 담당자 인터뷰 Q10·Q11</bpmn:documentation>
+      <bpmn:incoming>GR_f34</bpmn:incoming>
+      <bpmn:outgoing>GR_f35</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sendTask id="GR_sFactsReply" name="변경·재승인 자료 전달">
+      <bpmn:documentation>근거: I20261113 학사팀 학점교류 담당자 인터뷰 Q10</bpmn:documentation>
+      <bpmn:incoming>GR_f35</bpmn:incoming>
+      <bpmn:outgoing>GR_f36</bpmn:outgoing>
+    </bpmn:sendTask>
+    <bpmn:endEvent id="GR_sFactsEnd" name="성적 인정 처리에 인계">
+      <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
+      <bpmn:incoming>GR_f36</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:startEvent id="GR_sLate0" name="F·수강 방치 관련 민원">
+      <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
+      <bpmn:outgoing>GR_f37</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:userTask id="GR_sLate" name="05 사후 취소·성적&#10;정정 요청 절차">
+      <bpmn:documentation>근거: I20261113 학사팀 학점교류 담당자 인터뷰 Q15
+정규 성적 이의신청과 구분한다. 05에서 확인된 결과로 성적 처리를 재개하며 승인·환불을 보장하지 않는다.</bpmn:documentation>
+      <bpmn:incoming>GR_f37</bpmn:incoming>
+      <bpmn:outgoing>GR_f38</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:endEvent id="GR_sLateEnd" name="확인된 결과로 06 재개">
+      <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
+      <bpmn:incoming>GR_f38</bpmn:incoming>
+    </bpmn:endEvent>
     <bpmn:sequenceFlow id="GR_f1" sourceRef="GR_s0" targetRef="GR_s1" />
     <bpmn:sequenceFlow id="GR_f2" sourceRef="GR_s1" targetRef="GR_s2" />
     <bpmn:sequenceFlow id="GR_f3" name="신청" sourceRef="GR_s2" targetRef="GR_s3">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">신청</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="GR_f6" name="없음" sourceRef="GR_s2" targetRef="GR_s6" />
-    <bpmn:sequenceFlow id="GR_f4" sourceRef="GR_s3" targetRef="GR_s4" />
-    <bpmn:sequenceFlow id="GR_f5" sourceRef="GR_s4" targetRef="GR_s6" />
+    <bpmn:sequenceFlow id="GR_f4" name="없음" sourceRef="GR_s2" targetRef="GR_s6" />
+    <bpmn:sequenceFlow id="GR_f5" sourceRef="GR_s3" targetRef="GR_s4" />
+    <bpmn:sequenceFlow id="GR_f6" sourceRef="GR_s4" targetRef="GR_s6" />
     <bpmn:sequenceFlow id="GR_f7" sourceRef="GR_s6" targetRef="GR_s7" />
+    <bpmn:sequenceFlow id="GR_f34" sourceRef="GR_sFacts0" targetRef="GR_sFacts" />
+    <bpmn:sequenceFlow id="GR_f35" sourceRef="GR_sFacts" targetRef="GR_sFactsReply" />
+    <bpmn:sequenceFlow id="GR_f36" sourceRef="GR_sFactsReply" targetRef="GR_sFactsEnd" />
+    <bpmn:sequenceFlow id="GR_f37" sourceRef="GR_sLate0" targetRef="GR_sLate" />
+    <bpmn:sequenceFlow id="GR_f38" sourceRef="GR_sLate" targetRef="GR_sLateEnd" />
   </bpmn:process>
-  <bpmn:process id="GR_H_process" name="06 성적 확인·송부·본교 인정 / 본교 · 숭실대학교" isExecutable="false">
-    <bpmn:documentation>제주대는 절대평가한 백분위 실점수를 공식 송부한다. 본교 성적 환산·개별 인정 판단을 담당확인으로 남기며 파견명단의 이수 여부와 인정 여부를 구분한다. 문서 기반 서술 모델. 미확정 끝 이벤트는 확인된 절차의 범위를 나타낸다.</bpmn:documentation>
+  <bpmn:process id="GR_H_process" name="06 성적 확인·송부·본교 인정 / 최종 As-Is / 본교 · 숭실대학교" isExecutable="false">
+    <bpmn:documentation>최종 As-Is. 근거 우선순위: 2026-11-13 담당자 인터뷰의 실제 운영 설명 &gt; 기존 신청서·학칙·안내문. 인터뷰 미설명 사항은 해당 문서로 보완한다. 숭실대 수신 절차를 제주대 파견에 전용하지 않는다. 자동화·통합 시스템·일반선택 무승인 통과는 현행 흐름에 포함하지 않는다. 주황색은 전문 판단·승인, 파란색은 DMN으로 정리한 수동 확인 기준이다. 실행 엔진 배포용 모델이 아니다.</bpmn:documentation>
     <bpmn:laneSet id="GR_H_lanes">
-      <bpmn:lane id="GR_H_lane0" name="학사팀·학점인정 담당">
+      <bpmn:lane id="GR_H_lane3" name="졸업사정 담당">
+        <bpmn:flowNodeRef>GR_hGraduate</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="GR_H_lane2" name="성적 처리 담당">
+        <bpmn:flowNodeRef>GR_h6</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="GR_H_lane1" name="과목 개설 담당">
+        <bpmn:flowNodeRef>GR_hOpen</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>GR_hRegister</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="GR_H_lane0" name="학점교류 담당">
         <bpmn:flowNodeRef>GR_h0</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>GR_h1</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>GR_h4</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>GR_h5</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>GR_h6</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>GR_h9</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>GR_h10</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>GR_h12</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>GR_hMismatch</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>GR_hContact</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>GR_hReapprove</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>GR_hBatch</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>GR_hClarify</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>GR_h13</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
     <bpmn:startEvent id="GR_h0" name="제주대 공식 성적 수신">
       <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
-      <bpmn:outgoing>GR_f8</bpmn:outgoing>
+      <bpmn:outgoing>GR_f15</bpmn:outgoing>
       <bpmn:messageEventDefinition id="GR_h0_message" />
     </bpmn:startEvent>
-    <bpmn:userTask id="GR_h1" name="사전 승인·성적 대조&#10;인정·환산 검토">
-      <bpmn:documentation>근거: W01 제10·11·13조; W02 4.가.2·4.다; W03 제24조·제24조의2; S01 K11
-담당 판단·승인: G03·G10. 세부 적용 기준은 해당 규정과 자료에서 확인한다.
-기존 승인 및 이수구분을 공식 성적과 대조하고 실제 인정 학점·환산 기준을 확인한다. 대응 과목 없음의 일반선택 기준을 적용한다. 백분위 실점수의 본교 등급 환산 방식과 성적 수신 후 별도 학과 심사 유무는 문서에 명시되지 않았다. 계절제는 전체 성적에 합산하고 정규학기 성적·학기별 석차와 구분한다.</bpmn:documentation>
-      <bpmn:incoming>GR_f8</bpmn:incoming>
-      <bpmn:outgoing>GR_f9</bpmn:outgoing>
+    <bpmn:userTask id="GR_h1" name="신청·승인 과목과&#10;공식 성적 대조">
+      <bpmn:documentation>근거: I20261113 학사팀 학점교류 담당자 인터뷰 Q10·Q13
+공식 성적과 신청·승인 과목을 대조한다. 학생이 변경을 알리지 않았다면 이 단계에서 차이를 발견할 수 있다. 정상 동일 과목에 학과 재승인을 일괄 요구하지 않는다.</bpmn:documentation>
+      <bpmn:incoming>GR_f15</bpmn:incoming>
+      <bpmn:incoming>GR_f19</bpmn:incoming>
+      <bpmn:outgoing>GR_f16</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:businessRuleTask id="GR_h4" name="실제 학점·성적&#10;반영 경로 확인">
-      <bpmn:documentation>근거: W01 제10·11·13조; W02 4.가; S03
-DMN 참조: D02 D10 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 현재 자동화 여부는 확인되지 않음)</bpmn:documentation>
-      <bpmn:incoming>GR_f9</bpmn:incoming>
-      <bpmn:outgoing>GR_f10</bpmn:outgoing>
+      <bpmn:documentation>근거: W01 제10·13조; I20261113 학사팀 학점교류 담당자 인터뷰 Q10·Q11·Q13
+DMN 참조: D02 D10 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이며 현재 자동화 여부는 확인되지 않음)
+확정된 이수구분·인정 결과와 성적 환산 정보를 사용한다. 사전승인 부재만으로 불인정하지 않고 사후 재승인 결과를 사용한다. 실제 반영 전 학점 한도를 확인한다.</bpmn:documentation>
+      <bpmn:incoming>GR_f21</bpmn:incoming>
+      <bpmn:incoming>GR_f27</bpmn:incoming>
+      <bpmn:outgoing>GR_f22</bpmn:outgoing>
     </bpmn:businessRuleTask>
-    <bpmn:exclusiveGateway id="GR_h5" name="반영 결과?" default="GR_f13">
+    <bpmn:exclusiveGateway id="GR_h5" name="반영 결과?" default="GR_f26">
       <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
-      <bpmn:incoming>GR_f10</bpmn:incoming>
-      <bpmn:outgoing>GR_f11</bpmn:outgoing>
-      <bpmn:outgoing>GR_f12</bpmn:outgoing>
-      <bpmn:outgoing>GR_f13</bpmn:outgoing>
+      <bpmn:incoming>GR_f22</bpmn:incoming>
+      <bpmn:outgoing>GR_f23</bpmn:outgoing>
+      <bpmn:outgoing>GR_f24</bpmn:outgoing>
+      <bpmn:outgoing>GR_f25</bpmn:outgoing>
+      <bpmn:outgoing>GR_f26</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:userTask id="GR_h6" name="인정 학점·성적 반영&#10;교환과목 표시">
-      <bpmn:documentation>근거: W01 제13조; W03 제24조·제24조의2</bpmn:documentation>
-      <bpmn:incoming>GR_f11</bpmn:incoming>
-      <bpmn:outgoing>GR_f14</bpmn:outgoing>
+    <bpmn:userTask id="GR_h6" name="본교 기준으로 성적 입력&#10;교환과목 표시">
+      <bpmn:documentation>근거: W01 제13조; W03 제24조·제24조의2; I20261113 학사팀 학점교류 담당자 인터뷰 Q13
+과목 개설 담당자가 등록한 수강내역에 성적 처리 담당자가 본교 기준으로 입력한다. 제주대에서 정정된 경우 공식 정정 성적만 사용한다.</bpmn:documentation>
+      <bpmn:incoming>GR_f29</bpmn:incoming>
+      <bpmn:outgoing>GR_f30</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:endEvent id="GR_h9" name="자료·기준 미확정&#10;반영 보류">
-      <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
-      <bpmn:incoming>GR_f13</bpmn:incoming>
-    </bpmn:endEvent>
     <bpmn:userTask id="GR_h10" name="파견명단 J: 실제 이수&#10;K: 실제 인정 작성">
       <bpmn:documentation>근거: S03 J1·K1
 학기 말 학사팀 작성. 실제 이수와 본교 인정은 별개 항목이다. 미인정·미이수와 확인된 미납·취소도 실제 범위로 작성한다.</bpmn:documentation>
-      <bpmn:incoming>GR_f12</bpmn:incoming>
-      <bpmn:incoming>GR_f14</bpmn:incoming>
-      <bpmn:incoming>GR_f16</bpmn:incoming>
-      <bpmn:outgoing>GR_f15</bpmn:outgoing>
+      <bpmn:incoming>GR_f24</bpmn:incoming>
+      <bpmn:incoming>GR_f31</bpmn:incoming>
+      <bpmn:incoming>GR_f33</bpmn:incoming>
+      <bpmn:outgoing>GR_f32</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:endEvent id="GR_h12" name="학적·파견명단 정리">
       <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
-      <bpmn:incoming>GR_f15</bpmn:incoming>
+      <bpmn:incoming>GR_f32</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:sequenceFlow id="GR_f8" sourceRef="GR_h0" targetRef="GR_h1" />
-    <bpmn:sequenceFlow id="GR_f9" sourceRef="GR_h1" targetRef="GR_h4" />
-    <bpmn:sequenceFlow id="GR_f10" sourceRef="GR_h4" targetRef="GR_h5" />
-    <bpmn:sequenceFlow id="GR_f11" name="인정 확정" sourceRef="GR_h5" targetRef="GR_h6">
+    <bpmn:exclusiveGateway id="GR_hMismatch" name="미반영 변경 과목?" default="GR_f20">
+      <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
+      <bpmn:incoming>GR_f16</bpmn:incoming>
+      <bpmn:outgoing>GR_f17</bpmn:outgoing>
+      <bpmn:outgoing>GR_f20</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:userTask id="GR_hContact" name="학생에게 과목 변경&#10;사실 확인">
+      <bpmn:documentation>근거: I20261113 학사팀 학점교류 담당자 인터뷰 Q10
+학생의 사전 통보가 없어 성적을 보고 전화로 변경을 확인하는 경로다.</bpmn:documentation>
+      <bpmn:incoming>GR_f17</bpmn:incoming>
+      <bpmn:incoming>GR_f25</bpmn:incoming>
+      <bpmn:outgoing>GR_f18</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="GR_hReapprove" name="03 사후 이수구분&#10;재승인 결과 확인">
+      <bpmn:documentation>근거: I20261113 학사팀 학점교류 담당자 인터뷰 Q10·Q11
+03-course-change.bpmn의 사후 재승인 경로를 수행하고 이 위치로 복귀한다. 수강신청 단계 02로 되돌아가지 않는다. 학과장 판단 결과를 반영한다.</bpmn:documentation>
+      <bpmn:incoming>GR_f18</bpmn:incoming>
+      <bpmn:outgoing>GR_f19</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:intermediateCatchEvent id="GR_hBatch" name="해당 학기 파견대학&#10;성적 공문 취합 완료 대기">
+      <bpmn:documentation>근거: I20261113 학사팀 학점교류 담당자 인터뷰 Q13
+다른 파견대학의 성적 공문도 모두 도착해야 일괄 처리한다. 해당 학기 대상 학교 수는 고정하지 않는다. 제주대 외 수신 현황은 이 모델 밖의 업무 의존조건이다.</bpmn:documentation>
+      <bpmn:incoming>GR_f20</bpmn:incoming>
+      <bpmn:outgoing>GR_f21</bpmn:outgoing>
+      <bpmn:conditionalEventDefinition id="GR_hBatch_condition">
+        <bpmn:condition xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">해당 학기 파견대학의 성적 공문이 모두 취합됨</bpmn:condition>
+      </bpmn:conditionalEventDefinition>
+    </bpmn:intermediateCatchEvent>
+    <bpmn:userTask id="GR_hClarify" name="미확인 자료·환산 기준&#10;담당자 확인">
+      <bpmn:documentation>근거: W01 제13조; I20261113 학사팀 학점교류 담당자 인터뷰 Q13
+담당 판단·승인: 미확인 적용 기준. 세부 적용 기준은 해당 규정과 자료에서 확인한다.
+제주대 백분위 실점수를 본교 기준으로 바꾸는 구체식은 제공 자료·인터뷰에 없다. 임의 환산하지 않고 담당자가 확정한 결과를 사용한다.</bpmn:documentation>
+      <bpmn:incoming>GR_f26</bpmn:incoming>
+      <bpmn:outgoing>GR_f27</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="GR_hOpen" name="본교 학점교류 과목 개설">
+      <bpmn:documentation>근거: I20261113 학사팀 학점교류 담당자 인터뷰 Q13</bpmn:documentation>
+      <bpmn:incoming>GR_f23</bpmn:incoming>
+      <bpmn:outgoing>GR_f28</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="GR_hRegister" name="학생 수강내역에&#10;학점교류 과목 등록">
+      <bpmn:documentation>근거: I20261113 학사팀 학점교류 담당자 인터뷰 Q13</bpmn:documentation>
+      <bpmn:incoming>GR_f28</bpmn:incoming>
+      <bpmn:outgoing>GR_f29</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="GR_hGraduate" name="졸업사정에 인정 결과 반영">
+      <bpmn:documentation>근거: I20261113 학사팀 학점교류 담당자 인터뷰 Q13
+즉시 졸업시킨다는 의미가 아니라 학생의 졸업요건·이수내역에 반영하는 역할이다.</bpmn:documentation>
+      <bpmn:incoming>GR_f30</bpmn:incoming>
+      <bpmn:outgoing>GR_f31</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="GR_f15" sourceRef="GR_h0" targetRef="GR_h1" />
+    <bpmn:sequenceFlow id="GR_f19" sourceRef="GR_hReapprove" targetRef="GR_h1" />
+    <bpmn:sequenceFlow id="GR_f16" sourceRef="GR_h1" targetRef="GR_hMismatch" />
+    <bpmn:sequenceFlow id="GR_f21" sourceRef="GR_hBatch" targetRef="GR_h4" />
+    <bpmn:sequenceFlow id="GR_f27" sourceRef="GR_hClarify" targetRef="GR_h4" />
+    <bpmn:sequenceFlow id="GR_f22" sourceRef="GR_h4" targetRef="GR_h5" />
+    <bpmn:sequenceFlow id="GR_f23" name="인정 확정" sourceRef="GR_h5" targetRef="GR_hOpen">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">인정 확정</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="GR_f12" name="미인정 확정" sourceRef="GR_h5" targetRef="GR_h10">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">미인정 확정</bpmn:conditionExpression>
+    <bpmn:sequenceFlow id="GR_f24" name="불인정 확정" sourceRef="GR_h5" targetRef="GR_h10">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">불인정 확정</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="GR_f13" name="미확정" sourceRef="GR_h5" targetRef="GR_h9" />
-    <bpmn:sequenceFlow id="GR_f14" sourceRef="GR_h6" targetRef="GR_h10" />
-    <bpmn:sequenceFlow id="GR_f16" sourceRef="GR_h13" targetRef="GR_h10" />
-    <bpmn:sequenceFlow id="GR_f15" sourceRef="GR_h10" targetRef="GR_h12" />
+    <bpmn:sequenceFlow id="GR_f25" name="사후 재승인 필요" sourceRef="GR_h5" targetRef="GR_hContact">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">사후 재승인 필요</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="GR_f26" name="확인 필요" sourceRef="GR_h5" targetRef="GR_hClarify" />
+    <bpmn:sequenceFlow id="GR_f29" sourceRef="GR_hRegister" targetRef="GR_h6" />
+    <bpmn:sequenceFlow id="GR_f30" sourceRef="GR_h6" targetRef="GR_hGraduate" />
+    <bpmn:sequenceFlow id="GR_f31" sourceRef="GR_hGraduate" targetRef="GR_h10" />
+    <bpmn:sequenceFlow id="GR_f33" sourceRef="GR_h13" targetRef="GR_h10" />
+    <bpmn:sequenceFlow id="GR_f32" sourceRef="GR_h10" targetRef="GR_h12" />
+    <bpmn:sequenceFlow id="GR_f17" name="변경·미재승인" sourceRef="GR_hMismatch" targetRef="GR_hContact">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">변경·미재승인</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="GR_f20" name="동일 과목·재승인 반영" sourceRef="GR_hMismatch" targetRef="GR_hBatch" />
+    <bpmn:sequenceFlow id="GR_f18" sourceRef="GR_hContact" targetRef="GR_hReapprove" />
+    <bpmn:sequenceFlow id="GR_f28" sourceRef="GR_hOpen" targetRef="GR_hRegister" />
     <bpmn:startEvent id="GR_h13" name="취소·미납 결과 확인됨">
       <bpmn:documentation>근거: S03 J1·K1; S04 P043·P117</bpmn:documentation>
-      <bpmn:outgoing>GR_f16</bpmn:outgoing>
+      <bpmn:outgoing>GR_f33</bpmn:outgoing>
     </bpmn:startEvent>
   </bpmn:process>
-  <bpmn:process id="GR_J_process" name="06 성적 확인·송부·본교 인정 / 교류대 · 제주대학교" isExecutable="false">
-    <bpmn:documentation>제주대는 절대평가한 백분위 실점수를 공식 송부한다. 본교 성적 환산·개별 인정 판단을 담당확인으로 남기며 파견명단의 이수 여부와 인정 여부를 구분한다. 문서 기반 서술 모델. 미확정 끝 이벤트는 확인된 절차의 범위를 나타낸다.</bpmn:documentation>
+  <bpmn:process id="GR_J_process" name="06 성적 확인·송부·본교 인정 / 최종 As-Is / 교류대 · 제주대학교" isExecutable="false">
+    <bpmn:documentation>최종 As-Is. 근거 우선순위: 2026-11-13 담당자 인터뷰의 실제 운영 설명 &gt; 기존 신청서·학칙·안내문. 인터뷰 미설명 사항은 해당 문서로 보완한다. 숭실대 수신 절차를 제주대 파견에 전용하지 않는다. 자동화·통합 시스템·일반선택 무승인 통과는 현행 흐름에 포함하지 않는다. 주황색은 전문 판단·승인, 파란색은 DMN으로 정리한 수동 확인 기준이다. 실행 엔진 배포용 모델이 아니다.</bpmn:documentation>
     <bpmn:laneSet id="GR_J_lanes">
-      <bpmn:lane id="GR_J_lane1" name="교육혁신과·성적 담당">
+      <bpmn:lane id="GR_J_lane1" name="교육혁신과 · 성적 담당">
         <bpmn:flowNodeRef>GR_j7</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>GR_j8</bpmn:flowNodeRef>
       </bpmn:lane>
-      <bpmn:lane id="GR_J_lane0" name="과목 개설 학과·담당교원">
+      <bpmn:lane id="GR_J_lane0" name="과목 담당교원">
         <bpmn:flowNodeRef>GR_j0</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>GR_j1</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>GR_j2</bpmn:flowNodeRef>
@@ -176,352 +293,511 @@ DMN 참조: D02 D10 (동봉 credit-exchange-asis.dmn; 명시 규칙의 표현이
     </bpmn:laneSet>
     <bpmn:startEvent id="GR_j0" name="성적 산정 완료">
       <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
-      <bpmn:outgoing>GR_f17</bpmn:outgoing>
+      <bpmn:outgoing>GR_f8</bpmn:outgoing>
     </bpmn:startEvent>
     <bpmn:userTask id="GR_j1" name="성적 열람·&#10;이의신청 기간 운영">
       <bpmn:documentation>근거: S04 P062–065</bpmn:documentation>
-      <bpmn:incoming>GR_f17</bpmn:incoming>
-      <bpmn:outgoing>GR_f18</bpmn:outgoing>
+      <bpmn:incoming>GR_f8</bpmn:incoming>
+      <bpmn:outgoing>GR_f9</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:exclusiveGateway id="GR_j2" name="기간 내 이의신청?" default="GR_f20">
+    <bpmn:exclusiveGateway id="GR_j2" name="기간 내 이의신청?" default="GR_f11">
       <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
-      <bpmn:incoming>GR_f18</bpmn:incoming>
-      <bpmn:outgoing>GR_f19</bpmn:outgoing>
-      <bpmn:outgoing>GR_f20</bpmn:outgoing>
+      <bpmn:incoming>GR_f9</bpmn:incoming>
+      <bpmn:outgoing>GR_f10</bpmn:outgoing>
+      <bpmn:outgoing>GR_f11</bpmn:outgoing>
     </bpmn:exclusiveGateway>
     <bpmn:userTask id="GR_j3" name="담당교원 검토&#10;정정/유지 결과 처리">
       <bpmn:documentation>근거: S04 P062–065; W01 제13조
 담당 판단·승인: G08. 세부 적용 기준은 해당 규정과 자료에서 확인한다.</bpmn:documentation>
-      <bpmn:incoming>GR_f19</bpmn:incoming>
-      <bpmn:outgoing>GR_f21</bpmn:outgoing>
+      <bpmn:incoming>GR_f10</bpmn:incoming>
+      <bpmn:outgoing>GR_f12</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:userTask id="GR_j4" name="절대평가 결과 확정&#10;백분위 실점수 정리">
       <bpmn:documentation>근거: S04 P068–069</bpmn:documentation>
-      <bpmn:incoming>GR_f20</bpmn:incoming>
-      <bpmn:incoming>GR_f21</bpmn:incoming>
-      <bpmn:outgoing>GR_f22</bpmn:outgoing>
+      <bpmn:incoming>GR_f11</bpmn:incoming>
+      <bpmn:incoming>GR_f12</bpmn:incoming>
+      <bpmn:outgoing>GR_f13</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:sendTask id="GR_j7" name="본교로 공식 성적&#10;백분위 실점수 송부">
       <bpmn:documentation>근거: S04 P066–069·P120–126
 8/5 예정일 이전에는 송부 불가. 시설 미반납·미납은 송부 지연 가능 사유다. 본교 절차는 실제 공식 성적 수신으로 시작한다.</bpmn:documentation>
-      <bpmn:incoming>GR_f22</bpmn:incoming>
-      <bpmn:outgoing>GR_f23</bpmn:outgoing>
+      <bpmn:incoming>GR_f13</bpmn:incoming>
+      <bpmn:outgoing>GR_f14</bpmn:outgoing>
     </bpmn:sendTask>
     <bpmn:endEvent id="GR_j8" name="공식 송부 완료">
       <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
-      <bpmn:incoming>GR_f23</bpmn:incoming>
+      <bpmn:incoming>GR_f14</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:sequenceFlow id="GR_f17" sourceRef="GR_j0" targetRef="GR_j1" />
-    <bpmn:sequenceFlow id="GR_f18" sourceRef="GR_j1" targetRef="GR_j2" />
-    <bpmn:sequenceFlow id="GR_f19" name="접수" sourceRef="GR_j2" targetRef="GR_j3">
+    <bpmn:sequenceFlow id="GR_f8" sourceRef="GR_j0" targetRef="GR_j1" />
+    <bpmn:sequenceFlow id="GR_f9" sourceRef="GR_j1" targetRef="GR_j2" />
+    <bpmn:sequenceFlow id="GR_f10" name="접수" sourceRef="GR_j2" targetRef="GR_j3">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">접수</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="GR_f20" name="없음" sourceRef="GR_j2" targetRef="GR_j4" />
-    <bpmn:sequenceFlow id="GR_f21" sourceRef="GR_j3" targetRef="GR_j4" />
-    <bpmn:sequenceFlow id="GR_f22" sourceRef="GR_j4" targetRef="GR_j7" />
-    <bpmn:sequenceFlow id="GR_f23" sourceRef="GR_j7" targetRef="GR_j8" />
+    <bpmn:sequenceFlow id="GR_f11" name="없음" sourceRef="GR_j2" targetRef="GR_j4" />
+    <bpmn:sequenceFlow id="GR_f12" sourceRef="GR_j3" targetRef="GR_j4" />
+    <bpmn:sequenceFlow id="GR_f13" sourceRef="GR_j4" targetRef="GR_j7" />
+    <bpmn:sequenceFlow id="GR_f14" sourceRef="GR_j7" targetRef="GR_j8" />
   </bpmn:process>
-  <bpmndi:BPMNDiagram id="GR_Diagram" name="06 성적 확인·송부·본교 인정">
+  <bpmndi:BPMNDiagram id="GR_Diagram" name="06 성적 확인·송부·본교 인정 / 최종 As-Is">
     <bpmndi:BPMNPlane id="GR_Plane" bpmnElement="GR_Collaboration">
-      <bpmndi:BPMNShape id="GR_S_di" bpmnElement="GR_S" isHorizontal="true" bioc:stroke="#475569" bioc:fill="#ffffff">
-        <dc:Bounds x="150" y="100" width="3692" height="280" />
+      <bpmndi:BPMNShape id="GR_S_di" bpmnElement="GR_S" isHorizontal="true">
+        <dc:Bounds x="160" y="100" width="3498" height="410" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="GR_S_lane0_di" bpmnElement="GR_S_lane0" isHorizontal="true">
-        <dc:Bounds x="180" y="100" width="3662" height="280" />
+        <dc:Bounds x="190" y="100" width="3468" height="410" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="GR_s0_di" bpmnElement="GR_s0">
-        <dc:Bounds x="330" y="163" width="34" height="34" />
+        <dc:Bounds x="340" y="163" width="34" height="34" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="313" y="206" width="68" height="14" />
+          <dc:Bounds x="323" y="206" width="68" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="GR_s1_di" bpmnElement="GR_s1" bioc:stroke="#334155" bioc:fill="#ffffff">
-        <dc:Bounds x="486" y="142" width="174" height="76" />
-        <bpmndi:BPMNLabel />
+      <bpmndi:BPMNShape id="GR_s1_di" bpmnElement="GR_s1">
+        <dc:Bounds x="496" y="142" width="174" height="76" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="GR_s2_di" bpmnElement="GR_s2" isMarkerVisible="true">
-        <dc:Bounds x="777" y="158" width="44" height="44" />
+        <dc:Bounds x="787" y="158" width="44" height="44" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="764" y="134" width="70" height="14" />
+          <dc:Bounds x="774" y="211" width="70" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="GR_s3_di" bpmnElement="GR_s3" bioc:stroke="#334155" bioc:fill="#ffffff">
-        <dc:Bounds x="938" y="142" width="174" height="76" />
+      <bpmndi:BPMNShape id="GR_s3_di" bpmnElement="GR_s3">
+        <dc:Bounds x="948" y="142" width="174" height="76" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="GR_s4_di" bpmnElement="GR_s4" bioc:stroke="#334155" bioc:fill="#ffffff">
-        <dc:Bounds x="1390" y="142" width="174" height="76" />
+      <bpmndi:BPMNShape id="GR_s4_di" bpmnElement="GR_s4">
+        <dc:Bounds x="1174" y="142" width="174" height="76" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="GR_s6_di" bpmnElement="GR_s6" bioc:stroke="#334155" bioc:fill="#ffffff">
-        <dc:Bounds x="3392" y="142" width="174" height="76" />
+      <bpmndi:BPMNShape id="GR_s6_di" bpmnElement="GR_s6">
+        <dc:Bounds x="3208" y="142" width="174" height="76" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="GR_s7_di" bpmnElement="GR_s7">
-        <dc:Bounds x="3688" y="163" width="34" height="34" />
+        <dc:Bounds x="3504" y="163" width="34" height="34" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="3660" y="206" width="91" height="14" />
+          <dc:Bounds x="3476" y="206" width="91" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="GR_f1_di" bpmnElement="GR_f1" bioc:stroke="#596575">
-        <di:waypoint x="364" y="180" />
-        <di:waypoint x="486" y="180" />
+      <bpmndi:BPMNShape id="GR_sFacts0_di" bpmnElement="GR_sFacts0">
+        <dc:Bounds x="1244" y="393" width="34" height="34" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1205" y="369" width="111" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="GR_sFacts_di" bpmnElement="GR_sFacts">
+        <dc:Bounds x="1400" y="372" width="174" height="76" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="GR_sFactsReply_di" bpmnElement="GR_sFactsReply">
+        <dc:Bounds x="1626" y="372" width="174" height="76" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="GR_sFactsEnd_di" bpmnElement="GR_sFactsEnd">
+        <dc:Bounds x="1922" y="393" width="34" height="34" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1889" y="436" width="101" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="GR_sLate0_di" bpmnElement="GR_sLate0">
+        <dc:Bounds x="2374" y="393" width="34" height="34" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2341" y="436" width="101" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="GR_sLate_di" bpmnElement="GR_sLate">
+        <dc:Bounds x="2530" y="372" width="174" height="76" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="GR_sLateEnd_di" bpmnElement="GR_sLateEnd">
+        <dc:Bounds x="3052" y="393" width="34" height="34" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3018" y="436" width="103" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="GR_f1_di" bpmnElement="GR_f1">
+        <di:waypoint x="374" y="180" />
+        <di:waypoint x="496" y="180" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="GR_f2_di" bpmnElement="GR_f2">
-        <di:waypoint x="660" y="180" />
-        <di:waypoint x="777" y="180" />
+        <di:waypoint x="670" y="180" />
+        <di:waypoint x="787" y="180" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="GR_f3_di" bpmnElement="GR_f3" bioc:stroke="#596575">
-        <di:waypoint x="821" y="180" />
-        <di:waypoint x="938" y="180" />
+      <bpmndi:BPMNEdge id="GR_f3_di" bpmnElement="GR_f3">
+        <di:waypoint x="831" y="180" />
+        <di:waypoint x="948" y="180" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="934" y="119" width="21" height="14" />
+          <dc:Bounds x="856" y="163" width="21" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="GR_f6_di" bpmnElement="GR_f6" bioc:stroke="#596575">
-        <di:waypoint x="799" y="202" />
-        <di:waypoint x="799" y="240" />
-        <di:waypoint x="3330" y="240" />
-        <di:waypoint x="3330" y="200" />
-        <di:waypoint x="3392" y="200" />
+      <bpmndi:BPMNEdge id="GR_f4_di" bpmnElement="GR_f4">
+        <di:waypoint x="809" y="158" />
+        <di:waypoint x="809" y="110" />
+        <di:waypoint x="2020" y="110" />
+        <di:waypoint x="2020" y="167" />
+        <di:waypoint x="3208" y="167" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="2055" y="203" width="21" height="14" />
+          <dc:Bounds x="856" y="123" width="21" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="GR_f4_di" bpmnElement="GR_f4" bioc:stroke="#596575">
-        <di:waypoint x="1112" y="180" />
-        <di:waypoint x="1390" y="180" />
+      <bpmndi:BPMNEdge id="GR_f5_di" bpmnElement="GR_f5">
+        <di:waypoint x="1122" y="180" />
+        <di:waypoint x="1174" y="180" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="GR_f5_di" bpmnElement="GR_f5" bioc:stroke="#596575">
-        <di:waypoint x="1564" y="180" />
-        <di:waypoint x="3392" y="180" />
+      <bpmndi:BPMNEdge id="GR_f6_di" bpmnElement="GR_f6">
+        <di:waypoint x="1348" y="180" />
+        <di:waypoint x="3208" y="180" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="GR_f7_di" bpmnElement="GR_f7" bioc:stroke="#596575">
-        <di:waypoint x="3566" y="180" />
-        <di:waypoint x="3688" y="180" />
+      <bpmndi:BPMNEdge id="GR_f7_di" bpmnElement="GR_f7">
+        <di:waypoint x="3382" y="180" />
+        <di:waypoint x="3504" y="180" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="GR_H_di" bpmnElement="GR_H" isHorizontal="true" bioc:stroke="#475569" bioc:fill="#ffffff">
-        <dc:Bounds x="150" y="425" width="3692" height="290" />
+      <bpmndi:BPMNEdge id="GR_f34_di" bpmnElement="GR_f34">
+        <di:waypoint x="1278" y="410" />
+        <di:waypoint x="1400" y="410" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="GR_f35_di" bpmnElement="GR_f35">
+        <di:waypoint x="1574" y="410" />
+        <di:waypoint x="1626" y="410" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="GR_f36_di" bpmnElement="GR_f36">
+        <di:waypoint x="1800" y="410" />
+        <di:waypoint x="1922" y="410" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="GR_f37_di" bpmnElement="GR_f37">
+        <di:waypoint x="2408" y="410" />
+        <di:waypoint x="2530" y="410" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="GR_f38_di" bpmnElement="GR_f38">
+        <di:waypoint x="2704" y="410" />
+        <di:waypoint x="3052" y="410" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="GR_H_di" bpmnElement="GR_H" isHorizontal="true">
+        <dc:Bounds x="160" y="555" width="3498" height="1120" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="GR_H_lane3_di" bpmnElement="GR_H_lane3" isHorizontal="true">
+        <dc:Bounds x="190" y="1395" width="3468" height="280" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="GR_H_lane2_di" bpmnElement="GR_H_lane2" isHorizontal="true">
+        <dc:Bounds x="190" y="1115" width="3468" height="280" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="GR_H_lane1_di" bpmnElement="GR_H_lane1" isHorizontal="true">
+        <dc:Bounds x="190" y="835" width="3468" height="280" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="GR_H_lane0_di" bpmnElement="GR_H_lane0" isHorizontal="true">
-        <dc:Bounds x="180" y="425" width="3662" height="290" />
-        <bpmndi:BPMNLabel />
+        <dc:Bounds x="190" y="555" width="3468" height="280" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="GR_h0_di" bpmnElement="GR_h0">
-        <dc:Bounds x="1912" y="488" width="34" height="34" />
+        <dc:Bounds x="566" y="618" width="34" height="34" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1878" y="464" width="101" height="14" />
+          <dc:Bounds x="532" y="594" width="101" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="GR_h1_di" bpmnElement="GR_h1" bioc:stroke="#9a5b00" bioc:fill="#fff1d6">
-        <dc:Bounds x="2068" y="467" width="174" height="76" />
+      <bpmndi:BPMNShape id="GR_h1_di" bpmnElement="GR_h1">
+        <dc:Bounds x="722" y="597" width="174" height="76" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="GR_h4_di" bpmnElement="GR_h4">
-        <dc:Bounds x="2714" y="467" width="174" height="76" />
+        <dc:Bounds x="1852" y="597" width="174" height="76" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="GR_h5_di" bpmnElement="GR_h5" isMarkerVisible="true">
-        <dc:Bounds x="3005" y="483" width="44" height="44" />
+        <dc:Bounds x="2143" y="613" width="44" height="44" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="2965" y="483" width="50" height="14" />
+          <dc:Bounds x="2165" y="594" width="50" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="GR_h6_di" bpmnElement="GR_h6" bioc:stroke="#334155" bioc:fill="#ffffff">
-        <dc:Bounds x="3166" y="467" width="174" height="76" />
+      <bpmndi:BPMNShape id="GR_h6_di" bpmnElement="GR_h6">
+        <dc:Bounds x="2756" y="1157" width="174" height="76" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="GR_h9_di" bpmnElement="GR_h9">
-        <dc:Bounds x="3236" y="623" width="34" height="34" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="3214" y="666" width="78" height="27" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="GR_h10_di" bpmnElement="GR_h10" bioc:stroke="#334155" bioc:fill="#ffffff">
-        <dc:Bounds x="3392" y="467" width="174" height="76" />
+      <bpmndi:BPMNShape id="GR_h10_di" bpmnElement="GR_h10">
+        <dc:Bounds x="3208" y="597" width="174" height="76" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="GR_h12_di" bpmnElement="GR_h12">
-        <dc:Bounds x="3688" y="488" width="34" height="34" />
+        <dc:Bounds x="3504" y="618" width="34" height="34" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="3661" y="531" width="88" height="14" />
+          <dc:Bounds x="3477" y="661" width="88" height="14" />
         </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="GR_hMismatch_di" bpmnElement="GR_hMismatch" isMarkerVisible="true">
+        <dc:Bounds x="1013" y="613" width="44" height="44" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="993" y="589" width="84" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="GR_hContact_di" bpmnElement="GR_hContact">
+        <dc:Bounds x="1174" y="747" width="174" height="76" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="GR_hReapprove_di" bpmnElement="GR_hReapprove">
+        <dc:Bounds x="1400" y="747" width="174" height="76" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="GR_hBatch_di" bpmnElement="GR_hBatch">
+        <dc:Bounds x="1696" y="618" width="34" height="34" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1656" y="661" width="114" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="GR_hClarify_di" bpmnElement="GR_hClarify">
+        <dc:Bounds x="2078" y="747" width="174" height="76" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="GR_hOpen_di" bpmnElement="GR_hOpen">
+        <dc:Bounds x="2304" y="877" width="174" height="76" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="GR_hRegister_di" bpmnElement="GR_hRegister">
+        <dc:Bounds x="2530" y="877" width="174" height="76" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="GR_hGraduate_di" bpmnElement="GR_hGraduate">
+        <dc:Bounds x="2982" y="1437" width="174" height="76" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="GR_h13_di" bpmnElement="GR_h13">
-        <dc:Bounds x="3343" y="623" width="34" height="34" />
+        <dc:Bounds x="3003" y="631" width="34" height="34" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="3310" y="666" width="101" height="14" />
+          <dc:Bounds x="2970" y="674" width="101" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="GR_f8_di" bpmnElement="GR_f8" bioc:stroke="#596575">
-        <di:waypoint x="1946" y="505" />
-        <di:waypoint x="2068" y="505" />
+      <bpmndi:BPMNEdge id="GR_f15_di" bpmnElement="GR_f15">
+        <di:waypoint x="600" y="635" />
+        <di:waypoint x="614" y="635" />
+        <di:waypoint x="614" y="622.3333333333334" />
+        <di:waypoint x="722" y="622.3333333333334" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="GR_f9_di" bpmnElement="GR_f9" bioc:stroke="#596575">
-        <di:waypoint x="2242" y="505" />
-        <di:waypoint x="2714" y="505" />
+      <bpmndi:BPMNEdge id="GR_f19_di" bpmnElement="GR_f19">
+        <di:waypoint x="1574" y="785" />
+        <di:waypoint x="1588" y="785" />
+        <di:waypoint x="1588" y="718" />
+        <di:waypoint x="708" y="718" />
+        <di:waypoint x="708" y="647.6666666666666" />
+        <di:waypoint x="722" y="647.6666666666666" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="GR_f10_di" bpmnElement="GR_f10" bioc:stroke="#596575">
-        <di:waypoint x="2888" y="505" />
-        <di:waypoint x="3005" y="505" />
+      <bpmndi:BPMNEdge id="GR_f16_di" bpmnElement="GR_f16">
+        <di:waypoint x="896" y="635" />
+        <di:waypoint x="1013" y="635" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="GR_f11_di" bpmnElement="GR_f11" bioc:stroke="#596575">
-        <di:waypoint x="3049" y="505" />
-        <di:waypoint x="3166" y="505" />
+      <bpmndi:BPMNEdge id="GR_f21_di" bpmnElement="GR_f21">
+        <di:waypoint x="1730" y="635" />
+        <di:waypoint x="1852" y="635" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="GR_f27_di" bpmnElement="GR_f27">
+        <di:waypoint x="2078" y="785" />
+        <di:waypoint x="2052" y="785" />
+        <di:waypoint x="2052" y="648" />
+        <di:waypoint x="2026" y="648" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="GR_f22_di" bpmnElement="GR_f22">
+        <di:waypoint x="2026" y="635" />
+        <di:waypoint x="2143" y="635" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="GR_f23_di" bpmnElement="GR_f23">
+        <di:waypoint x="2187" y="635" />
+        <di:waypoint x="2280" y="635" />
+        <di:waypoint x="2280" y="915" />
+        <di:waypoint x="2304" y="915" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="3108" y="483" width="44" height="14" />
+          <dc:Bounds x="2288" y="666" width="44" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="GR_f12_di" bpmnElement="GR_f12" bioc:stroke="#596575">
-        <di:waypoint x="3027" y="483" />
-        <di:waypoint x="3027" y="450" />
-        <di:waypoint x="3360" y="450" />
-        <di:waypoint x="3360" y="490" />
-        <di:waypoint x="3390" y="490" />
+      <bpmndi:BPMNEdge id="GR_f24_di" bpmnElement="GR_f24">
+        <di:waypoint x="2172" y="620" />
+        <di:waypoint x="3208" y="620" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="3000" y="436" width="54" height="14" />
+          <dc:Bounds x="2926" y="598" width="54" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="GR_f13_di" bpmnElement="GR_f13" bioc:stroke="#596575">
-        <di:waypoint x="3027" y="527" />
-        <di:waypoint x="3027" y="640" />
-        <di:waypoint x="3236" y="640" />
+      <bpmndi:BPMNEdge id="GR_f25_di" bpmnElement="GR_f25">
+        <di:waypoint x="2150" y="628" />
+        <di:waypoint x="2150" y="580" />
+        <di:waypoint x="1261" y="580" />
+        <di:waypoint x="1261" y="747" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="3033" y="577" width="31" height="14" />
+          <dc:Bounds x="1771" y="565" width="77" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="GR_f14_di" bpmnElement="GR_f14" bioc:stroke="#596575">
-        <di:waypoint x="3340" y="505" />
-        <di:waypoint x="3392" y="505" />
+      <bpmndi:BPMNEdge id="GR_f26_di" bpmnElement="GR_f26">
+        <di:waypoint x="2165" y="657" />
+        <di:waypoint x="2165" y="747" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2168" y="685" width="44" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="GR_f16_di" bpmnElement="GR_f16" bioc:stroke="#596575">
-        <di:waypoint x="3360" y="623" />
-        <di:waypoint x="3360" y="524" />
-        <di:waypoint x="3392" y="524" />
+      <bpmndi:BPMNEdge id="GR_f29_di" bpmnElement="GR_f29">
+        <di:waypoint x="2704" y="915" />
+        <di:waypoint x="2718" y="915" />
+        <di:waypoint x="2718" y="1195" />
+        <di:waypoint x="2756" y="1195" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="GR_f15_di" bpmnElement="GR_f15" bioc:stroke="#596575">
-        <di:waypoint x="3566" y="505" />
-        <di:waypoint x="3688" y="505" />
+      <bpmndi:BPMNEdge id="GR_f30_di" bpmnElement="GR_f30">
+        <di:waypoint x="2930" y="1195" />
+        <di:waypoint x="2944" y="1195" />
+        <di:waypoint x="2944" y="1475" />
+        <di:waypoint x="2982" y="1475" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="GR_J_di" bpmnElement="GR_J" isHorizontal="true" bioc:stroke="#475569" bioc:fill="#ffffff">
-        <dc:Bounds x="150" y="760" width="3692" height="420" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="GR_J_lane0_di" bpmnElement="GR_J_lane0" isHorizontal="true">
-        <dc:Bounds x="180" y="760" width="3662" height="210" />
+      <bpmndi:BPMNEdge id="GR_f31_di" bpmnElement="GR_f31">
+        <di:waypoint x="3156" y="1475" />
+        <di:waypoint x="3182" y="1475" />
+        <di:waypoint x="3182" y="660" />
+        <di:waypoint x="3208" y="660" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="GR_f33_di" bpmnElement="GR_f33">
+        <di:waypoint x="3037" y="648" />
+        <di:waypoint x="3208" y="648" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="GR_f32_di" bpmnElement="GR_f32">
+        <di:waypoint x="3382" y="635" />
+        <di:waypoint x="3504" y="635" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="GR_f17_di" bpmnElement="GR_f17">
+        <di:waypoint x="1035" y="657" />
+        <di:waypoint x="1035" y="772" />
+        <di:waypoint x="1174" y="772" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1070" y="701" width="65" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="GR_f20_di" bpmnElement="GR_f20">
+        <di:waypoint x="1057" y="635" />
+        <di:waypoint x="1696" y="635" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1326" y="623" width="101" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="GR_f18_di" bpmnElement="GR_f18">
+        <di:waypoint x="1348" y="785" />
+        <di:waypoint x="1400" y="785" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="GR_f28_di" bpmnElement="GR_f28">
+        <di:waypoint x="2478" y="915" />
+        <di:waypoint x="2530" y="915" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="GR_J_di" bpmnElement="GR_J" isHorizontal="true">
+        <dc:Bounds x="160" y="1720" width="3498" height="460" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="GR_J_lane1_di" bpmnElement="GR_J_lane1" isHorizontal="true">
-        <dc:Bounds x="180" y="970" width="3662" height="210" />
+        <dc:Bounds x="190" y="1950" width="3468" height="230" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="GR_J_lane0_di" bpmnElement="GR_J_lane0" isHorizontal="true">
+        <dc:Bounds x="190" y="1720" width="3468" height="230" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="GR_j0_di" bpmnElement="GR_j0">
-        <dc:Bounds x="330" y="823" width="34" height="34" />
+        <dc:Bounds x="340" y="1783" width="34" height="34" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="314" y="866" width="67" height="14" />
+          <dc:Bounds x="324" y="1826" width="67" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="GR_j1_di" bpmnElement="GR_j1" bioc:stroke="#334155" bioc:fill="#ffffff">
-        <dc:Bounds x="486" y="802" width="174" height="76" />
+      <bpmndi:BPMNShape id="GR_j1_di" bpmnElement="GR_j1">
+        <dc:Bounds x="496" y="1762" width="174" height="76" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="GR_j2_di" bpmnElement="GR_j2" isMarkerVisible="true">
-        <dc:Bounds x="1003" y="818" width="44" height="44" />
+        <dc:Bounds x="787" y="1778" width="44" height="44" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="983" y="871" width="84" height="14" />
+          <dc:Bounds x="708" y="1773" width="84" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="GR_j3_di" bpmnElement="GR_j3">
-        <dc:Bounds x="1164" y="802" width="174" height="76" />
+        <dc:Bounds x="948" y="1872" width="174" height="76" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="GR_j4_di" bpmnElement="GR_j4" bioc:stroke="#334155" bioc:fill="#ffffff">
-        <dc:Bounds x="1390" y="802" width="174" height="76" />
+      <bpmndi:BPMNShape id="GR_j4_di" bpmnElement="GR_j4">
+        <dc:Bounds x="1174" y="1762" width="174" height="76" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="GR_j7_di" bpmnElement="GR_j7" bioc:stroke="#334155" bioc:fill="#ffffff">
-        <dc:Bounds x="1842" y="1012" width="174" height="76" />
+      <bpmndi:BPMNShape id="GR_j7_di" bpmnElement="GR_j7">
+        <dc:Bounds x="1400" y="1992" width="174" height="76" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="GR_j8_di" bpmnElement="GR_j8">
-        <dc:Bounds x="2138" y="1033" width="34" height="34" />
+        <dc:Bounds x="1696" y="2013" width="34" height="34" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="2122" y="1076" width="67" height="14" />
+          <dc:Bounds x="1680" y="2056" width="67" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="GR_f17_di" bpmnElement="GR_f17" bioc:stroke="#596575">
-        <di:waypoint x="364" y="840" />
-        <di:waypoint x="486" y="840" />
+      <bpmndi:BPMNEdge id="GR_f8_di" bpmnElement="GR_f8">
+        <di:waypoint x="374" y="1800" />
+        <di:waypoint x="496" y="1800" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="GR_f18_di" bpmnElement="GR_f18" bioc:stroke="#596575">
-        <di:waypoint x="660" y="840" />
-        <di:waypoint x="1003" y="840" />
+      <bpmndi:BPMNEdge id="GR_f9_di" bpmnElement="GR_f9">
+        <di:waypoint x="670" y="1800" />
+        <di:waypoint x="787" y="1800" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="GR_f19_di" bpmnElement="GR_f19" bioc:stroke="#596575">
-        <di:waypoint x="1047" y="840" />
-        <di:waypoint x="1164" y="840" />
+      <bpmndi:BPMNEdge id="GR_f10_di" bpmnElement="GR_f10">
+        <di:waypoint x="809" y="1822" />
+        <di:waypoint x="809" y="1910" />
+        <di:waypoint x="948" y="1910" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1141" y="820" width="21" height="14" />
+          <dc:Bounds x="879" y="1893" width="21" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="GR_f20_di" bpmnElement="GR_f20" bioc:stroke="#596575">
-        <di:waypoint x="1025" y="818" />
-        <di:waypoint x="1025" y="770" />
-        <di:waypoint x="1352" y="770" />
-        <di:waypoint x="1352" y="820" />
-        <di:waypoint x="1390" y="820" />
+      <bpmndi:BPMNEdge id="GR_f11_di" bpmnElement="GR_f11">
+        <di:waypoint x="831" y="1800" />
+        <di:waypoint x="1174" y="1800" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1358" y="778" width="21" height="14" />
+          <dc:Bounds x="1024" y="1803" width="21" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="GR_f21_di" bpmnElement="GR_f21" bioc:stroke="#596575">
-        <di:waypoint x="1338" y="840" />
-        <di:waypoint x="1390" y="840" />
+      <bpmndi:BPMNEdge id="GR_f12_di" bpmnElement="GR_f12">
+        <di:waypoint x="1122" y="1910" />
+        <di:waypoint x="1136" y="1910" />
+        <di:waypoint x="1136" y="1812.6666666666667" />
+        <di:waypoint x="1174" y="1812.6666666666667" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="GR_f22_di" bpmnElement="GR_f22" bioc:stroke="#596575">
-        <di:waypoint x="1564" y="840" />
-        <di:waypoint x="1578" y="840" />
-        <di:waypoint x="1578" y="1050" />
-        <di:waypoint x="1842" y="1050" />
+      <bpmndi:BPMNEdge id="GR_f13_di" bpmnElement="GR_f13">
+        <di:waypoint x="1348" y="1800" />
+        <di:waypoint x="1362" y="1800" />
+        <di:waypoint x="1362" y="2030" />
+        <di:waypoint x="1400" y="2030" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="GR_f23_di" bpmnElement="GR_f23" bioc:stroke="#596575">
-        <di:waypoint x="2016" y="1050" />
-        <di:waypoint x="2138" y="1050" />
+      <bpmndi:BPMNEdge id="GR_f14_di" bpmnElement="GR_f14">
+        <di:waypoint x="1574" y="2030" />
+        <di:waypoint x="1696" y="2030" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="GR_h1_InterviewNote_di" bpmnElement="GR_h1_InterviewNote" bioc:stroke="#514286">
-        <dc:Bounds x="2070" y="590" width="380" height="57" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="GR_m1_di" bpmnElement="GR_m1">
-        <di:waypoint x="573" y="800" />
-        <di:waypoint x="573" y="218" />
+        <di:waypoint x="520" y="1762" />
+        <di:waypoint x="520" y="218" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="576" y="503" width="67" height="14" />
+          <dc:Bounds x="554" y="975" width="67" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="GR_m2_di" bpmnElement="GR_m2">
-        <di:waypoint x="1025" y="218" />
-        <di:waypoint x="1025" y="510" />
-        <di:waypoint x="1190" y="510" />
-        <di:waypoint x="1190" y="802" />
+        <di:waypoint x="960" y="218" />
+        <di:waypoint x="960" y="1872" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1068" y="513" width="64" height="14" />
+          <dc:Bounds x="995" y="1030" width="64" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="GR_m3_di" bpmnElement="GR_m3">
-        <di:waypoint x="1310" y="802" />
-        <di:waypoint x="1310" y="510" />
-        <di:waypoint x="1477" y="510" />
-        <di:waypoint x="1477" y="218" />
+        <di:waypoint x="1110" y="1872" />
+        <di:waypoint x="1110" y="350" />
+        <di:waypoint x="1261" y="350" />
+        <di:waypoint x="1261" y="218" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1361" y="513" width="67" height="14" />
+          <dc:Bounds x="1146" y="333" width="67" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="GR_m4_di" bpmnElement="GR_m4">
-        <di:waypoint x="1929" y="1012" />
-        <di:waypoint x="1929" y="522" />
+      <bpmndi:BPMNEdge id="GR_m7_di" bpmnElement="GR_m7">
+        <di:waypoint x="3069" y="1437" />
+        <di:waypoint x="3069" y="1330" />
+        <di:waypoint x="3440" y="1330" />
+        <di:waypoint x="3440" y="305" />
+        <di:waypoint x="3370" y="305" />
+        <di:waypoint x="3370" y="220" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1963" y="753" width="67" height="14" />
+          <dc:Bounds x="3227" y="1315" width="91" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="GR_m5_di" bpmnElement="GR_m5">
-        <di:waypoint x="3253" y="467" />
-        <di:waypoint x="3253" y="343" />
-        <di:waypoint x="3460" y="343" />
-        <di:waypoint x="3460" y="218" />
+        <di:waypoint x="1230" y="747" />
+        <di:waypoint x="1230" y="470" />
+        <di:waypoint x="1261" y="470" />
+        <di:waypoint x="1261" y="427" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="3317" y="323" width="88" height="14" />
+          <dc:Bounds x="1234" y="523" width="91" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="GR_h1_InterviewNote_association_di" bpmnElement="GR_h1_InterviewNote_association" bioc:stroke="#514286">
-        <di:waypoint x="2206" y="543" />
-        <di:waypoint x="2245" y="590" />
+      <bpmndi:BPMNEdge id="GR_m6_di" bpmnElement="GR_m6">
+        <di:waypoint x="1713" y="448" />
+        <di:waypoint x="1713" y="598" />
+        <di:waypoint x="1487" y="598" />
+        <di:waypoint x="1487" y="747" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1554" y="603" width="101" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="GR_m4_di" bpmnElement="GR_m4">
+        <di:waypoint x="1487" y="1992" />
+        <di:waypoint x="1487" y="1322" />
+        <di:waypoint x="583" y="1322" />
+        <di:waypoint x="583" y="652" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="995" y="1383" width="67" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

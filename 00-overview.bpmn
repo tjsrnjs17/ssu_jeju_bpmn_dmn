@@ -1,440 +1,421 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Defs_Level0_CreditExchange" targetNamespace="https://example.org/ssu-jeju/2026/asis" exporter="Camunda Modeler" exporterVersion="5.52.0">
-  <bpmn:process id="CreditExchange_Level0" name="숭실대 → 제주대 2026 여름계절제 학점교류 · As-Is Level 0" isExecutable="false">
-    <bpmn:documentation>00-overview.bpmn의 기능 중심 상위 프로세스. 01~06 상세 BPMN은 각 서브프로세스의 문서에서 참조한다. 업무 단계 결과가 확인된 뒤 상위 분기를 적용한다. 확인 대기와 반영 보류는 현재 모델에서 확인된 진행 범위다.</bpmn:documentation>
-    <bpmn:startEvent id="Start" name="학점교류 신청 시작">
-      <bpmn:outgoing>F01</bpmn:outgoing>
-    </bpmn:startEvent>
-    <bpmn:endEvent id="SelectionPending" name="선발 결과 확인 대기">
-      <bpmn:incoming>F05</bpmn:incoming>
-    </bpmn:endEvent>
-    <bpmn:endEvent id="NoSelection" name="미추천·미선발 확정">
-      <bpmn:incoming>F04</bpmn:incoming>
-    </bpmn:endEvent>
-    <bpmn:exclusiveGateway id="G01" name="선발 결과?" default="F05">
-      <bpmn:incoming>F02</bpmn:incoming>
-      <bpmn:outgoing>F03</bpmn:outgoing>
-      <bpmn:outgoing>F04</bpmn:outgoing>
-      <bpmn:outgoing>F05</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:exclusiveGateway id="G02" name="등록·납부 상태?" default="F12">
-      <bpmn:incoming>F06</bpmn:incoming>
-      <bpmn:outgoing>F07</bpmn:outgoing>
-      <bpmn:outgoing>F09</bpmn:outgoing>
-      <bpmn:outgoing>F10</bpmn:outgoing>
-      <bpmn:outgoing>F11</bpmn:outgoing>
-      <bpmn:outgoing>F12</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:exclusiveGateway id="G04" name="수학 결과?" default="F16">
-      <bpmn:incoming>F13</bpmn:incoming>
-      <bpmn:outgoing>F14</bpmn:outgoing>
-      <bpmn:outgoing>F15</bpmn:outgoing>
-      <bpmn:outgoing>F16</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:exclusiveGateway id="G05" name="취소 결과?" default="F21">
-      <bpmn:incoming>F17</bpmn:incoming>
-      <bpmn:outgoing>F18</bpmn:outgoing>
-      <bpmn:outgoing>F19</bpmn:outgoing>
-      <bpmn:outgoing>F20</bpmn:outgoing>
-      <bpmn:outgoing>F21</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:exclusiveGateway id="G06" name="반영·기록 확정?" default="F24">
-      <bpmn:incoming>F22</bpmn:incoming>
-      <bpmn:outgoing>F23</bpmn:outgoing>
-      <bpmn:outgoing>F24</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:endEvent id="End" name="학적·명단 처리 완료">
-      <bpmn:incoming>F23</bpmn:incoming>
-    </bpmn:endEvent>
-    <bpmn:endEvent id="RegistrationPending" name="등록·납부 결과 확인 대기">
-      <bpmn:incoming>F12</bpmn:incoming>
-    </bpmn:endEvent>
-    <bpmn:endEvent id="StudyPending" name="수학 상태 확인 대기">
-      <bpmn:incoming>F16</bpmn:incoming>
-    </bpmn:endEvent>
-    <bpmn:endEvent id="CancellationPending" name="취소 결과 확인 대기">
-      <bpmn:incoming>F21</bpmn:incoming>
-    </bpmn:endEvent>
-    <bpmn:endEvent id="RecognitionPending" name="학점·명단 반영 보류">
-      <bpmn:incoming>F24</bpmn:incoming>
-    </bpmn:endEvent>
-    <bpmn:subProcess id="S01" name="01 신청·본교 승인&#10;제주대 선발">
-      <bpmn:documentation>지원·추천·선발 결과를 확인한다. 선발과 학번이 확인된 경우 수강신청으로 진행한다.
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Defs_OV" targetNamespace="https://example.org/ssu-jeju/2026/asis" exporter="Camunda Modeler" exporterVersion="5.52.0">
+  <bpmn:process id="CreditExchange_Level0" name="00 숭실대 → 제주대 학점교류 전체 흐름 / 최종 As-Is" isExecutable="false">
+    <bpmn:documentation>최종 As-Is. 근거 우선순위: 2026-11-13 담당자 인터뷰의 실제 운영 설명 &gt; 기존 신청서·학칙·안내문. 인터뷰 미설명 사항은 해당 문서로 보완한다. 숭실대 수신 절차를 제주대 파견에 전용하지 않는다. 자동화·통합 시스템·일반선택 무승인 통과는 현행 흐름에 포함하지 않는다. 주황색은 전문 판단·승인, 파란색은 DMN으로 정리한 수동 확인 기준이다. 실행 엔진 배포용 모델이 아니다.</bpmn:documentation>
+    <bpmn:subProcess id="S01" name="01 공지·신청·본교 추천&#10;제주대 선발">
+      <bpmn:documentation>최종 As-Is. 근거 우선순위: 2026-11-13 담당자 인터뷰의 실제 운영 설명 &gt; 기존 신청서·학칙·안내문. 인터뷰 미설명 사항은 해당 문서로 보완한다. 숭실대 수신 절차를 제주대 파견에 전용하지 않는다. 자동화·통합 시스템·일반선택 무승인 통과는 현행 흐름에 포함하지 않는다. 주황색은 전문 판단·승인, 파란색은 DMN으로 정리한 수동 확인 기준이다. 실행 엔진 배포용 모델이 아니다.
 
-상세 파일 · 01-application-and-selection.bpmn
+상세 파일: 01-application-and-selection.bpmn
 학생 · AP_S_process
 본교 · 숭실대학교 · AP_H_process
-교류대 · 제주대학교 · AP_J_process</bpmn:documentation>
-      <bpmn:incoming>F01</bpmn:incoming>
-      <bpmn:outgoing>F02</bpmn:outgoing>
+교류대 · 제주대학교 · AP_J_process
+상세 파일의 연결·내용 삽입은 사용자가 하는 빈 접힌 서브프로세스다. 자동 파일 실행 링크가 아니다.</bpmn:documentation>
+      <bpmn:incoming>OV_f1</bpmn:incoming>
+      <bpmn:outgoing>OV_f2</bpmn:outgoing>
     </bpmn:subProcess>
     <bpmn:subProcess id="S02" name="02 수강신청·납부&#10;폐강 확인">
-      <bpmn:documentation>승인 과목의 등록·납부·폐강 상태를 확인한다. 변경 결과가 들어오면 기존 상태에서 이어서 처리한다. 미수강 확정 건은 본교 후속 상태가 확인된 범위에서 명단 기록으로 넘긴다.
+      <bpmn:documentation>최종 As-Is. 근거 우선순위: 2026-11-13 담당자 인터뷰의 실제 운영 설명 &gt; 기존 신청서·학칙·안내문. 인터뷰 미설명 사항은 해당 문서로 보완한다. 숭실대 수신 절차를 제주대 파견에 전용하지 않는다. 자동화·통합 시스템·일반선택 무승인 통과는 현행 흐름에 포함하지 않는다. 주황색은 전문 판단·승인, 파란색은 DMN으로 정리한 수동 확인 기준이다. 실행 엔진 배포용 모델이 아니다.
 
-상세 파일 · 02-registration-payment.bpmn
+상세 파일: 02-registration-payment.bpmn
 학생 · RE_S_process
-교류대 · 제주대학교 · RE_J_process</bpmn:documentation>
-      <bpmn:incoming>F03</bpmn:incoming>
-      <bpmn:incoming>F08</bpmn:incoming>
-      <bpmn:incoming>F20</bpmn:incoming>
-      <bpmn:outgoing>F06</bpmn:outgoing>
+본교 · 숭실대학교 · RE_H_process
+교류대 · 제주대학교 · RE_J_process
+상세 파일의 연결·내용 삽입은 사용자가 하는 빈 접힌 서브프로세스다. 자동 파일 실행 링크가 아니다.</bpmn:documentation>
+      <bpmn:incoming>OV_f3</bpmn:incoming>
+      <bpmn:incoming>OV_f11</bpmn:incoming>
+      <bpmn:incoming>OV_f17</bpmn:incoming>
+      <bpmn:outgoing>OV_f5</bpmn:outgoing>
     </bpmn:subProcess>
-    <bpmn:subProcess id="S03" name="03 수강변경&#10;재신청·재승인">
-      <bpmn:documentation>변경 과목의 사전 재신청·승인과 수강신청 기간을 확인한다. 승인 또는 불승인 결과를 가지고 02를 재개한다.
+    <bpmn:subProcess id="S03" name="03 과목 변경&#10;사전·사후 재승인">
+      <bpmn:documentation>최종 As-Is. 근거 우선순위: 2026-11-13 담당자 인터뷰의 실제 운영 설명 &gt; 기존 신청서·학칙·안내문. 인터뷰 미설명 사항은 해당 문서로 보완한다. 숭실대 수신 절차를 제주대 파견에 전용하지 않는다. 자동화·통합 시스템·일반선택 무승인 통과는 현행 흐름에 포함하지 않는다. 주황색은 전문 판단·승인, 파란색은 DMN으로 정리한 수동 확인 기준이다. 실행 엔진 배포용 모델이 아니다.
 
-상세 파일 · 03-course-change.bpmn
+상세 파일: 03-course-change.bpmn
 학생 · CH_S_process
 본교 · 숭실대학교 · CH_H_process
-교류대 · 제주대학교 · CH_J_process</bpmn:documentation>
-      <bpmn:incoming>F07</bpmn:incoming>
-      <bpmn:outgoing>F08</bpmn:outgoing>
+교류대 · 제주대학교 · CH_J_process
+상세 파일의 연결·내용 삽입은 사용자가 하는 빈 접힌 서브프로세스다. 자동 파일 실행 링크가 아니다.</bpmn:documentation>
+      <bpmn:incoming>OV_f6</bpmn:incoming>
+      <bpmn:incoming>OV_f21</bpmn:incoming>
+      <bpmn:outgoing>OV_f10</bpmn:outgoing>
     </bpmn:subProcess>
     <bpmn:subProcess id="S04" name="04 수업·시험&#10;출석·공결">
-      <bpmn:documentation>유효한 등록 과목에 대해 수업·시험을 진행한다. 공결과 시설 이용은 발생한 경우 해당 상세 절차를 따른다.
+      <bpmn:documentation>최종 As-Is. 근거 우선순위: 2026-11-13 담당자 인터뷰의 실제 운영 설명 &gt; 기존 신청서·학칙·안내문. 인터뷰 미설명 사항은 해당 문서로 보완한다. 숭실대 수신 절차를 제주대 파견에 전용하지 않는다. 자동화·통합 시스템·일반선택 무승인 통과는 현행 흐름에 포함하지 않는다. 주황색은 전문 판단·승인, 파란색은 DMN으로 정리한 수동 확인 기준이다. 실행 엔진 배포용 모델이 아니다.
 
-상세 파일 · 04-study-attendance-facilities.bpmn
+상세 파일: 04-study-attendance-facilities.bpmn
 학생 · ST_S_process
 본교 · 숭실대학교 · ST_H_process
-교류대 · 제주대학교 · ST_J_process</bpmn:documentation>
-      <bpmn:incoming>F09</bpmn:incoming>
-      <bpmn:incoming>F19</bpmn:incoming>
-      <bpmn:outgoing>F13</bpmn:outgoing>
+교류대 · 제주대학교 · ST_J_process
+상세 파일의 연결·내용 삽입은 사용자가 하는 빈 접힌 서브프로세스다. 자동 파일 실행 링크가 아니다.</bpmn:documentation>
+      <bpmn:incoming>OV_f7</bpmn:incoming>
+      <bpmn:incoming>OV_f18</bpmn:incoming>
+      <bpmn:outgoing>OV_f13</bpmn:outgoing>
     </bpmn:subProcess>
-    <bpmn:subProcess id="S05" name="05 교류 취소&#10;수강료 환불">
-      <bpmn:documentation>제주대 수강취소·환불과 숭실대 취소 요청 공문을 실제 결과로 확인한다. 전체 취소가 확정되면 명단을 정리하고, 유효 과목이 남으면 취소 요청이 들어온 단계에서 이어서 진행한다.
+    <bpmn:subProcess id="S05" name="05 취소·환불&#10;사후 취소·성적 요청">
+      <bpmn:documentation>최종 As-Is. 근거 우선순위: 2026-11-13 담당자 인터뷰의 실제 운영 설명 &gt; 기존 신청서·학칙·안내문. 인터뷰 미설명 사항은 해당 문서로 보완한다. 숭실대 수신 절차를 제주대 파견에 전용하지 않는다. 자동화·통합 시스템·일반선택 무승인 통과는 현행 흐름에 포함하지 않는다. 주황색은 전문 판단·승인, 파란색은 DMN으로 정리한 수동 확인 기준이다. 실행 엔진 배포용 모델이 아니다.
 
-상세 파일 · 05-cancellation-refund.bpmn
+상세 파일: 05-cancellation-refund.bpmn
 학생 · CA_S_process
 본교 · 숭실대학교 · CA_H_process
-교류대 · 제주대학교 · CA_J_process</bpmn:documentation>
-      <bpmn:incoming>F10</bpmn:incoming>
-      <bpmn:incoming>F15</bpmn:incoming>
-      <bpmn:outgoing>F17</bpmn:outgoing>
+교류대 · 제주대학교 · CA_J_process
+상세 파일의 연결·내용 삽입은 사용자가 하는 빈 접힌 서브프로세스다. 자동 파일 실행 링크가 아니다.</bpmn:documentation>
+      <bpmn:incoming>OV_f8</bpmn:incoming>
+      <bpmn:incoming>OV_f15</bpmn:incoming>
+      <bpmn:incoming>OV_f22</bpmn:incoming>
+      <bpmn:outgoing>OV_f16</bpmn:outgoing>
     </bpmn:subProcess>
-    <bpmn:subProcess id="S06" name="06 성적·학점인정&#10;파견명단 정리">
-      <bpmn:documentation>공식 성적을 수신한 건은 승인 내역과 대조해 학점인정 결과를 기록한다. 미수강·전체 취소가 확정된 건은 해당 결과를 파견명단 J/K에 기록한다.
+    <bpmn:subProcess id="S06" name="06 성적 일괄 취합&#10;학점인정·졸업사정 반영">
+      <bpmn:documentation>최종 As-Is. 근거 우선순위: 2026-11-13 담당자 인터뷰의 실제 운영 설명 &gt; 기존 신청서·학칙·안내문. 인터뷰 미설명 사항은 해당 문서로 보완한다. 숭실대 수신 절차를 제주대 파견에 전용하지 않는다. 자동화·통합 시스템·일반선택 무승인 통과는 현행 흐름에 포함하지 않는다. 주황색은 전문 판단·승인, 파란색은 DMN으로 정리한 수동 확인 기준이다. 실행 엔진 배포용 모델이 아니다.
 
-상세 파일 · 06-grades-and-recognition.bpmn
+상세 파일: 06-grades-and-recognition.bpmn
 학생 · GR_S_process
 본교 · 숭실대학교 · GR_H_process
-교류대 · 제주대학교 · GR_J_process</bpmn:documentation>
-      <bpmn:incoming>F11</bpmn:incoming>
-      <bpmn:incoming>F14</bpmn:incoming>
-      <bpmn:incoming>F18</bpmn:incoming>
-      <bpmn:outgoing>F22</bpmn:outgoing>
+교류대 · 제주대학교 · GR_J_process
+상세 파일의 연결·내용 삽입은 사용자가 하는 빈 접힌 서브프로세스다. 자동 파일 실행 링크가 아니다.</bpmn:documentation>
+      <bpmn:incoming>OV_f12</bpmn:incoming>
+      <bpmn:incoming>OV_f14</bpmn:incoming>
+      <bpmn:incoming>OV_f19</bpmn:incoming>
+      <bpmn:outgoing>OV_f20</bpmn:outgoing>
     </bpmn:subProcess>
-    <bpmn:sequenceFlow id="F01" sourceRef="Start" targetRef="S01" />
-    <bpmn:sequenceFlow id="F05" name="미확정" sourceRef="G01" targetRef="SelectionPending" />
-    <bpmn:sequenceFlow id="F04" name="미추천·미선발" sourceRef="G01" targetRef="NoSelection">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">미추천·미선발</bpmn:conditionExpression>
+    <bpmn:exclusiveGateway id="G01" name="선발 결과?" default="OV_f4">
+      <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
+      <bpmn:incoming>OV_f2</bpmn:incoming>
+      <bpmn:outgoing>OV_f3</bpmn:outgoing>
+      <bpmn:outgoing>OV_f4</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:exclusiveGateway id="G02" name="등록·납부 결과?" default="OV_f7">
+      <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
+      <bpmn:incoming>OV_f5</bpmn:incoming>
+      <bpmn:outgoing>OV_f6</bpmn:outgoing>
+      <bpmn:outgoing>OV_f7</bpmn:outgoing>
+      <bpmn:outgoing>OV_f8</bpmn:outgoing>
+      <bpmn:outgoing>OV_f9</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:exclusiveGateway id="G03" name="재승인 요청 단계?" default="OV_f12">
+      <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
+      <bpmn:incoming>OV_f10</bpmn:incoming>
+      <bpmn:outgoing>OV_f11</bpmn:outgoing>
+      <bpmn:outgoing>OV_f12</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:exclusiveGateway id="G04" name="수학 결과?" default="OV_f14">
+      <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
+      <bpmn:incoming>OV_f13</bpmn:incoming>
+      <bpmn:outgoing>OV_f14</bpmn:outgoing>
+      <bpmn:outgoing>OV_f15</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:exclusiveGateway id="G05" name="취소·사후 요청 결과?" default="OV_f19">
+      <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
+      <bpmn:incoming>OV_f16</bpmn:incoming>
+      <bpmn:outgoing>OV_f17</bpmn:outgoing>
+      <bpmn:outgoing>OV_f18</bpmn:outgoing>
+      <bpmn:outgoing>OV_f19</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:exclusiveGateway id="G06" name="인정·성적 처리 결과?" default="OV_f23">
+      <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
+      <bpmn:incoming>OV_f20</bpmn:incoming>
+      <bpmn:outgoing>OV_f21</bpmn:outgoing>
+      <bpmn:outgoing>OV_f22</bpmn:outgoing>
+      <bpmn:outgoing>OV_f23</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:startEvent id="Start" name="교류 안내·신청 시작">
+      <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
+      <bpmn:outgoing>OV_f1</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:endEvent id="End" name="성적·학적·명단 처리 완료">
+      <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
+      <bpmn:incoming>OV_f23</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:endEvent id="NoSelection" name="미추천·미선발 확정">
+      <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
+      <bpmn:incoming>OV_f4</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:endEvent id="Unreported" name="미수강·본교 미통보">
+      <bpmn:documentation>근거: 앞뒤 문서상 단계의 흐름을 표현하는 모델 제어 요소</bpmn:documentation>
+      <bpmn:incoming>OV_f9</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="OV_f1" sourceRef="Start" targetRef="S01" />
+    <bpmn:sequenceFlow id="OV_f2" sourceRef="S01" targetRef="G01" />
+    <bpmn:sequenceFlow id="OV_f3" name="선발" sourceRef="G01" targetRef="S02">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">선발</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="F02" sourceRef="S01" targetRef="G01" />
-    <bpmn:sequenceFlow id="F03" name="선발 확정" sourceRef="G01" targetRef="S02">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">선발 확정</bpmn:conditionExpression>
+    <bpmn:sequenceFlow id="OV_f4" name="미추천·미선발" sourceRef="G01" targetRef="NoSelection" />
+    <bpmn:sequenceFlow id="OV_f5" sourceRef="S02" targetRef="G02" />
+    <bpmn:sequenceFlow id="OV_f6" name="변경·재승인 필요" sourceRef="G02" targetRef="S03">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">변경·재승인 필요</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="F06" sourceRef="S02" targetRef="G02" />
-    <bpmn:sequenceFlow id="F07" name="변경 필요 · 기간 내" sourceRef="G02" targetRef="S03">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">변경 필요 · 기간 내</bpmn:conditionExpression>
+    <bpmn:sequenceFlow id="OV_f7" name="납부·유효 과목 확인" sourceRef="G02" targetRef="S04" />
+    <bpmn:sequenceFlow id="OV_f8" name="미수강·취소 사실 통보" sourceRef="G02" targetRef="S05">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">미수강·취소 사실 통보</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="F09" name="납부·유효 과목 확인" sourceRef="G02" targetRef="S04">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">납부·유효 과목 확인</bpmn:conditionExpression>
+    <bpmn:sequenceFlow id="OV_f9" name="미수강·미통보" sourceRef="G02" targetRef="Unreported">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">미수강·미통보</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="F10" name="등록 중 취소 요청" sourceRef="G02" targetRef="S05">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">등록 중 취소 요청</bpmn:conditionExpression>
+    <bpmn:sequenceFlow id="OV_f10" sourceRef="S03" targetRef="G03" />
+    <bpmn:sequenceFlow id="OV_f11" name="등록 단계에서 요청" sourceRef="G03" targetRef="S02">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">등록 단계에서 요청</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="F11" name="미수강 결과 확인 · 명단 기록" sourceRef="G02" targetRef="S06">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">미수강 결과 확인 · 명단 기록</bpmn:conditionExpression>
-    </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="F12" name="등록·납부 미확정" sourceRef="G02" targetRef="RegistrationPending" />
-    <bpmn:sequenceFlow id="F13" sourceRef="S04" targetRef="G04" />
-    <bpmn:sequenceFlow id="F14" name="수업·시험 종료" sourceRef="G04" targetRef="S06">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">수업·시험 종료</bpmn:conditionExpression>
-    </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="F15" name="수학 중 취소 요청" sourceRef="G04" targetRef="S05">
+    <bpmn:sequenceFlow id="OV_f12" name="성적 단계 사후 재승인" sourceRef="G03" targetRef="S06" />
+    <bpmn:sequenceFlow id="OV_f13" sourceRef="S04" targetRef="G04" />
+    <bpmn:sequenceFlow id="OV_f14" name="수업·시험 종료" sourceRef="G04" targetRef="S06" />
+    <bpmn:sequenceFlow id="OV_f15" name="수학 중 취소 요청" sourceRef="G04" targetRef="S05">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">수학 중 취소 요청</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="F16" sourceRef="G04" targetRef="StudyPending" />
-    <bpmn:sequenceFlow id="F17" sourceRef="S05" targetRef="G05" />
-    <bpmn:sequenceFlow id="F18" name="전체 취소 확정 · 명단 기록" sourceRef="G05" targetRef="S06">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">전체 취소 확정 · 명단 기록</bpmn:conditionExpression>
+    <bpmn:sequenceFlow id="OV_f16" sourceRef="S05" targetRef="G05" />
+    <bpmn:sequenceFlow id="OV_f17" name="등록 단계·유효 과목 유지" sourceRef="G05" targetRef="S02">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">등록 단계·유효 과목 유지</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="F19" name="수학 단계 · 유효 과목으로 복귀" sourceRef="G05" targetRef="S04">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">수학 단계 · 유효 과목으로 복귀</bpmn:conditionExpression>
+    <bpmn:sequenceFlow id="OV_f18" name="수학 단계·유효 과목 유지" sourceRef="G05" targetRef="S04">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">수학 단계·유효 과목 유지</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="F20" name="등록 단계 · 유효 과목으로 복귀" sourceRef="G05" targetRef="S02">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">등록 단계 · 유효 과목으로 복귀</bpmn:conditionExpression>
+    <bpmn:sequenceFlow id="OV_f19" name="취소 확정·사후 성적 결과" sourceRef="G05" targetRef="S06" />
+    <bpmn:sequenceFlow id="OV_f20" sourceRef="S06" targetRef="G06" />
+    <bpmn:sequenceFlow id="OV_f21" name="미통보 변경·재승인 필요" sourceRef="G06" targetRef="S03">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">미통보 변경·재승인 필요</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="F21" name="취소 결과 미확정" sourceRef="G05" targetRef="CancellationPending" />
-    <bpmn:sequenceFlow id="F22" sourceRef="S06" targetRef="G06" />
-    <bpmn:sequenceFlow id="F23" name="확정" sourceRef="G06" targetRef="End">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">확정</bpmn:conditionExpression>
+    <bpmn:sequenceFlow id="OV_f22" name="사후 취소·성적 민원" sourceRef="G06" targetRef="S05">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression" language="urn:ssu-jeju:descriptive-condition">사후 취소·성적 민원</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="F24" name="미확정" sourceRef="G06" targetRef="RecognitionPending" />
-    <bpmn:sequenceFlow id="F08" name="변경 결과로 등록 절차 재개" sourceRef="S03" targetRef="S02" />
+    <bpmn:sequenceFlow id="OV_f23" name="반영·기록 완료" sourceRef="G06" targetRef="End" />
   </bpmn:process>
-  <bpmndi:BPMNDiagram id="Diagram_Level0" name="00 학점교류 전체 흐름">
-    <bpmndi:BPMNPlane id="Plane_Level0" bpmnElement="CreditExchange_Level0">
-      <bpmndi:BPMNShape id="Start_di" bpmnElement="Start">
-        <dc:Bounds x="183" y="303" width="34" height="34" />
+  <bpmndi:BPMNDiagram id="OV_Diagram" name="00 숭실대 → 제주대 학점교류 전체 흐름 / 최종 As-Is">
+    <bpmndi:BPMNPlane id="OV_Plane" bpmnElement="CreditExchange_Level0">
+      <bpmndi:BPMNShape id="Unreported_di" bpmnElement="Unreported">
+        <dc:Bounds x="1006" y="733" width="34" height="34" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="156" y="344" width="88" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="SelectionPending_di" bpmnElement="SelectionPending">
-        <dc:Bounds x="403" y="543" width="34" height="34" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="375" y="584" width="91" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="NoSelection_di" bpmnElement="NoSelection">
-        <dc:Bounds x="513" y="113" width="34" height="34" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="486" y="89" width="88" height="14" />
+          <dc:Bounds x="979" y="776" width="88" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="G01_di" bpmnElement="G01" isMarkerVisible="true">
-        <dc:Bounds x="507" y="297" width="46" height="46" />
+        <dc:Bounds x="560" y="432" width="46" height="46" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="535" y="293" width="50" height="14" />
+          <dc:Bounds x="558" y="413" width="50" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="G02_di" bpmnElement="G02" isMarkerVisible="true">
-        <dc:Bounds x="817" y="297" width="46" height="46" />
+        <dc:Bounds x="1000" y="432" width="46" height="46" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="753" y="243" width="74" height="14" />
+          <dc:Bounds x="1033" y="473" width="74" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="G03_di" bpmnElement="G03" isMarkerVisible="true">
+        <dc:Bounds x="1260" y="172" width="46" height="46" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1241" y="227" width="84" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="G04_di" bpmnElement="G04" isMarkerVisible="true">
-        <dc:Bounds x="1142" y="297" width="46" height="46" />
+        <dc:Bounds x="1480" y="432" width="46" height="46" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1140" y="273" width="50" height="14" />
+          <dc:Bounds x="1575" y="500" width="50" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="G05_di" bpmnElement="G05" isMarkerVisible="true">
-        <dc:Bounds x="1232" y="499" width="46" height="46" />
+        <dc:Bounds x="1590" y="892" width="46" height="46" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1230" y="552" width="50" height="14" />
+          <dc:Bounds x="1511" y="883" width="97" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="G06_di" bpmnElement="G06" isMarkerVisible="true">
-        <dc:Bounds x="1642" y="297" width="46" height="46" />
+        <dc:Bounds x="2100" y="432" width="46" height="46" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1628" y="287" width="74" height="14" />
+          <dc:Bounds x="2131" y="481" width="97" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Start_di" bpmnElement="Start">
+        <dc:Bounds x="185" y="438" width="34" height="34" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="157" y="481" width="91" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="End_di" bpmnElement="End">
-        <dc:Bounds x="1783" y="303" width="34" height="34" />
+        <dc:Bounds x="2290" y="438" width="34" height="34" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1755" y="344" width="91" height="14" />
+          <dc:Bounds x="2250" y="481" width="115" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="RegistrationPending_di" bpmnElement="RegistrationPending">
-        <dc:Bounds x="713" y="441" width="34" height="34" />
+      <bpmndi:BPMNShape id="NoSelection_di" bpmnElement="NoSelection">
+        <dc:Bounds x="566" y="650" width="34" height="34" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="673" y="482" width="115" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="StudyPending_di" bpmnElement="StudyPending">
-        <dc:Bounds x="1293" y="347" width="34" height="34" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="1265" y="388" width="91" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="CancellationPending_di" bpmnElement="CancellationPending">
-        <dc:Bounds x="1405" y="505" width="34" height="34" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="1377" y="546" width="91" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="RecognitionPending_di" bpmnElement="RecognitionPending">
-        <dc:Bounds x="1648" y="449" width="34" height="34" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="1620" y="490" width="91" height="14" />
+          <dc:Bounds x="539" y="693" width="88" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="S01_di" bpmnElement="S01" isExpanded="false">
-        <dc:Bounds x="283" y="280" width="195" height="80" />
+        <dc:Bounds x="290" y="410" width="220" height="90" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="S02_di" bpmnElement="S02" isExpanded="false">
-        <dc:Bounds x="585" y="280" width="200" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="S03_di" bpmnElement="S03" isExpanded="false">
-        <dc:Bounds x="585" y="63" width="200" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="S04_di" bpmnElement="S04" isExpanded="false">
-        <dc:Bounds x="915" y="280" width="200" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="S05_di" bpmnElement="S05" isExpanded="false">
-        <dc:Bounds x="955" y="482" width="200" height="80" />
+        <dc:Bounds x="710" y="410" width="220" height="90" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="S06_di" bpmnElement="S06" isExpanded="false">
-        <dc:Bounds x="1405" y="280" width="210" height="80" />
+      <bpmndi:BPMNShape id="S03_di" bpmnElement="S03" isExpanded="false">
+        <dc:Bounds x="960" y="150" width="220" height="90" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="F01_di" bpmnElement="F01">
-        <di:waypoint x="217" y="320" />
-        <di:waypoint x="283" y="320" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="F05_di" bpmnElement="F05">
-        <di:waypoint x="530" y="343" />
-        <di:waypoint x="530" y="560" />
-        <di:waypoint x="437" y="560" />
+      <bpmndi:BPMNShape id="S04_di" bpmnElement="S04" isExpanded="false">
+        <dc:Bounds x="1180" y="410" width="220" height="90" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S05_di" bpmnElement="S05" isExpanded="false">
+        <dc:Bounds x="1280" y="870" width="220" height="90" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="S06_di" bpmnElement="S06" isExpanded="false">
+        <dc:Bounds x="1810" y="410" width="220" height="90" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="OV_f9_di" bpmnElement="OV_f9">
+        <di:waypoint x="1023" y="478" />
+        <di:waypoint x="1023" y="733" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="473" y="525" width="31" height="14" />
+          <dc:Bounds x="1037" y="603" width="65" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="F04_di" bpmnElement="F04">
-        <di:waypoint x="530" y="297" />
-        <di:waypoint x="530" y="147" />
+      <bpmndi:BPMNEdge id="OV_f1_di" bpmnElement="OV_f1">
+        <di:waypoint x="219" y="455" />
+        <di:waypoint x="290" y="455" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="OV_f2_di" bpmnElement="OV_f2">
+        <di:waypoint x="510" y="455" />
+        <di:waypoint x="560" y="455" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="OV_f3_di" bpmnElement="OV_f3">
+        <di:waypoint x="606" y="455" />
+        <di:waypoint x="710" y="455" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="456" y="194" width="65" height="14" />
+          <dc:Bounds x="650" y="433" width="21" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="F02_di" bpmnElement="F02">
-        <di:waypoint x="478" y="320" />
-        <di:waypoint x="507" y="320" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="F03_di" bpmnElement="F03">
-        <di:waypoint x="553" y="320" />
-        <di:waypoint x="585" y="320" />
+      <bpmndi:BPMNEdge id="OV_f11_di" bpmnElement="OV_f11">
+        <di:waypoint x="1283" y="172" />
+        <di:waypoint x="1283" y="120" />
+        <di:waypoint x="820" y="120" />
+        <di:waypoint x="820" y="410" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="538" y="333" width="44" height="14" />
+          <dc:Bounds x="921" y="90" width="88" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="F08_di" bpmnElement="F08">
-        <di:waypoint x="685" y="143" />
-        <di:waypoint x="685" y="280" />
+      <bpmndi:BPMNEdge id="OV_f17_di" bpmnElement="OV_f17">
+        <di:waypoint x="1613" y="938" />
+        <di:waypoint x="1613" y="1065" />
+        <di:waypoint x="730" y="1065" />
+        <di:waypoint x="730" y="500" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="620" y="181" width="62" height="40" />
+          <dc:Bounds x="935" y="1034" width="115" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="F20_di" bpmnElement="F20">
-        <di:waypoint x="1255" y="545" />
-        <di:waypoint x="1255" y="638" />
-        <di:waypoint x="620" y="638" />
-        <di:waypoint x="620" y="360" />
+      <bpmndi:BPMNEdge id="OV_f5_di" bpmnElement="OV_f5">
+        <di:waypoint x="930" y="455" />
+        <di:waypoint x="1000" y="455" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="OV_f6_di" bpmnElement="OV_f6">
+        <di:waypoint x="1023" y="432" />
+        <di:waypoint x="1023" y="285" />
+        <di:waypoint x="910" y="285" />
+        <di:waypoint x="910" y="180" />
+        <di:waypoint x="960" y="180" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="905" y="610" width="141" height="14" />
+          <dc:Bounds x="793" y="246" width="78" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="F06_di" bpmnElement="F06">
-        <di:waypoint x="785" y="320" />
-        <di:waypoint x="817" y="320" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="F07_di" bpmnElement="F07">
-        <di:waypoint x="840" y="297" />
-        <di:waypoint x="840" y="103" />
-        <di:waypoint x="785" y="103" />
+      <bpmndi:BPMNEdge id="OV_f21_di" bpmnElement="OV_f21">
+        <di:waypoint x="2123" y="432" />
+        <di:waypoint x="2123" y="270" />
+        <di:waypoint x="920" y="270" />
+        <di:waypoint x="920" y="210" />
+        <di:waypoint x="960" y="210" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="846" y="123" width="44" height="27" />
+          <dc:Bounds x="1557" y="240" width="111" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="F09_di" bpmnElement="F09">
-        <di:waypoint x="863" y="320" />
-        <di:waypoint x="915" y="320" />
+      <bpmndi:BPMNEdge id="OV_f10_di" bpmnElement="OV_f10">
+        <di:waypoint x="1180" y="195" />
+        <di:waypoint x="1260" y="195" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="OV_f7_di" bpmnElement="OV_f7">
+        <di:waypoint x="1046" y="455" />
+        <di:waypoint x="1180" y="455" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="896" y="363" width="91" height="14" />
+          <dc:Bounds x="1072" y="417" width="91" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="F10_di" bpmnElement="F10">
-        <di:waypoint x="860" y="323" />
-        <di:waypoint x="860" y="522" />
-        <di:waypoint x="955" y="522" />
+      <bpmndi:BPMNEdge id="OV_f18_di" bpmnElement="OV_f18">
+        <di:waypoint x="1613" y="892" />
+        <di:waypoint x="1613" y="800" />
+        <di:waypoint x="1290" y="800" />
+        <di:waypoint x="1290" y="500" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="869" y="493" width="81" height="14" />
+          <dc:Bounds x="1306" y="812" width="115" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="F11_di" bpmnElement="F11">
-        <di:waypoint x="851" y="308" />
-        <di:waypoint x="902" y="308" />
-        <di:waypoint x="902" y="201" />
-        <di:waypoint x="1510" y="201" />
-        <di:waypoint x="1510" y="280" />
+      <bpmndi:BPMNEdge id="OV_f13_di" bpmnElement="OV_f13">
+        <di:waypoint x="1400" y="455" />
+        <di:waypoint x="1480" y="455" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="OV_f8_di" bpmnElement="OV_f8">
+        <di:waypoint x="1012" y="467" />
+        <di:waypoint x="950" y="467" />
+        <di:waypoint x="950" y="915" />
+        <di:waypoint x="1280" y="915" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1084" y="174" width="131" height="14" />
+          <dc:Bounds x="1005" y="893" width="101" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="F12_di" bpmnElement="F12">
-        <di:waypoint x="840" y="343" />
-        <di:waypoint x="840" y="458" />
-        <di:waypoint x="747" y="458" />
+      <bpmndi:BPMNEdge id="OV_f15_di" bpmnElement="OV_f15">
+        <di:waypoint x="1503" y="478" />
+        <di:waypoint x="1503" y="700" />
+        <di:waypoint x="1390" y="700" />
+        <di:waypoint x="1390" y="870" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="761" y="404" width="78" height="14" />
+          <dc:Bounds x="1367" y="661" width="81" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="F19_di" bpmnElement="F19">
-        <di:waypoint x="1243" y="510" />
-        <di:waypoint x="1243" y="386" />
-        <di:waypoint x="1015" y="386" />
-        <di:waypoint x="1015" y="360" />
+      <bpmndi:BPMNEdge id="OV_f22_di" bpmnElement="OV_f22">
+        <di:waypoint x="2123" y="478" />
+        <di:waypoint x="2123" y="1015" />
+        <di:waypoint x="1220" y="1015" />
+        <di:waypoint x="1220" y="945" />
+        <di:waypoint x="1280" y="945" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="994" y="389" width="141" height="14" />
+          <dc:Bounds x="1794" y="1023" width="91" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="F13_di" bpmnElement="F13">
-        <di:waypoint x="1115" y="320" />
-        <di:waypoint x="1142" y="320" />
+      <bpmndi:BPMNEdge id="OV_f16_di" bpmnElement="OV_f16">
+        <di:waypoint x="1500" y="915" />
+        <di:waypoint x="1590" y="915" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="F14_di" bpmnElement="F14">
-        <di:waypoint x="1168" y="300" />
-        <di:waypoint x="1297" y="300" />
-        <di:waypoint x="1297" y="320" />
-        <di:waypoint x="1405" y="320" />
+      <bpmndi:BPMNEdge id="OV_f12_di" bpmnElement="OV_f12">
+        <di:waypoint x="1306" y="195" />
+        <di:waypoint x="1920" y="195" />
+        <di:waypoint x="1920" y="410" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1198" y="266" width="68" height="14" />
+          <dc:Bounds x="1495" y="164" width="101" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="F15_di" bpmnElement="F15">
-        <di:waypoint x="1165" y="343" />
-        <di:waypoint x="1165" y="443" />
-        <di:waypoint x="1055" y="443" />
-        <di:waypoint x="1055" y="482" />
+      <bpmndi:BPMNEdge id="OV_f14_di" bpmnElement="OV_f14">
+        <di:waypoint x="1526" y="455" />
+        <di:waypoint x="1810" y="455" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1046" y="413" width="81" height="14" />
+          <dc:Bounds x="1651" y="418" width="68" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="F16_di" bpmnElement="F16">
-        <di:waypoint x="1190" y="320" />
-        <di:waypoint x="1250" y="320" />
-        <di:waypoint x="1250" y="364" />
-        <di:waypoint x="1293" y="364" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="F17_di" bpmnElement="F17">
-        <di:waypoint x="1155" y="522" />
-        <di:waypoint x="1232" y="522" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="F18_di" bpmnElement="F18">
-        <di:waypoint x="1255" y="499" />
-        <di:waypoint x="1255" y="430" />
-        <di:waypoint x="1510" y="430" />
-        <di:waypoint x="1510" y="360" />
+      <bpmndi:BPMNEdge id="OV_f19_di" bpmnElement="OV_f19">
+        <di:waypoint x="1636" y="915" />
+        <di:waypoint x="1920" y="915" />
+        <di:waypoint x="1920" y="500" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1329" y="404" width="121" height="14" />
+          <dc:Bounds x="1802" y="743" width="115" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="F21_di" bpmnElement="F21">
-        <di:waypoint x="1278" y="522" />
-        <di:waypoint x="1405" y="522" />
+      <bpmndi:BPMNEdge id="OV_f20_di" bpmnElement="OV_f20">
+        <di:waypoint x="2030" y="455" />
+        <di:waypoint x="2100" y="455" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="OV_f4_di" bpmnElement="OV_f4">
+        <di:waypoint x="583" y="478" />
+        <di:waypoint x="583" y="650" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1304" y="489" width="77" height="14" />
+          <dc:Bounds x="597" y="563" width="65" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="F22_di" bpmnElement="F22">
-        <di:waypoint x="1615" y="320" />
-        <di:waypoint x="1642" y="320" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="F23_di" bpmnElement="F23">
-        <di:waypoint x="1688" y="320" />
-        <di:waypoint x="1783" y="320" />
+      <bpmndi:BPMNEdge id="OV_f23_di" bpmnElement="OV_f23">
+        <di:waypoint x="2146" y="455" />
+        <di:waypoint x="2290" y="455" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1718" y="301" width="21" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="F24_di" bpmnElement="F24">
-        <di:waypoint x="1665" y="343" />
-        <di:waypoint x="1665" y="449" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="1674" y="388" width="31" height="14" />
+          <dc:Bounds x="2186" y="418" width="68" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
