@@ -1,5 +1,4 @@
 # 메인
-## 주황-보라 질문지 입니다
 #전체
 ![전체](https://github.com/tjsrnjs17/ssu_jeju_bpmn_dmn/blob/main/img/00-overview.png)
 신청
