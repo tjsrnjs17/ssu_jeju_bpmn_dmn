@@ -1,27 +1,7 @@
 # 메인
-1~6중 필요한 부분만 쓸지 전체를 다 쓸지
--> 위 사항 결정에 따라 \[03·05의 종료 이벤트를 고치고, 06번으로 들어가는 조건을 정리]
+1~6중 필요한 부분만 쓸지 전체를 다 쓸지<br><br>
 
-#전체
-![전체](https://github.com/tjsrnjs17/ssu_jeju_bpmn_dmn/blob/main/img/00-overview.png)
-신청
-![신청](https://github.com/tjsrnjs17/ssu_jeju_bpmn_dmn/blob/main/img/01-application-and-selection.png)
-수강신청   
-if(??)  goto(수강,변경)
-![수강신청 -> 수강,변경](https://github.com/tjsrnjs17/ssu_jeju_bpmn_dmn/blob/main/img/02-registration-payment.png)
-수업,시험,공결    
-if(??)  goto(취소,환불)
-![수업,시험,공결 ->취소,환불](https://github.com/tjsrnjs17/ssu_jeju_bpmn_dmn/blob/main/img/04-study-attendance-facilities.png)
-성적확인
-![성적확인](https://github.com/tjsrnjs17/ssu_jeju_bpmn_dmn/blob/main/img/06-grades-and-recognition.png)
-
-# 서브
-수강변경
-![수강변경](https://github.com/tjsrnjs17/ssu_jeju_bpmn_dmn/blob/main/img/03-course-change.png)
-취소,환불
-![취소,환불](https://github.com/tjsrnjs17/ssu_jeju_bpmn_dmn/blob/main/img/05-cancellation-refund.png)
-
-# 변경점
+# as-is 인터뷰 반영 변경점
 01. 신청·선발
 - 학생이 학과장 승인과 서명을 받은 뒤, 학과에 서류를 제출하고 LMS에도 자료를 제출하는 절차를 반영
 - 학사팀이 두 경로로 받은 자료의 일치 여부를 확인하고, 이수구분을 재점검
@@ -46,6 +26,29 @@ if(??)  goto(취소,환불)
 - 본교가 해당 학기 파견대학들의 성적 공문을 모두 수합할 때까지 대기하는 과정을 반영
 - 이후 과목 개설 → 학생 수강내역 등록 → 성적 입력 → 졸업사정 반영 절차를 담당 역할에 따라 구분
 - 신청 과목과 실제 성적 자료가 일치하지 않는 경우, 학생에게 사실관계를 확인하고 필요한 이수구분 재승인을 받은 뒤 성적 반영
+<br><br>
+
+# 전체
+![전체](https://github.com/tjsrnjs17/ssu_jeju_bpmn_dmn/blob/main/img/00-overview.png)
+신청
+![신청](https://github.com/tjsrnjs17/ssu_jeju_bpmn_dmn/blob/main/img/01-application-and-selection.png)
+수강신청   
+if(??)  goto(수강,변경)
+![수강신청 -> 수강,변경](https://github.com/tjsrnjs17/ssu_jeju_bpmn_dmn/blob/main/img/02-registration-payment.png)
+수업,시험,공결    
+if(??)  goto(취소,환불)
+![수업,시험,공결 ->취소,환불](https://github.com/tjsrnjs17/ssu_jeju_bpmn_dmn/blob/main/img/04-study-attendance-facilities.png)
+성적확인
+![성적확인](https://github.com/tjsrnjs17/ssu_jeju_bpmn_dmn/blob/main/img/06-grades-and-recognition.png)
+
+# 서브
+수강변경
+![수강변경](https://github.com/tjsrnjs17/ssu_jeju_bpmn_dmn/blob/main/img/03-course-change.png)
+취소,환불
+![취소,환불](https://github.com/tjsrnjs17/ssu_jeju_bpmn_dmn/blob/main/img/05-cancellation-refund.png)
+
+이번 주 할 것 \[ 03·05의 종료 이벤트를 고치고, 06번으로 들어가는 조건을 정리 ]
+![](https://github.com/tjsrnjs17/ssu_jeju_bpmn_dmn/blob/main/img/overview%20diagram.PNG)
 
 
 
