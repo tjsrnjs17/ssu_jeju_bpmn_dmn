@@ -1,0 +1,87 @@
+{
+  "id": "ReviewExchangeNoticeForm",
+  "type": "default",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.10.0",
+  "schemaVersion": 18,
+  "components": [
+    {
+      "type": "text",
+      "id": "Title",
+      "text": "## 학점교류 공지 검토\n근거를 확인한 뒤 게시용 문안과 학생 제출기한을 확정하세요."
+    },
+    {
+      "type": "textarea",
+      "id": "Evidence",
+      "key": "reviewEvidence",
+      "label": "AI 초안 및 원문 근거 · 검토용",
+      "readonly": true
+    },
+    {
+      "type": "radio",
+      "id": "Choice",
+      "key": "reviewChoice",
+      "label": "검토 결과",
+      "values": [
+        {
+          "label": "확정",
+          "value": "approve"
+        },
+        {
+          "label": "AI에 보완 요청",
+          "value": "revise"
+        }
+      ],
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "type": "textarea",
+      "id": "Draft",
+      "key": "noticeDraft",
+      "label": "학생에게 게시할 최종 문안",
+      "description": "미확인 항목을 해결하고 학생 제출기한을 문안에도 반영하세요.",
+      "conditional": {
+        "hide": "=reviewChoice = \"revise\""
+      },
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "type": "datetime",
+      "id": "Deadline",
+      "key": "studentDeadline",
+      "label": "숭실대 학생 제출기한",
+      "subtype": "datetime",
+      "conditional": {
+        "hide": "=reviewChoice != \"approve\""
+      },
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "type": "textarea",
+      "id": "Revision",
+      "key": "revisionNote",
+      "label": "AI가 다시 확인할 항목과 근거",
+      "conditional": {
+        "hide": "=reviewChoice != \"revise\""
+      },
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "type": "filepicker",
+      "id": "RevisionFiles",
+      "key": "revisionFiles",
+      "label": "보완 자료 (선택)",
+      "conditional": {
+        "hide": "=reviewChoice != \"revise\""
+      }
+    }
+  ]
+}

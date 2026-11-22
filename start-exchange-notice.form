@@ -1,0 +1,35 @@
+{
+  "id": "StartExchangeNoticeForm",
+  "type": "default",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.10.0",
+  "schemaVersion": 18,
+  "components": [
+    {
+      "type": "select",
+      "id": "University",
+      "key": "university",
+      "label": "교류대",
+      "values": [
+        {
+          "label": "제주대학교",
+          "value": "제주대학교"
+        }
+      ],
+      "defaultValue": "제주대학교",
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "type": "textfield",
+      "id": "Term",
+      "key": "term",
+      "label": "대상 학년도·학기",
+      "defaultValue": "2026학년도 하기 계절수업",
+      "validate": {
+        "required": true
+      }
+    }
+  ]
+}
