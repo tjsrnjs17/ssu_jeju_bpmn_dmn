@@ -1,5 +1,5 @@
 {
-  "id": "ReviewExchangeNoticeForm",
+  "id": "CampusLinksReviewExchangeNoticeForm",
   "type": "default",
   "executionPlatform": "Camunda Cloud",
   "executionPlatformVersion": "8.10.0",
@@ -72,16 +72,27 @@
       },
       "validate": {
         "required": true
+      },
+      "description": "추가로 확인할 항목을 적어 주세요. 공식 원문 주소는 아래 주소 입력란에 따로 넣습니다."
+    },
+    {
+      "type": "textfield",
+      "id": "RevisionSource",
+      "key": "revisionSourceUrl",
+      "label": "담당자가 확인한 공식 원문 URL (선택)",
+      "conditional": {
+        "hide": "=reviewChoice != \"revise\""
       }
     },
     {
       "type": "filepicker",
       "id": "RevisionFiles",
       "key": "revisionFiles",
-      "label": "보완 자료 (선택)",
+      "label": "보완용 공개 안내문 PDF (선택)",
       "conditional": {
         "hide": "=reviewChoice != \"revise\""
-      }
+      },
+      "description": "PDF 파일만 에이전트에 전달된다. 다른 형식은 담당자가 읽은 내용과 출처를 보완 요청에 적는다."
     }
   ]
 }

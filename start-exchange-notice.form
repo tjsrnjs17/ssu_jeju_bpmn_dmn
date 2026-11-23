@@ -1,24 +1,20 @@
 {
-  "id": "StartExchangeNoticeForm",
+  "id": "CampusLinksStartExchangeNoticeForm",
   "type": "default",
   "executionPlatform": "Camunda Cloud",
   "executionPlatformVersion": "8.10.0",
   "schemaVersion": 18,
   "components": [
     {
-      "type": "select",
-      "id": "University",
-      "key": "university",
-      "label": "교류대",
-      "values": [
-        {
-          "label": "제주대학교",
-          "value": "제주대학교"
-        }
-      ],
-      "defaultValue": "제주대학교",
+      "type": "textfield",
+      "id": "Homepage",
+      "key": "homepageUrl",
+      "label": "교류대 공식 대표 홈페이지",
+      "defaultValue": "https://www.korea.ac.kr/",
+      "description": "실습 예시는 고려대학교이며, 다른 교류대의 공식 대표 주소도 입력할 수 있다.",
       "validate": {
-        "required": true
+        "required": true,
+        "pattern": "^https://([a-zA-Z0-9-]+[.])+[a-zA-Z]{2,}/?$"
       }
     },
     {
@@ -26,10 +22,11 @@
       "id": "Term",
       "key": "term",
       "label": "대상 학년도·학기",
-      "defaultValue": "2026학년도 하기 계절수업",
+      "description": "예: 2026학년도 여름 계절학기",
       "validate": {
         "required": true
-      }
+      },
+      "defaultValue": "2026학년도 여름계절학기"
     }
   ]
 }
